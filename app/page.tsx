@@ -54,7 +54,7 @@ function HomeProductShelf({ items, onAdd }: { items: Product[]; onAdd: (product:
             <a className="homeShelfVisual" href={`/products/${product.slug}`}>
               <span className="homeShelfBadge">{product.badge}</span>
               <span className="homeShelfSaving">Save {saving}%</span>
-              <img src={product.image} alt={product.name} loading="lazy" />
+              <img src={product.image} alt={product.name} loading="lazy" decoding="async" />
             </a>
             <p>{product.category}</p>
             <a href={`/products/${product.slug}`}><h3>{product.name}</h3></a>
@@ -134,7 +134,7 @@ export default function Home() {
         <div className="homeCategoryGrid">
           {categories.map((category, index) => (
             <a className={`homeCategoryCard category${index + 1}`} href={category.href} key={category.title}>
-              <img src={category.image} alt="" loading="lazy" />
+              <img src={category.image} alt="" loading="lazy" decoding="async" />
               <div><p>{category.copy}</p><h3>{category.title}</h3><span>Shop category →</span></div>
             </a>
           ))}
@@ -158,7 +158,7 @@ export default function Home() {
       <section className="edits" id="edits">
         <a className="editCard mensEdit" id="men" href="/collections/category-men">
           <div className="editNumber">01</div>
-          <img src="/products/rosso.webp" alt="VGR professional men's trimmer" />
+          <img src="/products/rosso.webp" alt="VGR professional men's trimmer" loading="lazy" decoding="async" />
           <div className="editCopy">
             <p>Precision. Power. Presence.</p>
             <h2>The Men's<br /><em>Edit</em></h2>
@@ -167,7 +167,7 @@ export default function Home() {
         </a>
         <a className="editCard womensEdit" id="women" href="/collections/category-women">
           <div className="editNumber">02</div>
-          <img src="/brand/hair-curler.webp" alt="VGR automatic hair curler" />
+          <img src="/brand/hair-curler.webp" alt="VGR automatic hair curler" loading="lazy" decoding="async" />
           <div className="editCopy">
             <p>Shape. Style. Shine.</p>
             <h2>The Women's<br /><em>Edit</em></h2>
@@ -193,7 +193,7 @@ export default function Home() {
               <div className={`productVisual ${product.tone}`}>
                 <span className="tag">{product.badge}</span>
                 <button className="wish" aria-label={`Save ${product.name}`}>♡</button>
-                <a className="productImageLink" href={`/products/${product.slug}`}><img src={product.image} alt={product.name} /></a>
+                <a className="productImageLink" href={`/products/${product.slug}`}><img src={product.image} alt={product.name} loading="lazy" decoding="async" /></a>
                 <button className="quick" onClick={() => add(product)}>Add to edit +</button>
               </div>
               <p>{product.category}</p>
@@ -214,7 +214,7 @@ export default function Home() {
 
       <section className="proStory" id="pro">
         <div className="proImage">
-          <img src="/brand/editorial-women.png" alt="VGR professional barber using VGR grooming tools" />
+          <img src="/brand/editorial-women.png" alt="VGR professional barber using VGR grooming tools" loading="lazy" decoding="async" />
           <span>PRO / 01</span>
         </div>
         <div className="proCopy">
@@ -232,11 +232,11 @@ export default function Home() {
 
       <section className="audienceGateway">
         <a className="audienceCard womenGateway" href="/collections/womens-grooming-tools">
-          <img src={productBySlug("vgr-v-583-automatic-hair-curler")?.image} alt="VGR women's grooming tools" loading="lazy" />
+          <img src={productBySlug("vgr-v-583-automatic-hair-curler")?.image} alt="VGR women's grooming tools" loading="lazy" decoding="async" />
           <div><p>Style your way</p><h2>Women’s<br />Grooming</h2><span>Explore women’s tools →</span></div>
         </a>
         <a className="audienceCard petGateway" href="/collections/pet-grooming-tools">
-          <img src={productBySlug("vgr-v-208-professional-pet-hair-clipper")?.image} alt="VGR pet grooming tools" loading="lazy" />
+          <img src={productBySlug("vgr-v-208-professional-pet-hair-clipper")?.image} alt="VGR pet grooming tools" loading="lazy" decoding="async" />
           <div><p>Quiet, confident care</p><h2>Pet<br />Grooming</h2><span>Explore pet tools →</span></div>
         </a>
       </section>
@@ -303,7 +303,7 @@ export default function Home() {
         <p>New launches, styling notes and private offers, curated for you.</p>
         <form onSubmit={(event) => event.preventDefault()}>
           <label className="srOnly" htmlFor="email">Email address</label>
-          <input id="email" type="email" placeholder="Your email address" />
+          <input id="email" type="email" inputMode="email" autoComplete="email" placeholder="Your email address" />
           <button>Join →</button>
         </form>
       </section>

@@ -209,7 +209,7 @@ function ProductCard({ product, onAdd }: { product: Product; onAdd: (product: Pr
       <a className="catalogVisual" href={`/products/${product.slug}`}>
         <span className="catalogBadge">{product.badge}</span>
         <span className="saving">Save {saving}%</span>
-        <img src={product.image} alt={product.name} loading="lazy" />
+        <img src={product.image} alt={product.name} loading="lazy" decoding="async" />
       </a>
       <div className="catalogInfo">
         <p>{product.category}</p>
@@ -384,7 +384,7 @@ function ProductPage({ slug }: { slug: string }) {
           {activeInfo === "delivery" && <><p>Delivery & returns</p><h2>Fast from VGR India.</h2><span>Orders are dispatched within 1–3 working days. Eligible products can be returned or replaced within seven days of delivery.</span></>}
           {activeInfo === "care" && <><p>Product care</p><h2>Keep the performance.</h2><span>Clean attachments after use, store the product dry and use only the supplied cable or adaptor for charging.</span></>}
         </div>
-        <div className="detailVisual"><img src={product.image} alt="" /></div>
+        <div className="detailVisual"><img src={product.image} alt="" loading="lazy" decoding="async" /></div>
       </section>
       <section className="recommendations">
         <header><p>You may also like</p><h2>Complete your edit</h2></header>
@@ -411,7 +411,7 @@ function SearchPage() {
       <section className="utilityHero"><p>Find your tool</p><h1>Search VGR</h1></section>
       <section className="searchPage">
         <label htmlFor="store-search">Search products and categories</label>
-        <div className="searchField"><span>⌕</span><input id="store-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try “trimmer”, “hair dryer” or “pet”" autoFocus /></div>
+        <div className="searchField"><span>⌕</span><input id="store-search" type="search" inputMode="search" enterKeyHint="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try “trimmer”, “hair dryer” or “pet”" autoFocus /></div>
         <p>{results.length} {query ? "matching" : "featured"} products</p>
         <ProductGrid items={results} onAdded={(product) => { setToast(`${product.shortName} added to your bag`); window.setTimeout(() => setToast(""), 1800); }} />
       </section>
@@ -482,9 +482,9 @@ function AccountPage() {
         <form onSubmit={submit}>
           <h2>Sign in</h2>
           <label htmlFor="account-email">Email address</label>
-          <input id="account-email" type="email" placeholder="you@example.com" required />
+          <input id="account-email" type="email" inputMode="email" autoComplete="email" placeholder="you@example.com" required />
           <label htmlFor="account-password">Password</label>
-          <input id="account-password" type="password" placeholder="••••••••" required />
+          <input id="account-password" type="password" autoComplete="current-password" placeholder="••••••••" required />
           <button>Continue</button>
           <a href="/pages/contact">Need help accessing your account?</a>
         </form>
@@ -565,7 +565,7 @@ function AboutPage() {
     <PageFrame>
       <section className="aboutHero">
         <div><p>About VGR</p><h1>Precision for every expression.</h1><span>A global personal-grooming brand built around innovation, quality and accessible professional performance.</span></div>
-        <img src="/brand/editorial-women.png" alt="VGR professional grooming" />
+        <img src="/brand/editorial-women.png" alt="VGR professional grooming" decoding="async" />
       </section>
       <section className="aboutIntro">
         <span>Company profile</span>
@@ -628,9 +628,9 @@ function GeneralPage({ slug }: { slug: string }) {
             <span>Monday–Saturday · 10am–6pm</span>
           </div>
           <form className="supportForm" onSubmit={submit}>
-            <label htmlFor="support-name">Full name</label><input id="support-name" required />
-            <label htmlFor="support-email">Email address</label><input id="support-email" type="email" required />
-            {meta.form === "track" && <><label htmlFor="support-order">Order number</label><input id="support-order" required placeholder="VGR-000000" /></>}
+            <label htmlFor="support-name">Full name</label><input id="support-name" autoComplete="name" required />
+            <label htmlFor="support-email">Email address</label><input id="support-email" type="email" inputMode="email" autoComplete="email" required />
+            {meta.form === "track" && <><label htmlFor="support-order">Order number</label><input id="support-order" autoComplete="off" required placeholder="VGR-000000" /></>}
             {meta.form === "warranty" && <><label htmlFor="support-model">Product model</label><input id="support-model" required placeholder="For example, V-071" /><label htmlFor="support-date">Purchase date</label><input id="support-date" type="date" required /></>}
             {meta.form === "contact" && <><label htmlFor="support-topic">How can we help?</label><select id="support-topic"><option>Product guidance</option><option>Order support</option><option>Warranty support</option><option>Wholesale enquiry</option></select><label htmlFor="support-message">Message</label><textarea id="support-message" rows={5} required /></>}
             <button>{meta.form === "track" ? "Track order" : "Submit request"} →</button>
@@ -661,7 +661,7 @@ function BlogPage() {
   return (
     <PageFrame>
       <section className="contentHero"><p>The VGR journal</p><h1>Technique is everything.</h1><span>Grooming education, product guidance and professional inspiration from VGR.</span></section>
-      <section className="blogGrid">{articles.map((article) => <article key={article.number}><div><img src={article.image} alt="" /><span>{article.number}</span></div><p>{article.category}</p><h2>{article.title}</h2><a href="/blogs/news">Read the story →</a></article>)}</section>
+      <section className="blogGrid">{articles.map((article) => <article key={article.number}><div><img src={article.image} alt="" loading="lazy" decoding="async" /><span>{article.number}</span></div><p>{article.category}</p><h2>{article.title}</h2><a href="/blogs/news">Read the story →</a></article>)}</section>
     </PageFrame>
   );
 }

@@ -375,3 +375,110 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .cartLine h2{font-size:14px}
   .supportForm{padding:var(--space-5)}
 }
+
+/* Mobile-only stability and interaction safeguards */
+@media(max-width:600px){
+  .offerBar{
+    height:auto;
+    min-height:30px;
+    padding-top:env(safe-area-inset-top);
+    padding-left:max(var(--space-2),env(safe-area-inset-left));
+    padding-right:max(var(--space-2),env(safe-area-inset-right));
+  }
+  .header{
+    top:calc(30px + env(safe-area-inset-top));
+    padding-left:max(var(--space-4),env(safe-area-inset-left));
+    padding-right:max(var(--space-4),env(safe-area-inset-right));
+  }
+  .storeHeader{
+    padding-left:max(var(--space-4),env(safe-area-inset-left));
+    padding-right:max(var(--space-4),env(safe-area-inset-right));
+  }
+  .header>.logo,.storeHeader>.logo,.completeFooter .logo{min-height:44px}
+  .actions .bag,.storeActions .bag{min-height:44px}
+
+  .hero{
+    min-height:720px;
+    min-height:max(720px,calc(100svh - 30px));
+  }
+
+  .proImage,.proCopy,.aboutHero>div,.aboutHero>img{
+    width:100%;
+    min-width:0;
+  }
+
+  .homeBlockHeader>a,.campaignCopy a,.journalCards a,.editorialPage a,.blogGrid a,
+  .emptyState a,.notFound a,.accountPage form>a,.pdpRating a,.breadcrumbs a,.supportDetails a{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+  }
+  .breadcrumbs a{min-width:44px}
+  .product h3>a,.catalogInfo>a,.cartLine>div>a{
+    min-height:44px;
+    display:flex;
+    align-items:flex-start;
+  }
+
+  .shopTabs button,.audienceFilters button,.detailNav button{
+    min-width:44px;
+    min-height:44px;
+  }
+  .shopTabs button{padding-left:var(--space-2);padding-right:var(--space-2)}
+  .productVisual .wish{
+    width:44px;
+    height:44px;
+    top:var(--space-2);
+    right:var(--space-2);
+  }
+  .quantity button{min-width:44px}
+  .cartLine>div>button,.clearCart{
+    min-width:44px;
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:flex-start;
+  }
+
+  .nav.open,.storeNav.open{gap:var(--space-2)}
+  .nav a,.storeNav>a,.shopTrigger{
+    min-width:44px;
+    min-height:44px;
+  }
+  .megaMenu a{
+    min-height:44px;
+    display:flex;
+    align-items:center;
+  }
+  .megaMenu.open{
+    position:absolute;
+    top:346px;
+    max-height:calc(100svh - 376px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    padding-bottom:max(var(--space-5),env(safe-area-inset-bottom));
+  }
+
+  .newsletter input,.catalogToolbar select,.accountPage input,
+  .supportForm input,.supportForm textarea,.supportForm select{font-size:16px}
+
+  .footerColumn a,.socialLinks a,.footerBottom a{
+    min-height:44px;
+    display:flex;
+    align-items:center;
+  }
+  .socialLinks a,.footerBottom a{min-width:44px}
+  .socialLinks{gap:var(--space-2)}
+  .completeFooter{
+    padding-bottom:max(25px,calc(25px + env(safe-area-inset-bottom)));
+  }
+
+  .toast{
+    left:max(var(--space-5),env(safe-area-inset-left));
+    right:max(var(--space-5),env(safe-area-inset-right));
+    bottom:max(var(--space-5),env(safe-area-inset-bottom));
+    max-width:none;
+    text-align:center;
+    pointer-events:none;
+  }
+}
