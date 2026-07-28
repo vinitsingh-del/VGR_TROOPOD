@@ -215,6 +215,34 @@ export default function Home() {
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, []);
 
+  useEffect(() => {
+    document.body.classList.toggle("mobileNavOpen", menu);
+    if (!menu) return;
+    const header = document.querySelector(".homeHeader");
+    const focusable = Array.from(header?.querySelectorAll<HTMLElement>('button, a, summary, input, [tabindex]:not([tabindex="-1"])') || []);
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenu(false);
+        return;
+      }
+      if (event.key !== "Tab" || !first || !last) return;
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", trapFocus);
+    return () => {
+      document.body.classList.remove("mobileNavOpen");
+      window.removeEventListener("keydown", trapFocus);
+    };
+  }, [menu]);
+
   const add = (product: { slug: string; name: string }) => {
     addItem(product);
     setToast(`${product.name} added to your edit`);
@@ -237,7 +265,7 @@ export default function Home() {
     <main>
       <div className="offerBar">Complimentary delivery above ₹499 <span>•</span> 2-year warranty <span>•</span> 7-day returns</div>
       <header className="header homeHeader">
-        <button className="menu" onClick={() => setMenu(!menu)} aria-label="Toggle navigation">☰</button>
+        <button className="menu" onClick={() => setMenu(!menu)} aria-label={menu ? "Close navigation" : "Open navigation"} aria-expanded={menu}>{menu ? "×" : "☰"}</button>
         <a className="logo" href="#top" aria-label="VGR Voyager home"><img src="/brand/vgr-logo-official.png" alt="VGR Voyager" /></a>
         <nav className={menu ? "nav open" : "nav"} aria-label="Main navigation">
           <a href="#bestsellers" onClick={() => setMenu(false)}>Bestseller</a>
@@ -282,7 +310,7 @@ export default function Home() {
                 </video>
               )}
               {slide.type === "editorial" && <div className="heroPhoto" />}
-              {slide.type === "image" && <img src={slide.image} alt={slide.label} />}
+              {slide.type === "image" && <img src={slide.image} alt={slide.label} loading="lazy" decoding="async" />}
             </div>
           ))}
         </div>
