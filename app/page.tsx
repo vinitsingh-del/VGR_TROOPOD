@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { SiteFooter, useVgrCart } from "./store-components";
+import { useEffect, useState, type FormEvent } from "react";
+import { useVgrCart } from "./store-components";
 import { formatPrice, productBySlug, type Product } from "./store-data";
 
 const signatureProducts = [
@@ -35,13 +35,46 @@ const dryerProducts = selectProducts([
   "vgr-v-421-hair-dryer-unisex-green",
 ]);
 
+const bestSellerProducts = selectProducts([
+  "vgr-v-071-hair-trimmer-for-men-silver",
+  "vgr-v-937-hair-trimmer-for-men-black",
+  "vgr-v-583-automatic-hair-curler",
+]);
+
+const bestSellerConcerns: Record<string, string> = {
+  "vgr-v-071-hair-trimmer-for-men-silver": "Beard shaping & precise hairline detailing",
+  "vgr-v-937-hair-trimmer-for-men-black": "Everyday trimming with travel-ready control",
+  "vgr-v-583-automatic-hair-curler": "Fast, consistent curls with anti-tangle styling",
+};
+
 const categories = [
-  { title: "Hair Trimmers", copy: "Precision for every line", href: "/collections/hair-trimmer", image: productBySlug("vgr-v-071-hair-trimmer-for-men-silver")?.image },
-  { title: "Hair Clippers", copy: "Power for every cut", href: "/collections/clipper", image: productBySlug("vgr-v-001-professional-hair-clipper-for-men-green")?.image },
-  { title: "Hair Dryers", copy: "Fast, controlled airflow", href: "/collections/hair-dryer", image: productBySlug("vgr-v-640hd-professional-hair-dryer-barber-series")?.image },
-  { title: "Styling & Volume", copy: "Shape, smooth and shine", href: "/collections/hair-volumizer", image: productBySlug("vgr-v-492-hot-air-brush-black")?.image },
-  { title: "Pet Grooming", copy: "Quiet, pet-safe care", href: "/collections/pet-grooming-tools", image: productBySlug("vgr-v-240-professional-pet-trimmer")?.image },
-  { title: "Fabric Care", copy: "Keep favourites looking new", href: "/collections/lint-remover", image: productBySlug("vgr-v-818-professional-lint-remover-lint-roller-green")?.image },
+  { title: "Men’s Grooming", copy: "Precision for every line", href: "/collections/category-men", image: productBySlug("vgr-v-071-hair-trimmer-for-men-silver")?.image },
+  { title: "Women’s Grooming", copy: "Shape, smooth and shine", href: "/collections/category-women", image: productBySlug("vgr-v-583-automatic-hair-curler")?.image },
+  { title: "Professional Grooming", copy: "Salon power without compromise", href: "/collections/vgr-professional-use-tools", image: productBySlug("vgr-mr-super-power-stepless-pro-4-in-1-barber")?.image },
+  { title: "Pet’s Grooming", copy: "Quiet, confident care", href: "/collections/pet-grooming-tools", image: productBySlug("vgr-v-208-professional-pet-hair-clipper")?.image },
+  { title: "Baby Care", copy: "Gentle tools for little ones", href: "https://vgrofficial.in/collections/baby", image: "https://vgrofficial.in/cdn/shop/files/AnyConv.com__2.0-24-700x700-1_4a0d8f38-25af-4a88-b8bd-d0c10859c76f_1.webp?v=1740977051&width=700" },
+  { title: "Lifestyle Essentials", copy: "Care for the things you wear", href: "/collections/lint-remover", image: productBySlug("vgr-v-818-professional-lint-remover-lint-roller-green")?.image },
+];
+
+const heroSlides = [
+  { type: "video", label: "VGR performance film" },
+  { type: "editorial", label: "For every version of you" },
+  { type: "image", label: "Rosso professional series", image: "https://vgrofficial.in/cdn/shop/files/p8ua4c8ywkihlerdrhgq.webp?v=1761639395&width=1500" },
+  { type: "image", label: "Professional barber series", image: "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2025-12-19_at_11.02.24_AM.jpg?v=1768494346&width=1500" },
+];
+
+const totalRange = [
+  ["Trimmers", "/collections/hair-trimmer"],
+  ["Clippers", "/collections/clipper"],
+  ["Shavers", "/collections/shaver"],
+  ["Hair Dryers", "/collections/hair-dryer"],
+  ["Straighteners", "/collections/hair-straightener"],
+  ["Curlers", "/collections/womens-grooming-tools"],
+  ["Volumizers", "/collections/hair-volumizer"],
+  ["Epilators", "/collections/category-women"],
+  ["Pet Clippers", "/collections/pet-grooming-tools"],
+  ["Baby Clippers", "https://vgrofficial.in/collections/baby"],
+  ["Lint Removers", "/collections/lint-remover"],
 ];
 
 function HomeProductShelf({ items, onAdd }: { items: Product[]; onAdd: (product: Product) => void }) {
@@ -67,11 +100,120 @@ function HomeProductShelf({ items, onAdd }: { items: Product[]; onAdd: (product:
   );
 }
 
+function HomeBestSellerCard({ product, onAdd }: { product: Product; onAdd: (product: Product) => void }) {
+  const saving = Math.max(0, Math.round((1 - product.price / product.oldPrice) * 100));
+  return (
+    <article className="bestSellerCard">
+      <a className="bestSellerVisual" href={`/products/${product.slug}`}>
+        <span className="bestSellerBadge">Bestseller</span>
+        <span className="bestSellerSaving">Save {saving}%</span>
+        <img src={product.image} alt={product.name} loading="lazy" decoding="async" />
+      </a>
+      <div className="bestSellerInfo">
+        <p>{product.category}</p>
+        <a href={`/products/${product.slug}`}><h3>{product.name}</h3></a>
+        <span className="bestSellerConcern"><b>Concern</b>{bestSellerConcerns[product.slug]}</span>
+        <div className="bestSellerRating"><span>★ {product.rating.toFixed(1)}</span><a href={`/products/${product.slug}`}>Customer reviews →</a></div>
+        <div className="bestSellerPrice"><strong>{formatPrice(product.price)}</strong><del>{formatPrice(product.oldPrice)}</del></div>
+        <div className="dispatchBar"><span>Fast dispatch</span><b>Estimated 1–3 working days</b></div>
+        <button onClick={() => onAdd(product)}>Add to cart +</button>
+      </div>
+    </article>
+  );
+}
+
+function HomeFooter() {
+  return (
+    <>
+      <section className="serviceStrip" aria-label="Shopping benefits">
+        <div><strong>#1</strong><span>Bestsellers<small>Available on leading marketplaces</small></span></div>
+        <div><strong>↩</strong><span>Easy support<small>Returns and replacement guidance</small></span></div>
+        <div><strong>↗</strong><span>Fast shipping<small>Estimated 1–3 working days</small></span></div>
+        <div><strong>✓</strong><span>Secure payments<small>Safe and fast checkout</small></span></div>
+      </section>
+      <footer className="completeFooter homeCompleteFooter">
+        <div className="footerLead">
+          <a className="logo" href="#top"><img src="/brand/vgr-logo-official.png" alt="VGR Voyager" /></a>
+          <p>Professional grooming technology for every version of you.</p>
+          <form className="footerSignup" onSubmit={(event) => event.preventDefault()}>
+            <label className="srOnly" htmlFor="footer-email">Email address</label>
+            <input id="footer-email" type="email" inputMode="email" autoComplete="email" placeholder="Email for launches & offers" />
+            <button>Join →</button>
+          </form>
+          <div className="socialLinks">
+            <a href="https://www.instagram.com/vgrofficial.in/?hl=en">Instagram</a>
+            <a href="https://www.youtube.com/channel/UCqj-oy1d6GfD-SejpChtWQA">YouTube</a>
+            <a href="https://www.facebook.com/vgrofficial.in">Facebook</a>
+          </div>
+        </div>
+        <div className="footerColumn">
+          <h3>Shop</h3>
+          <a href="/collections/category-men">Men’s grooming</a>
+          <a href="/collections/category-women">Women’s grooming</a>
+          <a href="/collections/vgr-professional-use-tools">Professional</a>
+          <a href="/collections/pet-grooming-tools">Pet grooming</a>
+          <a href="https://vgrofficial.in/collections/baby">Baby care</a>
+          <a href="/collections/lint-remover">Lifestyle essentials</a>
+        </div>
+        <div className="footerColumn">
+          <h3>Customer service</h3>
+          <a href="/pages/track-order">Track your order</a>
+          <a href="/pages/vgr-warranty-policy">Warranty policy</a>
+          <a href="/pages/vgr-warranty-registration">Register warranty</a>
+          <a href="/pages/contact">Contact us</a>
+          <a href="/pages/e-catalog">E-catalogue</a>
+        </div>
+        <div className="footerColumn">
+          <h3>Discover VGR</h3>
+          <a href="/pages/about-us">About us</a>
+          <a href="/blogs/news">Blog & news</a>
+          <a href="/pages/collab">Events & collaborations</a>
+          <a href="/pages/contact">Our store</a>
+          <a href="/pages/careers">Careers</a>
+        </div>
+        <div className="footerColumn footerContact">
+          <h3>Customer care</h3>
+          <a href="mailto:customercare@vgrofficial.in">customercare@vgrofficial.in</a>
+          <a href="tel:18002578939">1800 257 8939</a>
+          <a href="tel:01171366411">011-71366411</a>
+          <p>Mon–Sat, 10am–6pm</p>
+        </div>
+        <div className="footerBottom">
+          <span>© 2026 VGR India Official Private Limited</span>
+          <nav>
+            <a href="/policies/shipping-policy">Shipping</a>
+            <a href="/policies/refund-policy">Returns</a>
+            <a href="/policies/privacy-policy">Privacy</a>
+            <a href="/policies/terms-of-service">Terms</a>
+          </nav>
+        </div>
+      </footer>
+    </>
+  );
+}
+
 export default function Home() {
   const [menu, setMenu] = useState(false);
   const [toast, setToast] = useState("");
   const [signatureTab, setSignatureTab] = useState("all");
+  const [heroSlide, setHeroSlide] = useState(0);
+  const [signupOpen, setSignupOpen] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
   const { count: cart, addItem } = useVgrCart();
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => setHeroSlide((slide) => (slide + 1) % heroSlides.length), 6500);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSignupOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, []);
 
   const add = (product: { slug: string; name: string }) => {
     addItem(product);
@@ -83,27 +225,67 @@ export default function Home() {
     ? signatureProducts
     : signatureProducts.filter((product) => product.audience === signatureTab);
 
+  const submitSearch = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const query = searchQuery.trim();
+    if (!query) return;
+    const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+    window.location.href = `${base}/search?q=${encodeURIComponent(query)}`;
+  };
+
   return (
     <main>
       <div className="offerBar">Complimentary delivery above ₹499 <span>•</span> 2-year warranty <span>•</span> 7-day returns</div>
-      <header className="header">
+      <header className="header homeHeader">
         <button className="menu" onClick={() => setMenu(!menu)} aria-label="Toggle navigation">☰</button>
         <a className="logo" href="#top" aria-label="VGR Voyager home"><img src="/brand/vgr-logo-official.png" alt="VGR Voyager" /></a>
         <nav className={menu ? "nav open" : "nav"} aria-label="Main navigation">
-          <a href="/collections/category-men" onClick={() => setMenu(false)}>Men</a>
-          <a href="/collections/category-women" onClick={() => setMenu(false)}>Women</a>
+          <a href="#bestsellers" onClick={() => setMenu(false)}>Bestseller</a>
+          <a href="/collections/new-arrival" onClick={() => setMenu(false)}>New Arrival</a>
+          <a href="/collections/category-men" onClick={() => setMenu(false)}>Men’s Grooming</a>
+          <a href="/collections/category-women" onClick={() => setMenu(false)}>Women’s Grooming</a>
           <a href="/collections/vgr-professional-use-tools" onClick={() => setMenu(false)}>Professional</a>
-          <a href="/collections/all" onClick={() => setMenu(false)}>All Products</a>
+          <a href="/collections/pet-grooming-tools" onClick={() => setMenu(false)}>Pet’s Grooming</a>
+          <a href="https://vgrofficial.in/collections/baby" onClick={() => setMenu(false)}>Baby Care</a>
+          <a href="/collections/lint-remover" onClick={() => setMenu(false)}>Lifestyle Essentials</a>
+          <details className="budgetNav">
+            <summary>Shop By Budget</summary>
+            <div>
+              <a href="/collections/under-1000-models">Under ₹800</a>
+              <a href="/collections/under-1000-models">Under ₹1,000</a>
+              <a href="/collections/product-under-1500">Under ₹1,500</a>
+              <a href="/collections/product-under-2000">Under ₹2,000</a>
+              <a href="/collections/product-under-2500">Under ₹2,500</a>
+            </div>
+          </details>
+          <a href="#offers" onClick={() => setMenu(false)}>Offers & Deals</a>
         </nav>
         <div className="actions">
-          <a href="/search" aria-label="Search">⌕</a>
-          <a href="/account" aria-label="Account">○</a>
-          <a className="bag" href="/cart" aria-label={`Shopping bag with ${cart} items`}>Bag <b>{cart}</b></a>
+          <form className="homeSearchForm" role="search" onSubmit={submitSearch}>
+            <label className="srOnly" htmlFor="home-search">Search VGR products</label>
+            <input id="home-search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search products" />
+            <button aria-label="Submit search">⌕</button>
+          </form>
+          <a className="mobileSearch" href="/search" aria-label="Search">⌕</a>
+          <a className="accountLink" href="/account" aria-label="Account">Account</a>
+          <a className="bag" href="/cart" aria-label={`My cart with ${cart} items`}>My Cart <b>{cart}</b></a>
         </div>
       </header>
 
-      <section className="hero" id="top">
-        <div className="heroPhoto" />
+      <section className="hero heroSlider" id="top" aria-roledescription="carousel" aria-label="VGR featured campaigns">
+        <div className="heroSlides">
+          {heroSlides.map((slide, index) => (
+            <div className={`heroSlide ${slide.type} ${heroSlide === index ? "active" : ""}`} aria-hidden={heroSlide !== index} key={slide.label}>
+              {slide.type === "video" && (
+                <video autoPlay muted loop playsInline preload="metadata" poster="https://vgrofficial.in/cdn/shop/files/preview_images/464df9ba4bfe4a1b8e1de879546d8b84.thumbnail.0000000000.jpg?v=1757922230&width=2560">
+                  <source src="https://vgrofficial.in/cdn/shop/videos/c/vp/464df9ba4bfe4a1b8e1de879546d8b84/464df9ba4bfe4a1b8e1de879546d8b84.HD-1080p-7.2Mbps-57484565.mp4?v=0" type="video/mp4" />
+                </video>
+              )}
+              {slide.type === "editorial" && <div className="heroPhoto" />}
+              {slide.type === "image" && <img src={slide.image} alt={slide.label} />}
+            </div>
+          ))}
+        </div>
         <div className="heroGlow leftGlow" />
         <div className="heroGlow rightGlow" />
         <span className="sideLabel menLabel">FOR HIM</span>
@@ -117,10 +299,17 @@ export default function Home() {
             <a href="/collections/category-women" className="button outline">Shop Women</a>
           </div>
         </div>
+        <div className="heroSliderControls" aria-label="Choose hero slide">
+          {heroSlides.map((slide, index) => (
+            <button className={heroSlide === index ? "active" : ""} onClick={() => setHeroSlide(index)} aria-label={`Show slide ${index + 1}: ${slide.label}`} aria-current={heroSlide === index ? "true" : undefined} key={slide.label}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+            </button>
+          ))}
+        </div>
         <a className="scrollCue" href="#edits"><span>Discover the edits</span>↓</a>
       </section>
 
-      <section className="trust">
+      <section className="trust homeStickyTrust">
         <span>01 <strong>Professional performance</strong></span>
         <span>02 <strong>Designed in detail</strong></span>
         <span>03 <strong>Made for every day</strong></span>
@@ -141,7 +330,49 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="campaignShelf limitedCampaign">
+      <section className="bestSellerSection" id="bestsellers">
+        <header className="homeBlockHeader">
+          <div><p className="kicker burgundy">Chosen again and again</p><h2>VGR Bestsellers</h2></div>
+          <div className="campaignCopy"><p>High-performing tools for the concerns customers shop most.</p><a href="/collections/all">Shop all bestsellers →</a></div>
+        </header>
+        <div className="bestSellerLayout">
+          <div className="bestSellerGrid">
+            {bestSellerProducts.map((product) => <HomeBestSellerCard product={product} onAdd={add} key={product.slug} />)}
+          </div>
+          <aside className="bestSellerProof">
+            <p className="kicker gold">Customer proof</p>
+            <div><strong>4.5+</strong><span>★★★★★<small>Ratings across featured picks</small></span></div>
+            <h3>What shoppers value</h3>
+            <ul><li>Precise, controlled grooming</li><li>Easy everyday handling</li><li>Dependable performance</li></ul>
+            <a href="/collections/all">Read product reviews →</a>
+          </aside>
+        </div>
+      </section>
+
+      <section className="totalRangeSection">
+        <header className="homeBlockHeader">
+          <div><p className="kicker burgundy">The complete collection</p><h2>One brand. Your total range.</h2></div>
+          <p>From first touch-up to professional finish, find the right VGR tool for every routine.</p>
+        </header>
+        <div className="totalRangeGrid">
+          {totalRange.map(([name, href], index) => <a href={href} key={name}><span>{String(index + 1).padStart(2, "0")}</span><strong>{name}</strong><b>→</b></a>)}
+        </div>
+      </section>
+
+      <section className="brandWorld">
+        <header>
+          <p className="kicker gold">VGR Voyager</p>
+          <h2>Built to move grooming forward.</h2>
+          <p>Founded in 2016, VGR develops performance-led grooming technology for personal, professional and family care.</p>
+        </header>
+        <div className="brandWorldGrid">
+          <article><span>01</span><h3>Brand Story</h3><p>A modern grooming brand shaped around self-expression, dependable performance and considered design.</p><a href="/pages/about-us">Discover our story →</a></article>
+          <article><span>02</span><h3>Engineering</h3><p>Tools developed around control, comfort and purpose—from precision cutting to advanced styling technology.</p><a href="#engineering">Explore the engineering →</a></article>
+          <article><span>03</span><h3>Global Presence</h3><p>VGR serves grooming communities across international markets through retail and authorised online channels.</p><a href="#marketplaces">See where to shop →</a></article>
+        </div>
+      </section>
+
+      <section className="campaignShelf limitedCampaign" id="offers">
         <header className="homeBlockHeader">
           <div><p className="kicker gold">The statement range</p><h2>Explore VGR<br />Limited Edition</h2></div>
           <div className="campaignCopy"><p>Rare finishes. Salon-grade power. Signature tools made to stand apart.</p><a href="/collections/red-series">View limited editions →</a></div>
@@ -212,22 +443,29 @@ export default function Home() {
         <HomeProductShelf items={personalProducts} onAdd={add} />
       </section>
 
-      <section className="proStory" id="pro">
+      <section className="proStory" id="engineering">
         <div className="proImage">
           <img src="/brand/editorial-women.png" alt="VGR professional barber using VGR grooming tools" loading="lazy" decoding="async" />
           <span>PRO / 01</span>
         </div>
         <div className="proCopy">
-          <p className="kicker gold">The professional series</p>
-          <h2>Performance,<br /><em>elevated.</em></h2>
-          <p>Salon-grade power. Editorial precision. Engineered for artists who refuse to compromise.</p>
+          <p className="kicker gold">VGR engineering</p>
+          <h2>Precision,<br /><em>engineered.</em></h2>
+          <p>Purpose-built motors, considered ergonomics and control-led technology for confident personal and professional grooming.</p>
           <div className="specs">
-            <div><strong>110K</strong><span>RPM high-speed motor</span></div>
+            <div><strong>Control</strong><span>Purpose-led settings</span></div>
             <div><strong>2 yr</strong><span>Complete warranty</span></div>
-            <div><strong>Ion+</strong><span>Advanced hair care</span></div>
+            <div><strong>Type-C</strong><span>Selected cordless tools</span></div>
           </div>
           <a className="button goldButton" href="/collections/vgr-professional-use-tools">Discover Pro</a>
         </div>
+      </section>
+
+      <section className="engineeringTrust" aria-label="VGR engineering principles">
+        <div><span>01</span><strong>Precision blades</strong><p>Designed for controlled detailing and reliable cutting.</p></div>
+        <div><span>02</span><strong>Performance motors</strong><p>Power selected for each tool and grooming purpose.</p></div>
+        <div><span>03</span><strong>Everyday ergonomics</strong><p>Balanced forms designed for confident handling.</p></div>
+        <div><span>04</span><strong>2-year warranty</strong><p>Product support built into every eligible purchase.</p></div>
       </section>
 
       <section className="audienceGateway">
@@ -259,7 +497,7 @@ export default function Home() {
         </nav>
       </section>
 
-      <section className="marketplaceProof">
+      <section className="marketplaceProof" id="marketplaces">
         <p className="kicker burgundy">Official online partners</p>
         <h2>Find VGR everywhere.</h2>
         <div>
@@ -273,8 +511,8 @@ export default function Home() {
       </section>
 
       <section className="socialProof">
-        <div><strong>4.8</strong><span>★★★★★<small>From verified customers</small></span></div>
-        <blockquote>“Feels luxurious, performs beautifully, and finally looks as considered as the rest of my routine.”<footer>— Aanya, verified buyer</footer></blockquote>
+        <div><strong>4.5+</strong><span>★★★★★<small>Across featured product ratings</small></span></div>
+        <blockquote>Precision, control and dependable performance—the qualities customers value across VGR’s featured picks.<footer>Explore individual product reviews for verified detail.</footer></blockquote>
       </section>
 
       <section className="homepageFaq">
@@ -308,7 +546,23 @@ export default function Home() {
         </form>
       </section>
 
-      <SiteFooter />
+      <HomeFooter />
+      {signupOpen && (
+        <div className="signupBackdrop" onMouseDown={(event) => event.target === event.currentTarget && setSignupOpen(false)}>
+          <section className="signupPopup" role="dialog" aria-modal="true" aria-labelledby="signup-title">
+            <button className="signupClose" onClick={() => setSignupOpen(false)} aria-label="Close sign-up">×</button>
+            <p className="kicker gold">Join the VGR edit</p>
+            <h2 id="signup-title">Be first to know what’s next.</h2>
+            <p>Get new launches, grooming guidance and member-only offer alerts delivered to your inbox.</p>
+            <form onSubmit={(event) => { event.preventDefault(); setSignupOpen(false); setToast("Welcome to the VGR edit"); }}>
+              <label className="srOnly" htmlFor="signup-email">Email address</label>
+              <input id="signup-email" type="email" inputMode="email" autoComplete="email" placeholder="Your email address" required autoFocus />
+              <button>Sign me up →</button>
+            </form>
+            <small>By joining, you agree to receive VGR marketing updates. Unsubscribe anytime.</small>
+          </section>
+        </div>
+      )}
       {toast && <div className="toast" role="status">{toast}</div>}
     </main>
   );
