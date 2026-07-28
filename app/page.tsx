@@ -1,22 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import { useVgrCart } from "./store-components";
 
 const products = [
-  { name: "Rosso Professional Trimmer", category: "The Men's Edit", price: "₹1,599", old: "₹2,499", image: "/products/rosso.webp", tone: "wine", badge: "Icon" },
-  { name: "V-484 Hot Air Brush", category: "The Women's Edit", price: "₹3,199", old: "₹4,299", image: "/products/hot-air-brush.webp", tone: "blush", badge: "New" },
-  { name: "V-640HD Pro Hair Dryer", category: "The Pro Edit", price: "₹7,499", old: "₹13,499", image: "/brand/hair-dryer.jpg", tone: "black", badge: "Salon" },
-  { name: "Automatic Hair Curler", category: "Everyday Icons", price: "₹3,799", old: "₹5,199", image: "/brand/hair-curler.webp", tone: "cream", badge: "Loved" },
+  { slug: "rosso-professional-beard-moustache-trimmer", name: "Rosso Professional Trimmer", category: "The Men's Edit", price: "₹1,599", old: "₹2,499", image: "/products/rosso.webp", tone: "wine", badge: "Icon" },
+  { slug: "vgr-v-492-hot-air-brush-black", name: "V-492 Hot Air Brush", category: "The Women's Edit", price: "₹2,299", old: "₹2,999", image: "/products/hot-air-brush.webp", tone: "blush", badge: "New" },
+  { slug: "vgr-v-640hd-professional-hair-dryer-barber-series", name: "V-640HD Pro Hair Dryer", category: "The Pro Edit", price: "₹7,499", old: "₹13,499", image: "/brand/hair-dryer.jpg", tone: "black", badge: "Salon" },
+  { slug: "vgr-v-583-automatic-hair-curler", name: "Automatic Hair Curler", category: "Everyday Icons", price: "₹3,799", old: "₹5,199", image: "/brand/hair-curler.webp", tone: "cream", badge: "Loved" },
 ];
 
 export default function Home() {
-  const [cart, setCart] = useState(0);
   const [menu, setMenu] = useState(false);
   const [toast, setToast] = useState("");
+  const { count: cart, addItem } = useVgrCart();
 
-  const add = (name: string) => {
-    setCart((value) => value + 1);
-    setToast(`${name} added to your edit`);
+  const add = (product: (typeof products)[number]) => {
+    addItem(product);
+    setToast(`${product.name} added to your edit`);
     window.setTimeout(() => setToast(""), 1800);
   };
 
@@ -27,15 +28,15 @@ export default function Home() {
         <button className="menu" onClick={() => setMenu(!menu)} aria-label="Toggle navigation">☰</button>
         <a className="logo" href="#top" aria-label="VGR Voyager home"><img src="/brand/vgr-logo-official.png" alt="VGR Voyager" /></a>
         <nav className={menu ? "nav open" : "nav"} aria-label="Main navigation">
-          <a href="#men" onClick={() => setMenu(false)}>Men</a>
-          <a href="#women" onClick={() => setMenu(false)}>Women</a>
-          <a href="#pro" onClick={() => setMenu(false)}>Professional</a>
-          <a href="#edits" onClick={() => setMenu(false)}>The Edits</a>
+          <a href="/collections/category-men" onClick={() => setMenu(false)}>Men</a>
+          <a href="/collections/category-women" onClick={() => setMenu(false)}>Women</a>
+          <a href="/collections/vgr-professional-use-tools" onClick={() => setMenu(false)}>Professional</a>
+          <a href="/collections/all" onClick={() => setMenu(false)}>All Products</a>
         </nav>
         <div className="actions">
-          <button aria-label="Search">⌕</button>
-          <button aria-label="Account">○</button>
-          <button className="bag" aria-label={`Shopping bag with ${cart} items`}>Bag <b>{cart}</b></button>
+          <a href="/search" aria-label="Search">⌕</a>
+          <a href="/account" aria-label="Account">○</a>
+          <a className="bag" href="/cart" aria-label={`Shopping bag with ${cart} items`}>Bag <b>{cart}</b></a>
         </div>
       </header>
 
@@ -50,8 +51,8 @@ export default function Home() {
           <h1><span>Own your</span><em>signature</em></h1>
           <p className="heroText">High-performance grooming tools, designed for every version of you.</p>
           <div className="heroButtons">
-            <a href="#men" className="button light">Shop Men</a>
-            <a href="#women" className="button outline">Shop Women</a>
+            <a href="/collections/category-men" className="button light">Shop Men</a>
+            <a href="/collections/category-women" className="button outline">Shop Women</a>
           </div>
         </div>
         <a className="scrollCue" href="#edits"><span>Discover the edits</span>↓</a>
@@ -70,7 +71,7 @@ export default function Home() {
       </section>
 
       <section className="edits" id="edits">
-        <a className="editCard mensEdit" id="men" href="#shop">
+        <a className="editCard mensEdit" id="men" href="/collections/category-men">
           <div className="editNumber">01</div>
           <img src="/products/rosso.webp" alt="VGR professional men's trimmer" />
           <div className="editCopy">
@@ -79,7 +80,7 @@ export default function Home() {
             <span>Explore the collection →</span>
           </div>
         </a>
-        <a className="editCard womensEdit" id="women" href="#shop">
+        <a className="editCard womensEdit" id="women" href="/collections/category-women">
           <div className="editNumber">02</div>
           <img src="/brand/hair-curler.webp" alt="VGR automatic hair curler" />
           <div className="editCopy">
@@ -101,11 +102,11 @@ export default function Home() {
               <div className={`productVisual ${product.tone}`}>
                 <span className="tag">{product.badge}</span>
                 <button className="wish" aria-label={`Save ${product.name}`}>♡</button>
-                <img src={product.image} alt={product.name} />
-                <button className="quick" onClick={() => add(product.name)}>Add to edit +</button>
+                <a className="productImageLink" href={`/products/${product.slug}`}><img src={product.image} alt={product.name} /></a>
+                <button className="quick" onClick={() => add(product)}>Add to edit +</button>
               </div>
               <p>{product.category}</p>
-              <h3>{product.name}</h3>
+              <h3><a href={`/products/${product.slug}`}>{product.name}</a></h3>
               <div className="price"><strong>{product.price}</strong><del>{product.old}</del><span>★ 4.8</span></div>
             </article>
           ))}
@@ -126,7 +127,7 @@ export default function Home() {
             <div><strong>2 yr</strong><span>Complete warranty</span></div>
             <div><strong>Ion+</strong><span>Advanced hair care</span></div>
           </div>
-          <a className="button goldButton" href="#shop">Discover Pro</a>
+          <a className="button goldButton" href="/collections/vgr-professional-use-tools">Discover Pro</a>
         </div>
       </section>
 
@@ -139,9 +140,9 @@ export default function Home() {
         <p className="kicker burgundy">The VGR Journal</p>
         <h2>Style is personal.<br /><em>Technique is everything.</em></h2>
         <div className="journalCards">
-          <article><span>01</span><h3>The art of the clean line</h3><a href="#men">Read the story →</a></article>
-          <article><span>02</span><h3>Volume without compromise</h3><a href="#women">Read the story →</a></article>
-          <article><span>03</span><h3>Your five-minute signature</h3><a href="#shop">Read the story →</a></article>
+          <article><span>01</span><h3>The art of the clean line</h3><a href="/blogs/news">Read the story →</a></article>
+          <article><span>02</span><h3>Volume without compromise</h3><a href="/blogs/news">Read the story →</a></article>
+          <article><span>03</span><h3>Your five-minute signature</h3><a href="/blogs/news">Read the story →</a></article>
         </div>
       </section>
 
@@ -159,8 +160,8 @@ export default function Home() {
       <footer className="footer">
         <a className="logo" href="#top"><img src="/brand/vgr-logo-official.png" alt="VGR Voyager" /></a>
         <p>Tools for your signature.</p>
-        <nav><a href="#men">Men</a><a href="#women">Women</a><a href="#pro">Professional</a><a href="#edits">Our Story</a></nav>
-        <small>© 2026 VGR India · Concept redesign</small>
+        <nav><a href="/collections/category-men">Men</a><a href="/collections/category-women">Women</a><a href="/collections/vgr-professional-use-tools">Professional</a><a href="/pages/about-us">Our Story</a></nav>
+        <small>© 2026 VGR India Official Private Limited</small>
       </footer>
       {toast && <div className="toast" role="status">{toast}</div>}
     </main>

@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Starter Project",
-  description: "A clean starting point for building your site.",
+  title: "VGR India | Professional Grooming Tools",
+  description:
+    "Explore VGR trimmers, clippers, hair styling tools, professional barber equipment, pet grooming and personal care.",
   other: {
     "codex-preview": "development",
   },
