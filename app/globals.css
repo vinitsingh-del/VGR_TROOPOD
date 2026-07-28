@@ -688,32 +688,29 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 /* Homepage-only CRO layer, preserving the approved Option 3 visual system */
 .homeHeader{
-  height:118px;
-  grid-template-columns:170px 1fr auto;
-  align-items:start;
-  padding-top:12px;
+  height:76px;
+  grid-template-columns:145px minmax(0,1fr) auto;
+  align-items:center;
+  padding-top:0;
   background:linear-gradient(180deg,rgba(7,7,7,.92),rgba(7,7,7,.72));
   backdrop-filter:blur(8px);
 }
-.homeHeader>.logo{height:44px}
+.homeHeader>.logo{height:48px}
 .homeHeader .nav{
-  position:absolute;
-  left:var(--page-gutter);
-  right:var(--page-gutter);
-  bottom:0;
-  height:48px;
+  position:static;
+  height:76px;
   justify-content:center;
-  gap:clamp(12px,1.45vw,24px);
-  border-top:1px solid rgba(255,255,255,.09);
+  gap:clamp(6px,.75vw,14px);
+  border-top:0;
 }
 .homeHeader .nav>a,.homeHeader .budgetNav>summary{
-  min-height:48px;
+  min-height:44px;
   display:flex;
   align-items:center;
   padding:0;
   white-space:nowrap;
   cursor:pointer;
-  font-size:clamp(7px,.62vw,9px);
+  font-size:clamp(6px,.52vw,8px);
   font-weight:700;
   text-transform:uppercase;
   letter-spacing:.08em;
@@ -725,7 +722,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .budgetNav[open]>summary:after{content:"−"}
 .budgetNav>div{
   position:absolute;
-  top:45px;
+  top:58px;
   left:50%;
   width:185px;
   transform:translateX(-50%);
@@ -736,10 +733,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 .budgetNav>div a{display:flex;align-items:center;min-height:44px;padding:0 12px;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
 .budgetNav>div a:hover{background:var(--deep)}
-.homeHeader .actions{padding-top:2px;gap:14px}
+.homeHeader .actions{padding-top:0;gap:8px}
 .homeHeader .actions>a{min-height:44px;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
 .homeHeader .mobileSearch{display:none}
-.homeSearchForm{width:clamp(160px,16vw,250px);height:44px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.5)}
+.homeSearchForm{width:clamp(140px,12vw,190px);height:44px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.5)}
 .homeSearchForm input{width:100%;min-width:0;border:0;background:transparent;color:white;outline:0;font-size:11px;padding:8px 2px}
 .homeSearchForm input::placeholder{color:#aaa}
 .homeSearchForm button{flex:0 0 44px;width:44px;height:44px;border:0;background:none;cursor:pointer;font-size:18px}
@@ -827,7 +824,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .signupPopup small{display:block;margin-top:15px;color:#777;font-size:8px;line-height:1.5}
 
 @media(max-width:1100px){
-  .homeHeader .nav{gap:10px}.homeHeader .nav>a,.homeHeader .budgetNav>summary{font-size:7px;letter-spacing:.04em}
+  .homeHeader{grid-template-columns:120px minmax(0,1fr) auto;padding-inline:20px}.homeHeader>.logo{width:112px}.homeHeader .nav{gap:5px}.homeHeader .nav>a,.homeHeader .budgetNav>summary{font-size:6px;letter-spacing:.02em}.homeSearchForm{width:118px}.homeHeader .actions>a{font-size:7px}
   .bestSellerLayout{grid-template-columns:1fr}.bestSellerProof{min-height:320px}
   .totalRangeGrid{grid-template-columns:repeat(3,1fr)}.totalRangeGrid a:nth-child(4n){border-right:1px solid #383838}.totalRangeGrid a:nth-child(3n){border-right:0}
 }

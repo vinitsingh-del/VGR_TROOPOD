@@ -57,8 +57,8 @@ const categories = [
 ];
 
 const heroSlides = [
-  { type: "video", label: "VGR performance film" },
   { type: "editorial", label: "For every version of you" },
+  { type: "video", label: "VGR performance film" },
   { type: "image", label: "Rosso professional series", image: "https://vgrofficial.in/cdn/shop/files/p8ua4c8ywkihlerdrhgq.webp?v=1761639395&width=1500" },
   { type: "image", label: "Professional barber series", image: "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2025-12-19_at_11.02.24_AM.jpg?v=1768494346&width=1500" },
 ];
