@@ -300,7 +300,7 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="hero heroSlider" id="top" aria-roledescription="carousel" aria-label="VGR featured campaigns">
+      <section className="hero heroSlider" id="top" aria-roledescription="carousel" aria-label="VGR featured campaigns" data-cro-stage="attention" data-cro-framework="AIDA Von-Restorff">
         <div className="heroSlides">
           {heroSlides.map((slide, index) => (
             <div className={`heroSlide ${slide.type} ${heroSlide === index ? "active" : ""}`} aria-hidden={heroSlide !== index} key={slide.label}>
@@ -337,13 +337,13 @@ export default function Home() {
         <a className="scrollCue" href="#edits"><span>Discover the edits</span>↓</a>
       </section>
 
-      <section className="trust homeStickyTrust">
+      <section className="trust homeStickyTrust" data-cro-stage="interest" data-cro-framework="Fogg-ability">
         <span>01 <strong>Professional performance</strong></span>
         <span>02 <strong>Designed in detail</strong></span>
         <span>03 <strong>Made for every day</strong></span>
       </section>
 
-      <section className="homeCategoryDiscovery">
+      <section className="homeCategoryDiscovery" data-cro-stage="interest" data-cro-framework="Hicks-Law">
         <header className="homeBlockHeader">
           <div><p className="kicker burgundy">Find your tool</p><h2>Shop by category</h2></div>
           <a href="/collections/all">View all products →</a>
@@ -358,7 +358,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bestSellerSection" id="bestsellers">
+      <section className="bestSellerSection" id="bestsellers" data-cro-stage="desire" data-cro-framework="Cialdini-social-proof">
         <header className="homeBlockHeader">
           <div><p className="kicker burgundy">Chosen again and again</p><h2>VGR Bestsellers</h2></div>
           <div className="campaignCopy"><p>High-performing tools for the concerns customers shop most.</p><a href="/collections/all">Shop all bestsellers →</a></div>
@@ -377,7 +377,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="totalRangeSection">
+      <section className="totalRangeSection" data-cro-stage="interest" data-cro-framework="Recognition-over-recall">
         <header className="homeBlockHeader">
           <div><p className="kicker burgundy">The complete collection</p><h2>One brand. Your total range.</h2></div>
           <p>From first touch-up to professional finish, find the right VGR tool for every routine.</p>
@@ -387,7 +387,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="brandWorld">
+      <section className="brandWorld" data-cro-stage="desire" data-cro-framework="Cialdini-liking-authority">
         <header>
           <p className="kicker gold">VGR Voyager</p>
           <h2>Built to move grooming forward.</h2>
@@ -400,7 +400,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="campaignShelf limitedCampaign" id="offers">
+      <section className="campaignShelf limitedCampaign" id="offers" data-cro-stage="desire" data-cro-framework="AIDA-merchandising">
         <header className="homeBlockHeader">
           <div><p className="kicker gold">The statement range</p><h2>Explore VGR<br />Limited Edition</h2></div>
           <div className="campaignCopy"><p>Rare finishes. Salon-grade power. Signature tools made to stand apart.</p><a href="/collections/red-series">View limited editions →</a></div>
@@ -408,7 +408,7 @@ export default function Home() {
         <HomeProductShelf items={limitedProducts} onAdd={add} />
       </section>
 
-      <section className="manifesto">
+      <section className="manifesto" data-cro-stage="desire" data-cro-framework="Cialdini-unity">
         <p className="kicker burgundy">The VGR philosophy</p>
         <h2>Grooming is not a routine.<br /><em>It is how you arrive.</em></h2>
         <p>Precision technology meets modern self-expression. Whether your signature is sharp, soft or entirely your own, VGR gives you the tools to wear it with confidence.</p>
@@ -435,7 +435,7 @@ export default function Home() {
         </a>
       </section>
 
-      <section className="shop" id="shop">
+      <section className="shop" id="shop" data-cro-stage="desire" data-cro-framework="Fogg-motivation-prompt">
         <header className="sectionHeader">
           <div><p className="kicker burgundy">Curated for you</p><h2>The signatures</h2></div>
           <div className="shopTabs">
@@ -471,7 +471,7 @@ export default function Home() {
         <HomeProductShelf items={personalProducts} onAdd={add} />
       </section>
 
-      <section className="proStory" id="engineering">
+      <section className="proStory" id="engineering" data-cro-stage="desire" data-cro-framework="Cialdini-authority">
         <div className="proImage">
           <img src="/brand/editorial-women.png" alt="VGR professional barber using VGR grooming tools" loading="lazy" decoding="async" />
           <span>PRO / 01</span>
@@ -515,7 +515,7 @@ export default function Home() {
         <HomeProductShelf items={dryerProducts} onAdd={add} />
       </section>
 
-      <section className="budgetShop">
+      <section className="budgetShop" data-cro-stage="action" data-cro-framework="Hicks-Law">
         <div><p className="kicker gold">Shop your range</p><h2>Performance at<br />every price.</h2></div>
         <nav aria-label="Shop by price">
           <a href="/collections/under-1000-models"><span>01</span><strong>Products under ₹1,000</strong><b>→</b></a>
@@ -525,7 +525,7 @@ export default function Home() {
         </nav>
       </section>
 
-      <section className="marketplaceProof" id="marketplaces">
+      <section className="marketplaceProof" id="marketplaces" data-cro-stage="desire" data-cro-framework="Cialdini-authority">
         <p className="kicker burgundy">Official online partners</p>
         <h2>Find VGR everywhere.</h2>
         <div>
@@ -543,7 +543,7 @@ export default function Home() {
         <blockquote>Precision, control and dependable performance—the qualities customers value across VGR’s featured picks.<footer>Explore individual product reviews for verified detail.</footer></blockquote>
       </section>
 
-      <section className="homepageFaq">
+      <section className="homepageFaq" data-cro-stage="action-readiness" data-cro-framework="Fogg-ability Nielsen-error-prevention">
         <header><p className="kicker burgundy">Before you choose</p><h2>Good tools.<br />Clear answers.</h2></header>
         <div>
           <details><summary>Which VGR tool is right for personal use?<span>+</span></summary><p>Start with the personal-use trimmer edit for everyday beard, hairline and touch-up needs. Professional tools are designed for higher-frequency salon use.</p></details>
@@ -553,7 +553,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="journal">
+      <section className="journal" data-cro-stage="desire" data-cro-framework="Cialdini-reciprocity">
         <p className="kicker burgundy">The VGR Journal</p>
         <h2>Style is personal.<br /><em>Technique is everything.</em></h2>
         <div className="journalCards">
@@ -563,7 +563,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="newsletter">
+      <section className="newsletter" data-cro-stage="action" data-cro-framework="Fogg-prompt">
         <p className="kicker">The inner circle</p>
         <h2>Stay in the <em>edit.</em></h2>
         <p>New launches, styling notes and private offers, curated for you.</p>

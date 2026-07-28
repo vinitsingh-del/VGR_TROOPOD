@@ -326,7 +326,7 @@ function ProductPage({ slug }: { slug: string }) {
   return (
     <PageFrame>
       <div className="breadcrumbs"><a href={process.env.NEXT_PUBLIC_BASE_PATH || "/"}>Home</a><span>/</span><a href={`/collections/${product.groups[0]}`}>{product.category}</a><span>/</span><b>{product.shortName}</b></div>
-      <section className="pdp">
+      <section className="pdp" data-cro-stage="attention-interest">
         <div className="pdpGallery">
           <div className="pdpThumbs" aria-label="Product gallery">
             {[0, 1, 2, 3].map((item) => (
@@ -344,7 +344,7 @@ function ProductPage({ slug }: { slug: string }) {
         <div className="pdpInfo">
           <p className="pdpEyebrow">{product.category} / VGR official</p>
           <h1>{product.name}</h1>
-          <div className="pdpRating"><strong>{product.rating.toFixed(1)} ★★★★★</strong><a href="#reviews">Verified ratings</a></div>
+          <div className="pdpRating"><strong>{product.rating.toFixed(1)} ★★★★★</strong><a href="#reviews">View product rating</a></div>
           <div className="featureChips">{product.features.map((feature) => <span key={feature}>{feature}</span>)}</div>
           <div className="pdpPrice">
             <strong>{formatPrice(product.price)}</strong>
@@ -370,7 +370,11 @@ function ProductPage({ slug }: { slug: string }) {
           <div className="paymentTrust"><span>✓ 2-year warranty</span><span>↩ 7-day returns</span><span>◈ Secure payment</span></div>
         </div>
       </section>
-      <section className="pdpDetails">
+      <section className="reviews pdpDecisionProof" id="reviews" data-cro-stage="desire">
+        <div><strong>{product.rating.toFixed(1)}</strong><span>★★★★★<small>Current product rating</small></span></div>
+        <div className="reviewSummary"><h2>Confidence before checkout.</h2><p>Compare the product rating with its features, delivery estimate, two-year warranty and seven-day return support before adding it to your bag.</p></div>
+      </section>
+      <section className="pdpDetails" data-cro-stage="interest-desire">
         <div className="detailNav">
           {["details", "technology", "delivery", "care"].map((key) => (
             <button key={key} className={activeInfo === key ? "active" : ""} onClick={() => setActiveInfo(key)}>
@@ -386,14 +390,14 @@ function ProductPage({ slug }: { slug: string }) {
         </div>
         <div className="detailVisual"><img src={product.image} alt="" loading="lazy" decoding="async" /></div>
       </section>
-      <section className="recommendations">
+      <section className="recommendations" data-cro-stage="secondary-action">
         <header><p>You may also like</p><h2>Complete your edit</h2></header>
         <ProductGrid items={recommendations} onAdded={(item) => { setToast(`${item.shortName} added to your bag`); window.setTimeout(() => setToast(""), 1800); }} />
       </section>
-      <section className="reviews" id="reviews">
-        <div><strong>{product.rating.toFixed(1)}</strong><span>★★★★★<small>Verified VGR customers</small></span></div>
-        <blockquote>“Professional quality, strong performance and a finish that feels genuinely premium.”<footer>— Verified buyer</footer></blockquote>
-      </section>
+      <div className="mobileStickyAtc" data-cro-stage="action">
+        <span><small>{product.shortName}</small><strong>{formatPrice(product.price)}</strong></span>
+        <button onClick={add}>Add to bag</button>
+      </div>
       {toast && <div className="toast" role="status">{toast}</div>}
     </PageFrame>
   );
