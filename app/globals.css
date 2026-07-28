@@ -734,15 +734,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   border:1px solid #333;
   box-shadow:0 18px 50px rgba(0,0,0,.4);
 }
-.budgetNav>div a{display:flex;align-items:center;min-height:42px;padding:0 12px;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.budgetNav>div a{display:flex;align-items:center;min-height:44px;padding:0 12px;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
 .budgetNav>div a:hover{background:var(--deep)}
 .homeHeader .actions{padding-top:2px;gap:14px}
-.homeHeader .actions>a{font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.homeHeader .actions>a{min-height:44px;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
 .homeHeader .mobileSearch{display:none}
-.homeSearchForm{width:clamp(160px,16vw,250px);height:38px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.5)}
+.homeSearchForm{width:clamp(160px,16vw,250px);height:44px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.5)}
 .homeSearchForm input{width:100%;min-width:0;border:0;background:transparent;color:white;outline:0;font-size:11px;padding:8px 2px}
 .homeSearchForm input::placeholder{color:#aaa}
-.homeSearchForm button{width:44px;height:38px;border:0;background:none;cursor:pointer;font-size:18px}
+.homeSearchForm button{width:44px;height:44px;border:0;background:none;cursor:pointer;font-size:18px}
 
 .heroSlider{min-height:760px}
 .heroSlides,.heroSlide{position:absolute;inset:0}

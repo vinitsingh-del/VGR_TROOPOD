@@ -1,4 +1,4 @@
 :HL["/VGR_TROOPOD/_next/static/media/22a5144ee8d83bca-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/VGR_TROOPOD/_next/static/media/7d4881bb7e1bf84d-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/VGR_TROOPOD/_next/static/css/3cd9e49ba6e2180a.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"slug","param":{"type":"c","key":"products/rosso-professional-beard-moustache-trimmer","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"mpTG9pdp77dBMdK5HPDEx"}
+:HL["/VGR_TROOPOD/_next/static/css/8c560d8b18b7217a.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"slug","param":{"type":"c","key":"products/rosso-professional-beard-moustache-trimmer","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"15hVZpvXUMP0lrSK5bl38"}
