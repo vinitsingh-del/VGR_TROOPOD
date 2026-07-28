@@ -742,7 +742,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .homeSearchForm{width:clamp(160px,16vw,250px);height:44px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.5)}
 .homeSearchForm input{width:100%;min-width:0;border:0;background:transparent;color:white;outline:0;font-size:11px;padding:8px 2px}
 .homeSearchForm input::placeholder{color:#aaa}
-.homeSearchForm button{width:44px;height:44px;border:0;background:none;cursor:pointer;font-size:18px}
+.homeSearchForm button{flex:0 0 44px;width:44px;height:44px;border:0;background:none;cursor:pointer;font-size:18px}
 
 .heroSlider{min-height:760px}
 .heroSlides,.heroSlide{position:absolute;inset:0}
