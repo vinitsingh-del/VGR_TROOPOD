@@ -662,7 +662,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
   .heroPhoto::before{
     left:0;
-    background-position:12% center;
+    background-position:7% center;
   }
 
   .heroPhoto::after{
