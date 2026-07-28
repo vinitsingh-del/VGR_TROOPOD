@@ -83,7 +83,7 @@ export function SiteHeader() {
         <button className="storeMenuButton" onClick={() => setMenu(!menu)} aria-label="Toggle navigation">
           ☰
         </button>
-        <a className="logo" href="/" aria-label="VGR Voyager home">
+        <a className="logo" href={process.env.NEXT_PUBLIC_BASE_PATH || "/"} aria-label="VGR Voyager home">
           <img src="/brand/vgr-logo-official.png" alt="VGR Voyager" />
         </a>
         <nav className={menu ? "storeNav open" : "storeNav"} aria-label="Main navigation">
@@ -150,7 +150,7 @@ export function SiteFooter() {
       </section>
       <footer className="completeFooter">
         <div className="footerLead">
-          <a className="logo" href="/"><img src="/brand/vgr-logo-official.png" alt="VGR Voyager" /></a>
+          <a className="logo" href={process.env.NEXT_PUBLIC_BASE_PATH || "/"}><img src="/brand/vgr-logo-official.png" alt="VGR Voyager" /></a>
           <p>Professional grooming technology for every version of you.</p>
           <div className="socialLinks">
             <a href="https://www.instagram.com/vgrofficial.in/?hl=en">Instagram</a>
@@ -325,7 +325,7 @@ function ProductPage({ slug }: { slug: string }) {
 
   return (
     <PageFrame>
-      <div className="breadcrumbs"><a href="/">Home</a><span>/</span><a href={`/collections/${product.groups[0]}`}>{product.category}</a><span>/</span><b>{product.shortName}</b></div>
+      <div className="breadcrumbs"><a href={process.env.NEXT_PUBLIC_BASE_PATH || "/"}>Home</a><span>/</span><a href={`/collections/${product.groups[0]}`}>{product.category}</a><span>/</span><b>{product.shortName}</b></div>
       <section className="pdp">
         <div className="pdpGallery">
           <div className="pdpThumbs" aria-label="Product gallery">
