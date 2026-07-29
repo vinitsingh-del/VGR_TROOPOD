@@ -1,0 +1,77 @@
+export const categories = [
+  { name: "Men’s Grooming", kicker: "Precision, powered", image: "https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T165614.742.jpg?v=1764417571&width=1200", href: "/v2/collection?category=men" },
+  { name: "Women’s Grooming", kicker: "Style on your terms", image: "https://vgrofficial.in/cdn/shop/files/v-484_1.webp?v=1741004665&width=1200", href: "/v2/collection?category=women" },
+  { name: "Professional Grooming", kicker: "Built for the chair", image: "https://vgrofficial.in/cdn/shop/files/1741669611469_VGR4in1-1_959b86c5-3385-41d7-afec-7a1b879c8d95.jpg?v=1764419085&width=1200", href: "/v2/collection?category=professional" },
+  { name: "Pet’s Grooming", kicker: "Gentle care, made easy", image: "https://cdn.shopify.com/s/files/1/0710/2716/3427/files/1.1_10.webp?v=1741413726", href: "/v2/collection?category=pet" },
+  { name: "Baby Care", kicker: "Thoughtfully gentle", image: "https://vgrofficial.in/cdn/shop/files/AnyConv.com__2.0-24-700x700-1_4a0d8f38-25af-4a88-b8bd-d0c10859c76f_1.webp?v=1740977051&width=700", href: "/v2/collection?category=baby" },
+  { name: "Lifestyle Essentials", kicker: "Everyday, elevated", image: "https://cdn.shopify.com/s/files/1/0710/2716/3427/files/1.1_1.png?v=1740124210", href: "/v2/collection?category=lifestyle" },
+];
+
+export const heroes = [
+  {
+    eyebrow: "The new era of VGR",
+    title: "Power that performs.",
+    copy: "Engineered grooming technology for the ritual, the result and everything in between.",
+    cta: "Discover VGR",
+    href: "#bestsellers",
+    video: "https://vgrofficial.in/cdn/shop/videos/c/vp/464df9ba4bfe4a1b8e1de879546d8b84/464df9ba4bfe4a1b8e1de879546d8b84.HD-1080p-7.2Mbps-57484565.mp4?v=0",
+    poster: "https://vgrofficial.in/cdn/shop/files/preview_images/464df9ba4bfe4a1b8e1de879546d8b84.thumbnail.0000000000.jpg?v=1757922230&width=1600",
+    align: "left",
+  },
+  {
+    eyebrow: "Men’s grooming",
+    title: "Make every line count.",
+    copy: "High-torque precision and long-lasting control, designed for modern routines.",
+    cta: "Shop trimmers",
+    href: "/v2/collection?category=men",
+    image: "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2025-12-19_at_11.02.24_AM.jpg?v=1768494346&width=1800",
+    mediaFit: "contain",
+    align: "right",
+  },
+  {
+    eyebrow: "Professional series",
+    title: "Made for masters.",
+    copy: "Salon-grade performance that keeps pace with your craft.",
+    cta: "Explore professional",
+    href: "/v2/collection?category=professional",
+    image: "https://vgrofficial.in/cdn/shop/files/1741669611469_VGR4in1-1_959b86c5-3385-41d7-afec-7a1b879c8d95.jpg?v=1764419085&width=1800",
+    mediaFit: "contain",
+    align: "left",
+  },
+  {
+    eyebrow: "Women’s grooming",
+    title: "Your style. Your power.",
+    copy: "Fast, intuitive styling tools that put polished results in your hands.",
+    cta: "Shop styling",
+    href: "/v2/collection?category=women",
+    image: "https://vgrofficial.in/cdn/shop/files/14.png?v=1740808532&width=2400",
+    align: "right",
+  },
+  {
+    eyebrow: "Limited Rosso edition",
+    title: "Precision, in red.",
+    copy: "The statement trimmer with 400 minutes of runtime and titanium-coated control.",
+    cta: "Meet Rosso",
+    href: "https://vgrofficial.in/products/rosso-professional-beard-moustache-trimmer",
+    image: "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2026-02-26_at_5.01.09_PM.jpg?v=1772105814&width=2400",
+    align: "left",
+  },
+  {
+    eyebrow: "Lifestyle essentials",
+    title: "Care beyond grooming.",
+    copy: "Purposeful technology for clothing, home and everyday life.",
+    cta: "Explore essentials",
+    href: "/v2/collection?category=lifestyle",
+    image: "https://cdn.shopify.com/s/files/1/0710/2716/3427/files/1.1_1.png?v=1740124210",
+    mediaFit: "contain",
+    align: "right",
+  },
+];
+
+export const partners = [
+  ["Amazon", "https://vgrofficial.in/cdn/shop/files/amazon-logo.png?v=1679841638&width=240"],
+  ["Flipkart", "https://vgrofficial.in/cdn/shop/files/flipkart-logo.png?v=1679841661&width=240"],
+  ["Myntra", "https://vgrofficial.in/cdn/shop/files/myntra-logo.png?v=1679841749&width=240"],
+  ["JioMart", "https://vgrofficial.in/cdn/shop/files/jiomart-logo.png?v=1679841770&width=400"],
+  ["Tata CLiQ", "https://vgrofficial.in/cdn/shop/files/tata-cliq-logo.png?v=1679841706&width=400"],
+];

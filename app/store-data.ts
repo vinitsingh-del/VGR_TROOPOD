@@ -205,7 +205,7 @@ export const products: Product[] = [
     slug: "vgr-v-035t-professional-hair-trimmer-9000rpm",
     name: "VGR V-035T Professional Hair Trimmer with 9000 RPM Vector Motor",
     shortName: "V-035T Vector Trimmer",
-    image: "https://vgrofficial.in/cdn/shop/files/V-885-S2-Gold.jpg?v=1760343453&width=1200",
+    image: "https://vgrofficial.in/cdn/shop/files/VGR_official.jpg?v=1764069719&width=1200",
     price: 12499,
     oldPrice: 21499,
     rating: 4.9,
