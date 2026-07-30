@@ -1572,6 +1572,119 @@
           animation:none !important;clip-path:none !important;
         }
       }
+
+      /* ================================================================
+         1) Remove the teal stock bar from every product card
+         ================================================================ */
+      ._urgency_sycmm_1,.vgr-swm-bar{display:none !important;}
+      /* reclaim the gap it used to occupy so cards stay tight */
+      ._add_sycmm_1,.vgr-swm-cta{margin-top:auto !important;}
+      .vgr-why{margin-bottom:2px !important;}
+
+      /* ================================================================
+         2) "THE COMPLETE EDIT / Total range." rebuilt on a strict grid
+            every cell: number → fixed square plate → 2-line label
+            so plates and underlines line up exactly across both rows
+            ================================================================ */
+      ._range_sycmm_1 ._rangeGrid_sycmm_1{
+        grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+        gap:clamp(28px,2.6vw,40px) clamp(14px,1.6vw,26px) !important;
+        align-items:start !important;
+      }
+      ._rangeGrid_sycmm_1 a{
+        display:grid !important;
+        grid-template-rows:auto auto auto !important;
+        grid-template-columns:minmax(0,1fr) !important;  /* explicit, so the
+           implicit column can't size itself to the longest label */
+        /* stretch, not center: centring grid children shrinks them to their
+           own content, which is what made plates and underlines uneven */
+        justify-items:stretch !important;
+        align-content:start !important;
+        row-gap:0 !important;
+        padding:0 !important;
+        text-align:center !important;
+        position:relative !important;
+      }
+      /* number: centred above the plate instead of floating top-left */
+      ._rangeGrid_sycmm_1 a [class*="_rangeNumber_"]{
+        position:static !important;
+        grid-row:1 !important;
+        top:auto !important;left:auto !important;
+        display:block !important;
+        margin:0 0 10px !important;
+        font-size:10.5px !important;
+        letter-spacing:.16em !important;
+        color:#9a9a9a !important;
+        font-weight:600 !important;
+        line-height:1 !important;
+      }
+      /* plate: identical square for all twelve, no % sizing */
+      ._rangeGrid_sycmm_1 a [class*="_rangeVisual_"]{
+        grid-row:2 !important;
+        justify-self:center !important;
+        width:150px !important;
+        max-width:100% !important;
+        height:150px !important;          /* explicit, so no cell can round up */
+        aspect-ratio:auto !important;
+        margin:0 0 16px !important;
+        overflow:hidden !important;
+      }
+      ._rangeGrid_sycmm_1 a [class*="_rangeVisual_"]::before{
+        left:9% !important;right:9% !important;bottom:2% !important;
+        background:linear-gradient(#f2f2f2,#dcdcdc) !important;
+      }
+      ._rangeGrid_sycmm_1 a [class*="_rangeVisual_"] img{
+        padding:9% !important;
+        transform:none !important;
+      }
+      ._rangeGrid_sycmm_1 a:hover [class*="_rangeVisual_"] img{
+        transform:scale(1.05) !important;
+      }
+      /* label: fixed two-line box, text bottom-aligned, one underline width.
+         This is what fixes the ragged row — a one-line label now sits on the
+         same baseline as "VGR Callus Removers", which wraps to two. */
+      ._rangeGrid_sycmm_1 a b{
+        grid-row:3 !important;
+        justify-self:stretch !important;
+        display:flex !important;
+        align-items:flex-end !important;
+        justify-content:center !important;
+        width:100% !important;
+        max-width:none !important;
+        box-sizing:border-box !important;
+        min-height:calc(2 * 1.24em) !important;
+        margin:0 auto !important;
+        padding:0 0 9px !important;
+        border-bottom:1px solid #d5d5d5 !important;
+        font-size:clamp(13.5px,1.02vw,16px) !important;
+        font-weight:600 !important;
+        line-height:1.24 !important;
+        letter-spacing:-.005em !important;
+        text-wrap:balance;
+      }
+      ._rangeGrid_sycmm_1 a:hover b{border-bottom-color:#0a9797 !important;}
+
+      @media (max-width:1180px){
+        ._range_sycmm_1 ._rangeGrid_sycmm_1{grid-template-columns:repeat(4,minmax(0,1fr)) !important;}
+      }
+      @media (max-width:900px){
+        ._range_sycmm_1 ._rangeGrid_sycmm_1{
+          grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+          gap:26px 12px !important;
+        }
+        ._rangeGrid_sycmm_1 a [class*="_rangeVisual_"]{width:118px !important;height:118px !important;margin-bottom:12px !important;}
+        ._rangeGrid_sycmm_1 a b{font-size:12.5px !important;max-width:100% !important;padding-bottom:8px !important;}
+        ._rangeGrid_sycmm_1 a [class*="_rangeNumber_"]{font-size:11px !important;margin-bottom:8px !important;}
+      }
+      @media (max-width:560px){
+        ._range_sycmm_1 ._rangeGrid_sycmm_1{
+          grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+          gap:24px 14px !important;
+        }
+        ._rangeGrid_sycmm_1 a [class*="_rangeVisual_"]{width:138px !important;height:138px !important;}
+        ._rangeGrid_sycmm_1 a b{font-size:13px !important;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
