@@ -1449,6 +1449,129 @@
         ._wish_sycmm_1,.vgr-swm-wish{width:32px !important;height:32px !important;font-size:14px !important;}
       }
 
+
+      /* ================================================================
+         TYPOGRAPHY ANIMATION LAYER  (additive only — transform/opacity/
+         clip-path/background-position; no layout properties animated)
+         ================================================================ */
+      :root{ --vgr-ease:cubic-bezier(.16,.84,.30,1); --vgr-ease-out:cubic-bezier(.22,1,.36,1); }
+
+      /* ---------- shine sweep (keeps original colour via currentColor) ---------- */
+      @supports ((-webkit-background-clip:text) or (background-clip:text)){
+        .vgr-shine,.vgr-shineD{
+          background-image:linear-gradient(100deg,
+            currentColor 0%, currentColor 42%,
+            var(--vgr-band,rgba(255,255,255,.92)) 50%,
+            currentColor 58%, currentColor 100%);
+          background-size:260% 100%;
+          background-position:180% 0;
+          background-repeat:no-repeat;
+          -webkit-background-clip:text; background-clip:text;
+          -webkit-text-fill-color:transparent;
+        }
+        .vgr-shineD{ --vgr-band:#3fbdbd; }
+        .vgr-shine.vgr-loop,.vgr-shineD.vgr-loop{
+          animation:vgrSweep var(--vgr-loop,5.5s) var(--vgr-ease-out) infinite;
+          animation-delay:var(--vgr-sd,1s);
+        }
+        .vgr-hoverShine{ position:relative; }
+        .vgr-hoverShine:hover,.vgr-hoverShine:focus-visible{
+          background-image:linear-gradient(100deg,
+            currentColor 0%, currentColor 42%, var(--vgr-band,#3fbdbd) 50%,
+            currentColor 58%, currentColor 100%);
+          background-size:260% 100%; background-repeat:no-repeat;
+          -webkit-background-clip:text; background-clip:text;
+          -webkit-text-fill-color:transparent;
+          animation:vgrSweep 1s var(--vgr-ease-out) 1;
+        }
+        a:hover .vgr-hoverShine,[class*="_card_"]:hover .vgr-hoverShine,
+        .vgr-swm-card:hover .vgr-hoverShine,[class*="_journalCard_"]:hover .vgr-hoverShine{
+          background-image:linear-gradient(100deg,
+            currentColor 0%, currentColor 42%, var(--vgr-band,#3fbdbd) 50%,
+            currentColor 58%, currentColor 100%);
+          background-size:260% 100%; background-repeat:no-repeat;
+          -webkit-background-clip:text; background-clip:text;
+          -webkit-text-fill-color:transparent;
+          animation:vgrSweep 1s var(--vgr-ease-out) 1;
+        }
+      }
+      @keyframes vgrSweep{
+        0%{background-position:180% 0;}
+        55%{background-position:-80% 0;}
+        100%{background-position:-80% 0;}
+      }
+
+      /* ---------- offer strip marquee ---------- */
+      ._offer_sycmm_1.vgr-mq{overflow:hidden !important;white-space:nowrap !important;}
+      ._offer_sycmm_1.vgr-mq .vgr-mq-track{
+        display:inline-flex;white-space:nowrap;will-change:transform;
+        animation:vgrMarquee var(--vgr-mq,34s) linear infinite;
+      }
+      ._offer_sycmm_1.vgr-mq .vgr-mq-track > span{padding-right:3.5rem;}
+      @keyframes vgrMarquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+      /* ---------- gentle pulse (CTA text, sticky note) ---------- */
+      .vgr-pulse{animation:vgrPulseSoft 3.4s var(--vgr-ease-out) infinite;}
+      @keyframes vgrPulseSoft{0%,72%,100%{opacity:1;}86%{opacity:.55;}}
+      .vgr-glow{animation:vgrGlow 3.8s var(--vgr-ease-out) infinite;}
+      @keyframes vgrGlow{0%,70%,100%{transform:scale(1);}85%{transform:scale(1.035);}}
+
+      /* ---------- typewriter (clip-path, no reflow) ---------- */
+      .vgr-type{ clip-path:inset(0 100% 0 0); }
+      .vgr-type.vgr-in{ animation:vgrType 1.15s steps(34,end) forwards; }
+      @keyframes vgrType{ to{clip-path:inset(0 0 0 0);} }
+      .vgr-type.vgr-in::after{
+        content:''; display:inline-block; width:.06em; height:1em;
+        background:currentColor; margin-left:.12em; vertical-align:-.12em;
+        animation:vgrCaret .7s steps(1,end) 6, vgrCaretOut .01s linear 4.2s forwards;
+      }
+      @keyframes vgrCaret{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+      @keyframes vgrCaretOut{to{opacity:0;visibility:hidden;}}
+
+      /* ---------- one-shot reveals ---------- */
+      .vgr-pop{opacity:0;transform:scale(.86);transition:opacity .42s var(--vgr-ease-out),transform .42s var(--vgr-ease-out);}
+      .vgr-pop.vgr-in{opacity:1;transform:none;}
+      .vgr-stagUp{opacity:0;transform:translateY(16px);
+        transition:opacity .55s var(--vgr-ease) var(--vgr-d,0s),transform .6s var(--vgr-ease) var(--vgr-d,0s);}
+      .vgr-stagUp.vgr-in{opacity:1;transform:none;}
+      .vgr-fade{opacity:0;transition:opacity .6s var(--vgr-ease) var(--vgr-d,0s);}
+      .vgr-fade.vgr-in{opacity:1;}
+      .vgr-numPulse.vgr-in{animation:vgrNumPulse .6s var(--vgr-ease-out) .95s 1;}
+      @keyframes vgrNumPulse{0%{transform:scale(1);}45%{transform:scale(1.07);}100%{transform:scale(1);}}
+
+      /* counters keep a locked width so digits can't shift layout */
+      .vgr-count{font-variant-numeric:tabular-nums;}
+
+      /* ---------- reduced motion: everything resolves instantly ---------- */
+      @media (prefers-reduced-motion:reduce){
+        .vgr-shine,.vgr-shineD,.vgr-hoverShine,
+        .vgr-hoverShine:hover,a:hover .vgr-hoverShine,
+        [class*="_card_"]:hover .vgr-hoverShine,.vgr-swm-card:hover .vgr-hoverShine{
+          background-image:none !important;-webkit-text-fill-color:currentColor !important;
+          animation:none !important;
+        }
+        ._offer_sycmm_1.vgr-mq .vgr-mq-track{animation:none !important;transform:none !important;}
+        ._offer_sycmm_1.vgr-mq{white-space:normal !important;}
+        ._offer_sycmm_1.vgr-mq .vgr-mq-track > span:last-child{display:none !important;}
+        .vgr-pulse,.vgr-glow,.vgr-numPulse.vgr-in{animation:none !important;}
+        .vgr-type,.vgr-type.vgr-in{clip-path:none !important;animation:none !important;}
+        .vgr-type.vgr-in::after{display:none !important;}
+        .vgr-pop,.vgr-stagUp,.vgr-fade{opacity:1 !important;transform:none !important;transition:none !important;}
+      }
+
+
+      /* the spec line runs two animations: type it on, then sweep it.
+         They must share one `animation` declaration or the later rule
+         silently cancels the earlier one (which left it clipped to 0). */
+      .vgr-eng-line.vgr-type.vgr-in{
+        animation:vgrType 1.15s steps(34,end) forwards,
+                  vgrSweep 5s var(--vgr-ease-out) 3.2s infinite !important;
+      }
+      @media (prefers-reduced-motion:reduce){
+        .vgr-eng-line.vgr-type,.vgr-eng-line.vgr-type.vgr-in{
+          animation:none !important;clip-path:none !important;
+        }
+      }
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -1875,6 +1998,215 @@ Error generating stack: `+e.message+`
         return true;
       }
 
+
+      /* ============================================================
+         Typography animation controller (additive; runs after the
+         injected sections exist so nothing is missed)
+         ============================================================ */
+      function initAnim(){
+        if(document.documentElement.dataset.vgrAnim) return true;
+        document.documentElement.dataset.vgrAnim='1';
+        const RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+        const $  = (s,r)=> (r||document).querySelector(s);
+        const $$ = (s,r)=> [...(r||document).querySelectorAll(s)];
+
+        /* Elements inside horizontal rails are clipped by overflow, so the
+           browser reports them as never intersecting and they would stay
+           hidden / stuck at zero. Observe the owning SECTION instead and
+           resolve everything inside it once, in order. */
+        const HAS_IO = ('IntersectionObserver' in window);
+        const groups = new Map();
+        function resolve(el){
+          el.classList.add('vgr-in');
+          if(el.dataset.count) countUp(el);
+        }
+        function watch(el){
+          if(!el) return;
+          if(RM || !HAS_IO){
+            el.classList.add('vgr-in');
+            if(el.dataset.count) el.textContent=el.dataset.final;
+            return;
+          }
+          const host = el.closest('section') || el.closest('main') || document.body;
+          if(!groups.has(host)) groups.set(host,[]);
+          groups.get(host).push(el);
+        }
+        function flush(){
+          if(RM || !HAS_IO){ groups.forEach(a=>a.forEach(resolve)); groups.clear(); return; }
+          const io=new IntersectionObserver(es=>es.forEach(e=>{
+            if(!e.isIntersecting) return;
+            const list=groups.get(e.target)||[];
+            let k=0;
+            list.forEach(el=>{
+              if(el.dataset.count){ setTimeout(()=>resolve(el), (k++)*70); }
+              else resolve(el);
+            });
+            groups.delete(e.target); io.unobserve(e.target);
+          }),{threshold:0.06, rootMargin:'0px 0px -4% 0px'});
+          groups.forEach((_,host)=>io.observe(host));
+          /* net: clipping quirks can stop IO reporting a hit, so anything
+             whose host has reached the viewport is resolved on scroll too */
+          const sweep=()=>{
+            if(!groups.size){ window.removeEventListener('scroll',sweep); return; }
+            [...groups.keys()].forEach(host=>{
+              const r=host.getBoundingClientRect();
+              /* once a host has been reached it stays resolved, even if the
+                 reader has already scrolled well past it */
+              if(r.top < window.innerHeight*0.94){
+                let k=0;
+                (groups.get(host)||[]).forEach(el=>{
+                  if(el.dataset.count){ setTimeout(()=>resolve(el),(k++)*70); } else resolve(el);
+                });
+                groups.delete(host); io.unobserve(host);
+              }
+            });
+          };
+          window.addEventListener('scroll',sweep,{passive:true});
+          setTimeout(sweep,700);
+        }
+        function arm(els,cls,stagger){
+          els.forEach((el,i)=>{
+            if(el.dataset.vgrA) return; el.dataset.vgrA='1';
+            el.classList.add(cls);
+            if(stagger) el.style.setProperty('--vgr-d',(i*stagger)+'s');
+            watch(el);
+          });
+        }
+
+        /* ---- count-up, width locked first so digits never shift layout ---- */
+        function prep(el){
+          if(el.dataset.count) return;
+          const raw=(el.textContent||'').trim();
+          const m=raw.match(/^([^\d]*?)([\d][\d,]*)(.*)$/s);
+          if(!m) return;
+          const target=parseInt(m[2].replace(/,/g,''),10);
+          if(!isFinite(target)||target<2) return;
+          el.dataset.count='1'; el.dataset.pre=m[1]; el.dataset.post=m[3];
+          el.dataset.target=String(target); el.dataset.final=raw;
+          el.classList.add('vgr-count');
+          const w=el.getBoundingClientRect().width;
+          if(w) el.style.minWidth=Math.ceil(w)+'px';
+          el.textContent=m[1]+'0'+m[3];
+        }
+        function countUp(el){
+          const target=+el.dataset.target, pre=el.dataset.pre||'', post=el.dataset.post||'';
+          const dur=Math.min(1200,Math.max(700,String(target).length*260));
+          const t0=performance.now();
+          (function tick(now){
+            const p=Math.min(1,(now-t0)/dur);
+            const v=Math.round(target*(1-Math.pow(1-p,3)));
+            el.textContent=pre+v.toLocaleString('en-IN')+post;
+            if(p<1) requestAnimationFrame(tick); else el.textContent=el.dataset.final;
+          })(t0);
+        }
+
+        /* ---------- 1. offer strip: seamless marquee ---------- */
+        const offer=$('[class*="_offer_"]');
+        if(offer && !offer.querySelector('.vgr-mq-track')){
+          const t=(offer.textContent||'').trim();
+          offer.textContent='';
+          const track=document.createElement('span'); track.className='vgr-mq-track';
+          const a=document.createElement('span'); a.textContent=t;
+          const c=document.createElement('span'); c.textContent=t;
+          track.appendChild(a); track.appendChild(c);
+          offer.appendChild(track); offer.classList.add('vgr-mq');
+        }
+
+        /* ---------- 2. header note (hidden by the compact header) ---------- */
+        const note=$('[class*="_headNote_"]');
+        if(note && getComputedStyle(note).display!=='none'){
+          note.classList.add('vgr-shineD','vgr-loop');
+          note.style.setProperty('--vgr-loop','6s');
+        }
+
+        /* ---------- 3. hero ---------- */
+        const h1=$('[class*="_heroCopy_"] h1');
+        if(h1){ h1.classList.add('vgr-shine','vgr-loop');
+                h1.style.setProperty('--vgr-band','rgba(10,151,151,.55)');
+                h1.style.setProperty('--vgr-loop','6s');
+                h1.style.setProperty('--vgr-sd','1.6s'); }
+        $$('[class*="_hero_"] [class*="_primary_"]').forEach(b=>b.classList.add('vgr-pulse'));
+
+        /* ---------- 4. category rail labels: hover sweep ---------- */
+        arm([],'');
+        $$('[class*="_rangeGrid_"] a b').forEach(b=>b.classList.add('vgr-hoverShine'));
+
+        /* ---------- 5. product cards ---------- */
+        $$('[class*="_cardInfo_"] h3, .vgr-swm-name').forEach(t=>t.classList.add('vgr-hoverShine'));
+        $$('[class*="_price_"] strong, .vgr-swm-price strong').forEach(el=>{ prep(el); watch(el); });
+        arm($$('[class*="_rating_"], .vgr-swm-rating'),'vgr-pop');
+        $$('.vgr-why b').forEach(b=>{ b.classList.add('vgr-shineD','vgr-loop');
+                                     b.style.setProperty('--vgr-loop','6.5s'); });
+
+        /* ---------- 6. engineering ---------- */
+        arm($$('.vgr-eng-kicker'),'vgr-settle');
+        const line=$('.vgr-eng-line');
+        if(line){ line.classList.add('vgr-type','vgr-numPulse');
+                  watch(line);
+                  line.classList.add('vgr-shine','vgr-loop');
+                  line.style.setProperty('--vgr-loop','5s');
+                  line.style.setProperty('--vgr-sd','2.6s'); }
+        arm($$('.vgr-eng-sub'),'vgr-fade');
+        arm($$('[class*="_engineeringGrid_"] > div'),'vgr-stagUp',0.09);
+
+        /* ---------- 7. global presence ---------- */
+        const gph=$('.vgr-gp h2');
+        if(gph){ // highlight the number phrase only
+          gph.querySelectorAll('.vgr-w > i').forEach(i=>{
+            if(/25\+|countries/i.test(i.textContent)){
+              i.classList.add('vgr-shineD','vgr-loop');
+              i.style.setProperty('--vgr-loop','5s');
+              i.style.setProperty('--vgr-sd','2.2s');
+            }});
+        }
+        $$('.vgr-gp-stat strong').forEach(el=>{ prep(el); watch(el); });
+        arm($$('.vgr-gp-stat span'),'vgr-fade',0.06);
+        /* fade + lift, not scale: a scaled chip measures 38px before it
+           resolves, which would dip under the 44px touch minimum */
+        arm($$('.vgr-gp-chip'),'vgr-stagUp',0.07);
+        $$('.vgr-gp-cta').forEach(a=>a.classList.add('vgr-hoverShine'));
+
+        /* ---------- 8/9. story + stats ---------- */
+        $$('[class*="_stats_"] strong').forEach(el=>{ prep(el); watch(el); });
+        arm($$('[class*="_stats_"] span'),'vgr-fade',0.08);
+
+        /* ---------- 10. testimonial ---------- */
+        arm($$('[class*="_testimonial_"] blockquote'),'vgr-rise');
+        arm($$('[class*="_testimonial_"] strong'),'vgr-fade');
+        arm($$('[class*="_testimonial_"] small'),'vgr-pop');
+
+        /* ---------- 11. journal ---------- */
+        $$('[class*="_journalCard_"] h3, [class*="_journalCard_"] b').forEach(t=>t.classList.add('vgr-hoverShine'));
+        arm($$('[class*="_journalCard_"] [class*="_eyebrow_"], [class*="_journalCard_"] small'),'vgr-fade',0.06);
+
+        /* ---------- 13. FAQ ---------- */
+        $$('[class*="_faq_"] summary, [class*="_faq_"] h3, [class*="_faq_"] button').forEach(q=>q.classList.add('vgr-hoverShine'));
+
+        /* ---------- 14. newsletter ---------- */
+        arm($$('[class*="_newsletter_"] [class*="_eyebrow_"]'),'vgr-settle');
+        arm($$('[class*="_signup_"] button'),'vgr-fade');
+
+        /* ---------- 15. sticky CTA bar ---------- */
+        const note2=$('.vgr-scta-note b'); if(note2) note2.classList.add('vgr-pulse');
+        const sbtn=$('.vgr-scta-btn'); if(sbtn) sbtn.classList.add('vgr-glow');
+
+        /* ---------- 16. footer (logo/tagline only; legal stays static) ---------- */
+        arm($$('[class*="_footerLogo_"], [class*="_footerLogo_"] + p'),'vgr-fade');
+
+        /* ---------- 17. welcome popup: entry motion only ---------- */
+        const pop=$('[class*="_popup_"]:not([class*="_popupBackdrop_"])');
+        if(pop && !RM){
+          pop.style.animation='vgrPopIn .42s cubic-bezier(.22,1,.36,1) both';
+          if(!document.getElementById('vgr-pop-kf')){
+            const st=document.createElement('style'); st.id='vgr-pop-kf';
+            st.textContent='@keyframes vgrPopIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}';
+            document.head.appendChild(st);
+          }
+        }
+        flush();
+        return true;
+      }
+
       function poll(){
         const a=insertSWM(), b=initReviews(), c=insertGP(), e=buildEngineering();
         if(a&&b&&c&&e){
@@ -1882,6 +2214,7 @@ Error generating stack: `+e.message+`
           const gp=document.getElementById('vgr-global-presence');
           if(gp && !gp.dataset.tour){ gp.dataset.tour='1'; startGPTour(gp); }
           initType();
+          initAnim();
           return;
         }
         setTimeout(poll,120);
