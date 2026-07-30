@@ -1777,6 +1777,49 @@
         ._mobileNav_sycmm_1 a{transition:none !important;}
       }
 
+
+      /* ================================================================
+         FIX — the empty white circles on product cards were the wishlist
+         buttons. Two separate faults:
+           • VGR-edit card: heart inherited color:#fff from the teal
+             section, i.e. a white glyph on a white circle (0% ink).
+           • Bestseller card: 13px glyph in a 44px box with no centring,
+             so it read as an empty disc.
+         Both now use a real heart mark, centred and correctly sized.
+         ================================================================ */
+      ._wish_sycmm_1,.vgr-swm-wish{
+        display:grid !important;
+        place-items:center !important;
+        color:transparent !important;
+        font-size:0 !important;
+        line-height:0 !important;
+        background-color:#ffffff !important;
+        background-repeat:no-repeat !important;
+        background-position:center !important;
+        background-size:17px 17px !important;
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f0f0f' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M12 20s-7-4.4-7-9.3A4.2 4.2 0 0 1 12 7.7a4.2 4.2 0 0 1 7 3C19 15.6 12 20 12 20z'/></svg>") !important;
+        box-shadow:0 2px 8px rgba(0,0,0,.16) !important;
+        border:0 !important;
+        cursor:pointer !important;
+      }
+      ._wish_sycmm_1:hover,.vgr-swm-wish:hover{
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230a9797' stroke='%230a9797' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M12 20s-7-4.4-7-9.3A4.2 4.2 0 0 1 12 7.7a4.2 4.2 0 0 1 7 3C19 15.6 12 20 12 20z'/></svg>") !important;
+      }
+
+      /* ================================================================
+         PRODUCT IMAGE PLATE — 4:5 to 3:4 across every card on the page.
+         3:4 is TALLER than 4:5, so the product image gets more room, not
+         less. Card width is unchanged, so the card simply grows to suit.
+         ================================================================ */
+      ._cardVisual_sycmm_1,.vgr-swm-visual{
+        aspect-ratio:3 / 4 !important;
+      }
+
+      /* the two sourced rails behave exactly like the bestsellers rail */
+      .vgr-aud-rail{scroll-snap-type:x mandatory;}
+      .vgr-aud-rail::-webkit-scrollbar{display:none;}
+      .vgr-aud-rail > *{scroll-snap-align:start;}
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -1842,6 +1885,43 @@ Error generating stack: `+e.message+`
           +   '<div class="vgr-swm-bar"><i style="width:72%"></i></div>'
           +   '<div class="vgr-swm-cta">Add to cart</div>'
           + '</div></a>';
+      }
+
+      const AUD_HER=[{"slug": "vgr-v-583-automatic-hair-curler", "name": "VGR V-583 Automatic Hair Curler For Women (Green)", "image": "https://vgrofficial.in/cdn/shop/files/freepik_change-the-face-expression-of-model_0001_4.png?v=1774473579&width=1200", "category": "Hair Curler", "badge": "Viral", "audience": "women", "price": 3799.0, "oldPrice": 5199.0, "rating": 4.5, "features": ["Automatic curl chamber", "Smart heat control", "Anti-tangle"]}, {"slug": "vgr-v-511-hair-straightener-for-women-white", "name": "VGR V-511 Hair Straightener For Women, White", "image": "https://vgrofficial.in/cdn/shop/files/511.1.webp?v=1741061727&width=1200", "category": "Hair Straightener", "badge": "Sleek finish", "audience": "women", "price": 2249.0, "oldPrice": 2699.0, "rating": 4.5, "features": ["Ceramic plates", "Adjustable temperature", "Fast heat-up"]}, {"slug": "vgr-v-492-hot-air-brush-black", "name": "VGR V-492 Professional Hot Air Brush for Women (1000W, Black)", "image": "https://vgrofficial.in/cdn/shop/files/VGR_V-492_Hot_Air_Brush.webp?v=1764066945&width=1200", "category": "Hair Volumizer", "badge": "Volume", "audience": "women", "price": 2299.0, "oldPrice": 2999.0, "rating": 4.3, "features": ["1000W airflow", "Volume brush", "Ionic care"]}, {"slug": "vgr-epilator-for-women", "name": "VGR V-722 Professional 2 in 1 Cordless Epilator for Women", "image": "https://cdn.shopify.com/s/files/1/0710/2716/3427/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM.webp?v=1741077204", "category": "Epilator", "badge": "2 in 1", "audience": "women", "price": 2499.0, "oldPrice": 2999.0, "rating": 4.6, "features": ["Cordless care", "Two heads", "Skin-friendly design"]}, {"slug": "vgr-v-421-hair-dryer-unisex-green", "name": "VGR V-421 Hair Dryer For Unisex, Green", "image": "https://vgrofficial.in/cdn/shop/files/00_5.webp?v=1740998949&width=1200", "category": "Hair Dryer", "badge": "Everyday", "audience": "women", "price": 1299.0, "oldPrice": 1799.0, "rating": 4.8, "features": ["Foldable handle", "Dual speed", "Cool shot"]}];
+      const AUD_HIM=[{"slug": "rosso-professional-beard-moustache-trimmer", "name": "VGR Rosso Professional Beard & Moustache Trimmer for Men (Red)", "image": "https://vgrofficial.in/cdn/shop/files/zqodvesbryao3p9ded8p.webp?v=1761639395&width=1200", "category": "Hair Trimmer", "badge": "Limited Edition", "audience": "men", "price": 1599.0, "oldPrice": 2499.0, "rating": 5.0, "features": ["400 min runtime", "Type-C fast charging", "Titanium coated blades"]}, {"slug": "vgr-v-071-hair-trimmer-for-men-silver", "name": "VGR V-071 Hair Trimmer For Men, Silver", "image": "https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T165614.742.jpg?v=1764417571&width=1200", "category": "Hair Trimmer", "badge": "Bestseller", "audience": "men", "price": 999.0, "oldPrice": 1399.0, "rating": 4.5, "features": ["5 speed control", "Digital display", "Cordless use"]}, {"slug": "vgr-v-290-hair-trimmer-for-men-gold", "name": "VGR V-290 Hair Trimmer For Men", "image": "https://vgrofficial.in/cdn/shop/files/13.webp?v=1760682705&width=1200", "category": "Hair Trimmer", "badge": "Icon", "audience": "men", "price": 1299.0, "oldPrice": 1599.0, "rating": 4.7, "features": ["Gold finish", "Digital runtime display", "Low-noise motor"]}, {"slug": "vgr-v-228-hair-trimmer-for-men", "name": "VGR V-228 Hair Trimmer For Men", "image": "https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T172334.182.jpg?v=1764417667&width=1200", "category": "Hair Trimmer", "badge": "Pro choice", "audience": "men", "price": 1899.0, "oldPrice": 2299.0, "rating": 4.7, "features": ["Metal body", "T-blade", "Digital display"]}, {"slug": "vgr-v-932-pocket-hair-trimmer-for-men-black", "name": "VGR V-932 Pocket Hair Trimmer For Men (Black)", "image": "https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T175257.449.jpg?v=1764419027&width=1200", "category": "Hair Trimmer", "badge": "Pocket pro", "audience": "men", "price": 1349.0, "oldPrice": 1699.0, "rating": 5.0, "features": ["Pocket-size body", "Close-cut blade", "USB-C charge"]}];
+
+      /* Two sourced rails placed under "Total range". They reuse cardHTML and
+         the site's own section/rail class names, so type, spacing and card
+         anatomy are identical to every other card on the page. */
+      function tok(prefix){
+        const el=document.querySelector('[class*="'+prefix+'"]');
+        if(!el) return '';
+        return (el.className.toString().split(/\s+/).find(c=>c.indexOf(prefix)===0))||'';
+      }
+      function buildAudienceSection(id,eyebrow,title,items,href){
+        const sec=document.createElement('section');
+        const sc=tok('_section_'); if(sc) sec.className=sc;
+        sec.id=id;
+        sec.innerHTML=
+          '<div class="'+tok('_sectionHead_')+'">'+
+            '<div><p class="'+tok('_eyebrow_')+'">'+eyebrow+'</p><h2>'+title+'</h2></div>'+
+            '<a class="'+tok('_textLink_')+'" href="'+href+'">View all \u2192</a>'+
+          '</div>'+
+          '<div class="'+tok('_productRail_')+' vgr-aud-rail">'+items.map(cardHTML).join('')+'</div>';
+        return sec;
+      }
+      function insertAudience(){
+        if(document.getElementById('vgr-for-her')) return true;
+        const range=[...document.querySelectorAll('section')]
+          .find(s=>/The complete edit/i.test(s.textContent||''));
+        if(!range || !range.parentElement) return false;
+        const her=buildAudienceSection('vgr-for-her','Made for her','For Her.',AUD_HER,
+                    'https://vgrofficial.in/collections/womens-grooming-tools');
+        const him=buildAudienceSection('vgr-for-him','Made for him','For The Man.',AUD_HIM,
+                    'https://vgrofficial.in/collections/vgr-personal-use-trimmer');
+        range.insertAdjacentElement('afterend', him);
+        range.insertAdjacentElement('afterend', her);
+        return true;
       }
 
       function buildSWM(){
@@ -2412,8 +2492,8 @@ Error generating stack: `+e.message+`
       }
 
       function poll(){
-        const a=insertSWM(), b=initReviews(), c=insertGP(), e=buildEngineering();
-        if(a&&b&&c&&e){
+        const a=insertSWM(), b=initReviews(), c=insertGP(), e=buildEngineering(), f=insertAudience();
+        if(a&&b&&c&&e&&f){
           initSticky();
           const gp=document.getElementById('vgr-global-presence');
           if(gp && !gp.dataset.tour){ gp.dataset.tour='1'; startGPTour(gp); }
