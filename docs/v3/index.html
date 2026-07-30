@@ -1820,6 +1820,55 @@
       .vgr-aud-rail::-webkit-scrollbar{display:none;}
       .vgr-aud-rail > *{scroll-snap-align:start;}
 
+
+      /* ================================================================
+         MOBILE ONLY — VGR edit banner now dissolves into the section
+         instead of terminating on a hard horizontal edge, and the whole
+         section is tightened. Desktop is untouched.
+         ================================================================ */
+      @media (max-width:900px){
+        .vgr-swm{
+          /* was 55.8vw + 24px top / 60px bottom */
+          padding-top:calc(42vw + 12px) !important;
+          padding-bottom:38px !important;
+        }
+        .vgr-swm-bg{
+          /* constrain the layer, then feather its lower edge away so the
+             photo blends into the section teal rather than cutting off */
+          inset:0 0 auto 0 !important;
+          height:52vw !important;
+          background-size:cover !important;
+          background-position:center 26% !important;
+          -webkit-mask-image:linear-gradient(180deg,
+            #000 0%, #000 40%, rgba(0,0,0,.72) 62%,
+            rgba(0,0,0,.30) 82%, rgba(0,0,0,0) 100%) !important;
+                  mask-image:linear-gradient(180deg,
+            #000 0%, #000 40%, rgba(0,0,0,.72) 62%,
+            rgba(0,0,0,.30) 82%, rgba(0,0,0,0) 100%) !important;
+          -webkit-mask-size:100% 100% !important;
+                  mask-size:100% 100% !important;
+          -webkit-mask-repeat:no-repeat !important;
+                  mask-repeat:no-repeat !important;
+        }
+        /* the mask handles the blend, so the old opacity ramp would only
+           double-tint the photo */
+        .vgr-swm-scrim{
+          background:linear-gradient(180deg,
+            rgba(6,90,90,.10) 0%, rgba(6,90,90,0) 26vw,
+            rgba(10,151,151,0) 40vw, rgba(10,151,151,.55) 50vw,
+            #0a9797 56vw) !important;
+        }
+        /* tighten the copy block */
+        .vgr-swm-eyebrow{margin-bottom:9px !important;}
+        .vgr-swm h2{margin-bottom:8px !important;}
+        .vgr-swm-sub{margin-bottom:18px !important;}
+        .vgr-swm-tabs{margin-bottom:18px !important;}
+      }
+      @media (max-width:430px){
+        .vgr-swm{padding-top:calc(44vw + 10px) !important;}
+        .vgr-swm-bg{height:54vw !important;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
