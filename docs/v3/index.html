@@ -1712,6 +1712,71 @@
         ._slide_sycmm_1._active_sycmm_1 video{animation:none !important;transform:none !important;}
       }
 
+
+      /* ================================================================
+         MOBILE MENU — arrows dropped, category marks added.
+         Row height stays 52px so the drawer footprint is unchanged.
+         ================================================================ */
+      ._mobileNav_sycmm_1{
+        padding-top:8px !important;
+      }
+      ._mobileNav_sycmm_1 a{
+        display:flex !important;
+        align-items:center !important;
+        gap:14px !important;
+        min-height:52px !important;
+        padding:0 4px !important;
+        font-size:14px !important;
+        font-weight:600 !important;
+        letter-spacing:.005em !important;
+        color:#0f0f0f !important;
+        border-bottom:1px solid #efefef !important;
+        transition:color .2s ease !important;
+      }
+      ._mobileNav_sycmm_1 a:last-child{border-bottom:0 !important;}
+      ._mobileNav_sycmm_1 a:active{color:#0a9797 !important;}
+      /* the trailing arrow glyph */
+      ._mobileNav_sycmm_1 a > span{display:none !important;}
+      /* category mark in a soft teal chip */
+      ._mobileNav_sycmm_1 a::before{
+        content:'' !important;
+        flex:0 0 auto !important;
+        width:36px !important;height:36px !important;
+        border-radius:50% !important;
+        background-color:#f1fafa !important;
+        background-repeat:no-repeat !important;
+        background-position:center !important;
+        background-size:19px 19px !important;
+        border:1px solid #e0f0f0 !important;
+      }
+      /* 1 Men — trimmer */
+      ._mobileNav_sycmm_1 a:nth-child(1)::before{
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a9797' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><rect x='9' y='8' width='6' height='12' rx='1.6'/><path d='M8.6 8h6.8l-.6-2.2H9.2z'/><path d='M9.7 5.8V4M11.3 5.8V4M12.9 5.8V4M14.5 5.8V4'/></svg>");
+      }
+      /* 2 Women — hot air brush */
+      ._mobileNav_sycmm_1 a:nth-child(2)::before{
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a9797' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='7' width='9' height='7' rx='3.5'/><path d='M13 10.5h4'/><path d='M8 14v3a3 3 0 0 0 3 3h1'/><path d='M6.5 5.6V7M9 5.2V7M11.5 5.6V7'/></svg>");
+      }
+      /* 3 Professional — scissors */
+      ._mobileNav_sycmm_1 a:nth-child(3)::before{
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a9797' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><circle cx='6.5' cy='18' r='2.3'/><circle cx='17.5' cy='18' r='2.3'/><path d='M8.1 16.3 17 4.6'/><path d='M15.9 16.3 7 4.6'/></svg>");
+      }
+      /* 4 Pet — paw */
+      ._mobileNav_sycmm_1 a:nth-child(4)::before{
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a9797' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><circle cx='7.6' cy='9.4' r='1.8'/><circle cx='12' cy='7.6' r='1.8'/><circle cx='16.4' cy='9.4' r='1.8'/><path d='M12 12.4c2.9 0 4.9 1.9 4.9 4S14.9 20 12 20s-4.9-1.5-4.9-3.6 2-4 4.9-4z'/></svg>");
+      }
+      /* 5 Lifestyle — garment */
+      ._mobileNav_sycmm_1 a:nth-child(5)::before{
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a9797' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M9 4l3 1.8L15 4l4.5 3-2.2 3.2-1.3-.8V20H8V9.4l-1.3.8L4.5 7z'/></svg>");
+      }
+      /* 6 Baby care — bottle */
+      ._mobileNav_sycmm_1 a:nth-child(6)::before{
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a9797' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M10.2 3.2h3.6v2.6h-3.6z'/><path d='M9.2 5.8h5.6V19a2 2 0 0 1-2 2h-1.6a2 2 0 0 1-2-2z'/><path d='M9.6 10.4h4.8M9.6 13.6h4.8'/></svg>");
+      }
+      @media (prefers-reduced-motion:reduce){
+        ._mobileNav_sycmm_1 a{transition:none !important;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
