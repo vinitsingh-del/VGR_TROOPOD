@@ -6,7 +6,91 @@
     <meta name="theme-color" content="#0f0f0f" />
     <meta name="description" content="Explore VGR professional grooming tools for men, women, professionals, pets, baby care and everyday essentials." />
     <title>VGR Voyager — Professional Grooming Tools</title>
-    <style>html,body,#root{min-height:100%;margin:0}body{background:#fff}</style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+
+    <style>
+      html,body,#root{min-height:100%;margin:0}
+      body{background:#fff}
+
+      /* ---- base typography fix ---- */
+      /* the CSS references var(--font-geist-sans) but never defines it,
+         which made the browser fall back to serif. define it here. */
+      :root{
+        --font-geist-sans:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+      }
+      body,._shell_sycmm_1{
+        font-family:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+        text-rendering:optimizeLegibility;
+      }
+
+      /* ---- top offer strip ---- */
+      ._offer_sycmm_1{
+        letter-spacing:.18em;
+        font-weight:500;
+        font-size:10.5px;
+      }
+
+      /* ---- head note (VGR Voyager · India) ---- */
+      ._headNote_sycmm_1{
+        letter-spacing:.02em;
+        color:#6a6a6a;
+        font-size:12.5px;
+        font-weight:400;
+      }
+
+      /* ---- primary category nav ---- */
+      ._navRow_sycmm_1{
+        border-top:1px solid #ececec;
+      }
+      ._nav_sycmm_1{
+        letter-spacing:.16em;
+        font-size:11.5px;
+        font-weight:500;
+        gap:clamp(20px,2.4vw,40px);
+      }
+      ._nav_sycmm_1 a{
+        color:#1a1a1a;
+        border-bottom-width:1px;
+        transition:color .18s ease,border-color .18s ease;
+      }
+      ._nav_sycmm_1 a:hover{
+        color:var(--teal);
+        border-color:var(--teal);
+      }
+
+      /* ---- icon buttons ---- */
+      ._iconButton_sycmm_1,._menuButton_sycmm_1{
+        min-width:40px;
+        height:40px;
+      }
+
+      /* ---- count badges ---- */
+      /* switching from bright teal to ink so a "0" count doesn't shout */
+      ._badge_sycmm_1{
+        width:15px;
+        height:15px;
+        font-size:9px;
+        font-weight:500;
+        background:#1a1a1a;
+        top:4px;
+        right:4px;
+        letter-spacing:0;
+      }
+
+      /* ---- medium-viewport tighten ---- */
+      @media (min-width:901px) and (max-width:1500px){
+        ._nav_sycmm_1{
+          letter-spacing:.14em;
+          font-size:10.5px;
+        }
+      }
+    </style>
+
     <script type="module" crossorigin src="/VGR_TROOPOD/v2/assets/index-sd19kb2V.js"></script>
     <link rel="stylesheet" crossorigin href="/VGR_TROOPOD/v2/assets/index-CUi2HLOh.css">
   </head>
