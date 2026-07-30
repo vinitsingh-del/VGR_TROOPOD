@@ -1869,6 +1869,245 @@
         .vgr-swm-bg{height:54vw !important;}
       }
 
+
+      /* ================================================================
+         QUICK VIEW — gallery arrows on the card image
+         ================================================================ */
+      .vgr-qv{position:relative !important;}
+      .vgr-qv img{transition:opacity .16s linear !important;}
+      .vgr-qv-btn{
+        position:absolute; top:50%; transform:translateY(-50%);
+        z-index:4;
+        display:grid; place-items:center;
+        width:36px; height:36px; border-radius:50%;
+        background:rgba(255,255,255,.94);
+        color:#0f0f0f; font-size:20px; font-weight:700; line-height:1;
+        box-shadow:0 2px 10px rgba(0,0,0,.18);
+        cursor:pointer; user-select:none;
+        opacity:0; transition:opacity .2s ease, background .2s ease;
+      }
+      .vgr-qv-prev{left:8px;}
+      .vgr-qv-next{right:8px;}
+      .vgr-qv:hover .vgr-qv-btn,
+      .vgr-qv-btn:focus-visible{opacity:1;}
+      .vgr-qv-btn:hover{background:#fff; color:#0a9797;}
+      .vgr-qv-count{
+        position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+        z-index:4;
+        background:rgba(15,15,15,.72); color:#fff;
+        font-size:9.5px; font-weight:700; letter-spacing:.08em;
+        padding:3px 8px; border-radius:999px;
+        opacity:0; transition:opacity .2s ease;
+      }
+      .vgr-qv:hover .vgr-qv-count{opacity:1;}
+      /* touch has no hover: arrows and counter stay visible and are 44px */
+      @media (hover:none),(max-width:900px){
+        .vgr-qv-btn{opacity:1 !important; width:44px; height:44px; font-size:23px;}
+        .vgr-qv-count{opacity:1 !important; font-size:11px; padding:4px 10px;}
+        .vgr-qv-prev{left:6px;} .vgr-qv-next{right:6px;}
+      }
+
+      /* ================================================================
+         PRODUCT CARD — plate to square 1:1 and the whole card tightened
+         ================================================================ */
+      ._cardVisual_sycmm_1,.vgr-swm-visual{aspect-ratio:1 / 1 !important;}
+
+      ._cardInfo_sycmm_1,.vgr-swm-info{padding:12px !important;}
+      ._meta_sycmm_1,.vgr-swm-meta{min-height:12px !important;}
+      ._cardInfo_sycmm_1 h3,.vgr-swm-name{
+        font-size:12.5px !important; line-height:1.3 !important;
+        margin:5px 0 7px !important;
+        height:calc(2 * 1.3 * 12.5px) !important;
+        min-height:calc(2 * 1.3 * 12.5px) !important;
+      }
+      ._rating_sycmm_1,.vgr-swm-rating{
+        font-size:10.5px !important; min-height:13px !important; margin-bottom:7px !important;
+      }
+      ._rating_sycmm_1 small,.vgr-swm-rating small{font-size:10.5px !important;}
+      .vgr-usp,.vgr-swm-usp{
+        gap:4px !important; margin-bottom:8px !important; min-height:38px !important;
+      }
+      .vgr-usp span,.vgr-swm-usp span{font-size:9px !important; padding:3px 6px !important;}
+      ._price_sycmm_1,.vgr-swm-price{min-height:18px !important; gap:6px !important;}
+      ._price_sycmm_1 strong,.vgr-swm-price strong{font-size:15px !important;}
+      ._price_sycmm_1 del,.vgr-swm-price del{font-size:10.5px !important;}
+      .vgr-why{padding:6px 8px !important; margin-top:8px !important;}
+      .vgr-why b{font-size:8.5px !important; margin-bottom:2px !important;}
+      .vgr-why span{font-size:10px !important; line-height:1.35 !important; min-height:27px !important;}
+      ._add_sycmm_1,.vgr-swm-cta{
+        margin-top:9px !important; min-height:36px !important; font-size:9.5px !important;
+      }
+      ._pill_sycmm_1,.vgr-swm-pill{font-size:9px !important; padding:5px 8px !important;}
+      ._wish_sycmm_1,.vgr-swm-wish{width:30px !important; height:30px !important; background-size:15px 15px !important;}
+
+      /* mobile keeps the tighter card but never breaks the 11px / 44px floors */
+      @media (max-width:900px){
+        ._cardInfo_sycmm_1,.vgr-swm-info{padding:13px !important;}
+        ._meta_sycmm_1,.vgr-swm-meta{font-size:11px !important; min-height:14px !important;}
+        ._cardInfo_sycmm_1 h3,.vgr-swm-name{
+          font-size:13px !important;
+          height:calc(2 * 1.3 * 13px) !important; min-height:calc(2 * 1.3 * 13px) !important;
+        }
+        ._rating_sycmm_1,.vgr-swm-rating{font-size:11px !important;}
+        ._rating_sycmm_1 small,.vgr-swm-rating small{font-size:11px !important;}
+        .vgr-usp span,.vgr-swm-usp span{font-size:11px !important; padding:4px 7px !important;}
+        /* 53px is the worst-case tag wrap at this width; setting the floor
+           there makes every card on every rail the same height without any
+           clipping */
+        .vgr-usp,.vgr-swm-usp{min-height:53px !important;}
+        .vgr-why b{font-size:11px !important;}
+        .vgr-why span{font-size:11px !important; min-height:30px !important;}
+        ._price_sycmm_1 strong,.vgr-swm-price strong{font-size:15px !important;}
+        ._price_sycmm_1 del,.vgr-swm-price del{font-size:11px !important;}
+        ._add_sycmm_1,.vgr-swm-cta{min-height:44px !important; font-size:11px !important;}
+        ._pill_sycmm_1,.vgr-swm-pill{font-size:11px !important;}
+        ._wish_sycmm_1,.vgr-swm-wish{width:44px !important; height:44px !important; background-size:17px 17px !important;}
+      }
+
+
+      /* ---- final tightening pass on the card ---- */
+      ._cardVisual_sycmm_1,.vgr-swm-visual{
+        border-bottom:0 !important;          /* the 1px border broke exact 1:1 */
+        box-sizing:border-box !important;
+      }
+      ._cardInfo_sycmm_1,.vgr-swm-info{padding:10px 11px 11px !important;}
+      ._cardInfo_sycmm_1 h3,.vgr-swm-name{margin:4px 0 6px !important;}
+      ._rating_sycmm_1,.vgr-swm-rating{margin-bottom:6px !important;}
+      .vgr-usp,.vgr-swm-usp{margin-bottom:7px !important;}
+      .vgr-why{padding:5px 7px !important;margin-top:7px !important;}
+      .vgr-why span{min-height:25px !important;}
+      ._add_sycmm_1,.vgr-swm-cta{margin-top:8px !important;min-height:34px !important;}
+      @media (max-width:900px){
+        ._cardInfo_sycmm_1,.vgr-swm-info{padding:12px !important;}
+        ._add_sycmm_1,.vgr-swm-cta{min-height:44px !important;}
+      }
+
+
+      /* the plate must be governed by aspect-ratio alone; an in-flow image
+         was adding 4px and breaking exact 1:1 on the VGR-edit cards */
+      ._cardVisual_sycmm_1,.vgr-swm-visual{
+        position:relative !important;
+        aspect-ratio:1 / 1 !important;
+        height:auto !important;
+        min-height:0 !important;
+        overflow:hidden !important;
+        display:block !important;
+      }
+      ._cardVisual_sycmm_1 > img,.vgr-swm-visual > img{
+        position:absolute !important;
+        inset:0 !important;
+        width:100% !important;
+        height:100% !important;
+        object-fit:contain !important;
+        padding:8px !important;
+        box-sizing:border-box !important;
+      }
+
+
+      /* ================================================================
+         PRODUCT CARD — square 1:1 plate + tightened rows.
+         Nothing removed; every row and the symmetry spec are intact.
+         ================================================================ */
+      ._cardVisual_sycmm_1,.vgr-swm-visual{
+        aspect-ratio:1 / 1 !important;
+        overflow:hidden !important;
+      }
+      @media (min-width:901px){
+        ._cardInfo_sycmm_1,.vgr-swm-info{padding:12px !important;}
+        ._meta_sycmm_1,.vgr-swm-meta{font-size:9.5px !important;min-height:12px !important;}
+        ._cardInfo_sycmm_1 h3,.vgr-swm-name{
+          font-size:12.5px !important;line-height:1.3 !important;
+          margin:5px 0 6px !important;
+          height:calc(2 * 1.3 * 12.5px) !important;min-height:calc(2 * 1.3 * 12.5px) !important;
+        }
+        ._rating_sycmm_1,.vgr-swm-rating{font-size:10.5px !important;min-height:14px !important;margin-bottom:6px !important;}
+        ._rating_sycmm_1 small,.vgr-swm-rating small{font-size:10px !important;}
+        /* fixed to exactly two tag rows: uniform across rails, and tall
+           enough that the longest tag pair still cannot be clipped */
+        .vgr-usp,.vgr-swm-usp{
+          height:44px !important;min-height:44px !important;max-height:44px !important;
+          gap:4px !important;margin-bottom:6px !important;
+          overflow:hidden !important;align-content:flex-start !important;
+        }
+        .vgr-usp span,.vgr-swm-usp span{font-size:9px !important;padding:3px 6px !important;}
+        ._price_sycmm_1 strong,.vgr-swm-price strong{font-size:15px !important;}
+        ._price_sycmm_1 del,.vgr-swm-price del{font-size:10.5px !important;}
+        ._price_sycmm_1,.vgr-swm-price{min-height:19px !important;}
+        .vgr-why{padding:6px 8px !important;margin-top:7px !important;margin-bottom:0 !important;}
+        .vgr-why b{font-size:8.5px !important;margin-bottom:2px !important;}
+        .vgr-why span{font-size:10px !important;line-height:1.32 !important;min-height:26px !important;}
+        ._add_sycmm_1,.vgr-swm-cta{min-height:36px !important;font-size:9.5px !important;margin-top:8px !important;}
+        ._pill_sycmm_1,.vgr-swm-pill{font-size:8.5px !important;padding:5px 8px !important;top:10px !important;left:10px !important;}
+        ._wish_sycmm_1,.vgr-swm-wish{width:30px !important;height:30px !important;background-size:15px 15px !important;top:8px !important;right:8px !important;}
+      }
+      @media (max-width:900px){
+        ._cardInfo_sycmm_1,.vgr-swm-info{padding:13px !important;}
+        ._cardInfo_sycmm_1 h3,.vgr-swm-name{margin:5px 0 7px !important;}
+        .vgr-usp,.vgr-swm-usp{
+          height:54px !important;min-height:54px !important;max-height:54px !important;
+          margin-bottom:7px !important;overflow:hidden !important;align-content:flex-start !important;
+        }
+        .vgr-why{margin-top:8px !important;padding:7px 9px !important;}
+        ._add_sycmm_1,.vgr-swm-cta{margin-top:9px !important;}
+      }
+
+      /* ================================================================
+         IN-CARD GALLERY (quick view) — arrows flick through the product's
+         own cleaned shots. Sits inside the plate, clear of pill + wishlist.
+         ================================================================ */
+      .vgr-gal{
+        position:absolute;inset:0;display:flex;
+        width:100%;height:100%;
+        transition:transform .42s cubic-bezier(.22,.61,.36,1);
+        will-change:transform;
+      }
+      .vgr-gal-img{
+        flex:0 0 100%;width:100%;height:100%;
+        object-fit:contain;background:#fff;display:block;padding:4%;
+      }
+      .vgr-gal-nav{position:absolute;inset:0;pointer-events:none;z-index:4;}
+      .vgr-gal-btn{
+        position:absolute;top:50%;transform:translateY(-50%);
+        width:30px;height:30px;border-radius:50%;border:0;padding:0;
+        background:rgba(255,255,255,.94);
+        box-shadow:0 2px 9px rgba(0,0,0,.20);
+        cursor:pointer;pointer-events:auto;
+        opacity:0;transition:opacity .22s ease, background .2s ease;
+        background-repeat:no-repeat;background-position:center;background-size:15px 15px;
+      }
+      .vgr-gal-btn.prev{
+        left:8px;
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f0f0f' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'><path d='M15 5l-7 7 7 7'/></svg>");
+      }
+      .vgr-gal-btn.next{
+        right:8px;
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f0f0f' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'><path d='M9 5l7 7-7 7'/></svg>");
+      }
+      [class*="_card_"]:hover .vgr-gal-btn,
+      .vgr-swm-card:hover .vgr-gal-btn,
+      .vgr-gal-btn:focus-visible{opacity:1;}
+      .vgr-gal-btn:hover{background-color:#fff;}
+      .vgr-gal-dots{
+        position:absolute;left:0;right:0;bottom:7px;z-index:4;
+        display:flex;justify-content:center;gap:5px;pointer-events:none;
+      }
+      .vgr-gal-dots i{
+        width:5px;height:5px;border-radius:50%;
+        background:rgba(15,15,15,.24);transition:background .2s ease,transform .2s ease;
+        pointer-events:auto;cursor:pointer;
+      }
+      .vgr-gal-dots i.on{background:#0a9797;transform:scale(1.35);}
+
+      @media (max-width:900px){
+        /* touch has no hover, so keep the arrows visible and thumb-sized */
+        .vgr-gal-btn{opacity:1;width:34px;height:34px;background-size:17px 17px;}
+        .vgr-gal-btn::after{content:'';position:absolute;inset:-6px;}
+        .vgr-gal-dots i{width:6px;height:6px;}
+      }
+      @media (prefers-reduced-motion:reduce){
+        .vgr-gal{transition:none !important;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -1973,6 +2212,68 @@ Error generating stack: `+e.message+`
         return true;
       }
 
+      const GALIMG={"rosso-professional-beard-moustache-trimmer": ["rosso-professional-beard-moustache-trimmer-0.webp", "rosso-professional-beard-moustache-trimmer-1.webp", "rosso-professional-beard-moustache-trimmer-2.webp", "rosso-professional-beard-moustache-trimmer-3.webp"], "vgr-epilator-for-women": ["vgr-epilator-for-women-0.webp", "vgr-epilator-for-women-1.webp", "vgr-epilator-for-women-2.webp"], "vgr-v-001-professional-hair-clipper-for-men-green": ["vgr-v-001-professional-hair-clipper-for-men-green-0.webp", "vgr-v-001-professional-hair-clipper-for-men-green-1.webp", "vgr-v-001-professional-hair-clipper-for-men-green-2.webp"], "vgr-v-055-hair-trimmer-for-men-black": ["vgr-v-055-hair-trimmer-for-men-black-0.webp", "vgr-v-055-hair-trimmer-for-men-black-1.webp", "vgr-v-055-hair-trimmer-for-men-black-2.webp", "vgr-v-055-hair-trimmer-for-men-black-3.webp"], "vgr-v-071-hair-trimmer-for-men-silver": ["vgr-v-071-hair-trimmer-for-men-silver-0.webp", "vgr-v-071-hair-trimmer-for-men-silver-1.webp"], "vgr-v-206-professional-pet-clipper": ["vgr-v-206-professional-pet-clipper-0.webp", "vgr-v-206-professional-pet-clipper-1.webp", "vgr-v-206-professional-pet-clipper-2.webp", "vgr-v-206-professional-pet-clipper-3.webp"], "vgr-v-208-professional-pet-hair-clipper": ["vgr-v-208-professional-pet-hair-clipper-0.webp"], "vgr-v-219-professional-pet-trimmer": ["vgr-v-219-professional-pet-trimmer-0.webp", "vgr-v-219-professional-pet-trimmer-1.webp"], "vgr-v-228-hair-trimmer-for-men": ["vgr-v-228-hair-trimmer-for-men-0.webp"], "vgr-v-240-professional-pet-trimmer": ["vgr-v-240-professional-pet-trimmer-0.webp", "vgr-v-240-professional-pet-trimmer-1.webp", "vgr-v-240-professional-pet-trimmer-2.webp"], "vgr-v-290-hair-trimmer-for-men-gold": ["vgr-v-290-hair-trimmer-for-men-gold-0.webp", "vgr-v-290-hair-trimmer-for-men-gold-1.webp"], "vgr-v-421-hair-dryer-unisex-green": ["vgr-v-421-hair-dryer-unisex-green-0.webp", "vgr-v-421-hair-dryer-unisex-green-1.webp", "vgr-v-421-hair-dryer-unisex-green-2.webp", "vgr-v-421-hair-dryer-unisex-green-3.webp"], "vgr-v-439-foldable-hair-dryer-black": ["vgr-v-439-foldable-hair-dryer-black-0.webp", "vgr-v-439-foldable-hair-dryer-black-1.webp", "vgr-v-439-foldable-hair-dryer-black-2.webp", "vgr-v-439-foldable-hair-dryer-black-3.webp"], "vgr-v-492-hot-air-brush-black": ["vgr-v-492-hot-air-brush-black-0.webp", "vgr-v-492-hot-air-brush-black-1.webp", "vgr-v-492-hot-air-brush-black-2.webp", "vgr-v-492-hot-air-brush-black-3.webp"], "vgr-v-511-hair-straightener-for-women-white": ["vgr-v-511-hair-straightener-for-women-white-0.webp", "vgr-v-511-hair-straightener-for-women-white-1.webp"], "vgr-v-583-automatic-hair-curler": ["vgr-v-583-automatic-hair-curler-0.webp", "vgr-v-583-automatic-hair-curler-1.webp"], "vgr-v-597-hair-curling-iron-for-women": ["vgr-v-597-hair-curling-iron-for-women-0.webp", "vgr-v-597-hair-curling-iron-for-women-1.webp", "vgr-v-597-hair-curling-iron-for-women-2.webp", "vgr-v-597-hair-curling-iron-for-women-3.webp"], "vgr-v-640hd-professional-hair-dryer-barber-series": ["vgr-v-640hd-professional-hair-dryer-barber-series-0.webp", "vgr-v-640hd-professional-hair-dryer-barber-series-1.webp", "vgr-v-640hd-professional-hair-dryer-barber-series-2.webp", "vgr-v-640hd-professional-hair-dryer-barber-series-3.webp"], "vgr-v-932-pocket-hair-trimmer-for-men-black": ["vgr-v-932-pocket-hair-trimmer-for-men-black-0.webp", "vgr-v-932-pocket-hair-trimmer-for-men-black-1.webp", "vgr-v-932-pocket-hair-trimmer-for-men-black-2.webp", "vgr-v-932-pocket-hair-trimmer-for-men-black-3.webp"], "vgr-v-937-hair-trimmer-for-men-black": ["vgr-v-937-hair-trimmer-for-men-black-0.webp", "vgr-v-937-hair-trimmer-for-men-black-1.webp", "vgr-v-937-hair-trimmer-for-men-black-2.webp", "vgr-v-937-hair-trimmer-for-men-black-3.webp"]};
+      const NAME2SLUG={"vgrrossoprofessionalbeardmoustachetrimmerformenred": "rosso-professional-beard-moustache-trimmer", "vgrv071hairtrimmerformensilver": "vgr-v-071-hair-trimmer-for-men-silver", "vgrv937hairtrimmerformenblack": "vgr-v-937-hair-trimmer-for-men-black", "vgrv290hairtrimmerformen": "vgr-v-290-hair-trimmer-for-men-gold", "vgrv228hairtrimmerformen": "vgr-v-228-hair-trimmer-for-men", "vgrv055hairtrimmerformenblack": "vgr-v-055-hair-trimmer-for-men-black", "vgrv932pockethairtrimmerformenblack": "vgr-v-932-pocket-hair-trimmer-for-men-black", "vgrv001professionalhairclipperformenred": "vgr-v-001-professional-hair-clipper-for-men-green", "vgrv583automatichaircurlerforwomengreen": "vgr-v-583-automatic-hair-curler", "vgrv722professional2in1cordlessepilatorforwomen": "vgr-epilator-for-women", "vgrv5975barrelhaircurlerforwomengreen": "vgr-v-597-hair-curling-iron-for-women", "vgrv511hairstraightenerforwomenwhite": "vgr-v-511-hair-straightener-for-women-white", "vgrv492professionalhotairbrushforwomen1000wblack": "vgr-v-492-hot-air-brush-black", "vgrv439foldablehairdryerforunisexblack": "vgr-v-439-foldable-hair-dryer-black", "vgrv640hdprofessionalhairdryerbarberseries": "vgr-v-640hd-professional-hair-dryer-barber-series", "vgrv421hairdryerforunisexgreen": "vgr-v-421-hair-dryer-unisex-green", "vgrv240professionalpettrimmer": "vgr-v-240-professional-pet-trimmer", "vgrv208professionalpetclipperfordogscatsallanimals": "vgr-v-208-professional-pet-hair-clipper", "vgrv219professionalpettrimmer": "vgr-v-219-professional-pet-trimmer", "vgrv206professionalpetclipperheavydutygroomingkit": "vgr-v-206-professional-pet-clipper"};
+
+      /* ---- in-card image carousel (quick view) -------------------- */
+      function galNorm(s){ return (s||'').toLowerCase().replace(/[^a-z0-9]/g,''); }
+      function enhanceGalleries(){
+        const vis=[...document.querySelectorAll('[class*="_cardVisual_"], .vgr-swm-visual')];
+        let done=0;
+        vis.forEach(v=>{
+          if(v.dataset.gal) return;
+          const card=v.closest('.vgr-swm-card') || v.closest('[class*="_card_"]');
+          if(!card) return;
+          const nameEl=card.querySelector('.vgr-swm-name, h3');
+          if(!nameEl) return;
+          const slug=NAME2SLUG[galNorm(nameEl.textContent)];
+          const files=slug?GALIMG[slug]:null;
+          if(!files || !files.length) return;
+          v.dataset.gal='1'; done++;
+
+          const keep=v.querySelector('img');
+          const alt=(keep&&keep.alt)||nameEl.textContent.trim();
+          const track=document.createElement('div');
+          track.className='vgr-gal';
+          track.innerHTML=files.map((f,i)=>
+            '<img class="vgr-gal-img" src="img/'+f+'" alt="'+alt+'" '+
+            (i?'loading="lazy" ':'')+'decoding="async">').join('');
+          if(keep) keep.remove();
+          v.insertBefore(track, v.firstChild);
+
+          if(files.length>1){
+            const nav=document.createElement('div');
+            nav.className='vgr-gal-nav';
+            nav.innerHTML='<button class="vgr-gal-btn prev" type="button" aria-label="Previous image"></button>'+
+                          '<button class="vgr-gal-btn next" type="button" aria-label="Next image"></button>';
+            const dots=document.createElement('div');
+            dots.className='vgr-gal-dots';
+            dots.innerHTML=files.map((_,i)=>'<i'+(i?'':' class="on"')+'></i>').join('');
+            v.appendChild(nav); v.appendChild(dots);
+            let k=0;
+            const go=n=>{
+              k=(n+files.length)%files.length;
+              track.style.transform='translateX('+(-k*100)+'%)';
+              [...dots.children].forEach((d,i)=>d.className=i===k?'on':'');
+            };
+            const stop=e=>{e.preventDefault();e.stopPropagation();};
+            nav.querySelector('.prev').addEventListener('click',e=>{stop(e);go(k-1);});
+            nav.querySelector('.next').addEventListener('click',e=>{stop(e);go(k+1);});
+            [...dots.children].forEach((d,i)=>d.addEventListener('click',e=>{stop(e);go(i);}));
+            /* swipe on touch */
+            let x0=null;
+            v.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+            v.addEventListener('touchend',e=>{
+              if(x0===null) return;
+              const dx=e.changedTouches[0].clientX-x0;
+              if(Math.abs(dx)>36) go(k+(dx<0?1:-1));
+              x0=null;
+            },{passive:true});
+          }
+        });
+        return done;
+      }
+
       function buildSWM(){
         const wrap=document.createElement("section");
         wrap.className="vgr-swm"; wrap.id="vgr-start-matters";
@@ -1998,6 +2299,7 @@ Error generating stack: `+e.message+`
           Array.from(tabsRow.children).forEach(b=>b.classList.toggle("active", b.dataset.tab===tab));
           Object.keys(layers).forEach(t=>layers[t].classList.toggle("on", t===tab));
           grid.innerHTML=(TABS[tab]||[]).map(cardHTML).join("");
+          try{ enhanceGalleries(); }catch(_){}   /* tab swap rebuilds cards */
         }
         TAB_ORDER.forEach((t,i)=>{
           const b=document.createElement("button");
@@ -2337,6 +2639,64 @@ Error generating stack: `+e.message+`
          Typography animation controller (additive; runs after the
          injected sections exist so nothing is missed)
          ============================================================ */
+      const GAL={"rosso-professional-beard-moustache-trimmer": ["https://vgrofficial.in/cdn/shop/files/zqodvesbryao3p9ded8p.webp?v=1761639395&width=800", "https://vgrofficial.in/cdn/shop/files/Red_trimmer_with_digital_display_7000_RPM.webp?v=1764308586&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_Trimmer_400_Runtime.webp?v=1764308546&width=800", "https://vgrofficial.in/cdn/shop/files/p8ua4c8ywkihlerdrhgq.webp?v=1761639395&width=800"], "vgr-epilator-for-women": ["https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM.webp?v=1741077204&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM_3.webp?v=1741077204&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM_1.webp?v=1741077204&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM_4.webp?v=1741077204&width=800"], "vgr-v-001-professional-hair-clipper-for-men-green": ["https://vgrofficial.in/cdn/shop/files/533af7b5-a57f-4726-b636-006a90caab6c.jpg?v=1764419222&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_V-001_TRIMMER_1.webp?v=1764419222&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_V-001.webp?v=1764419222&width=800", "https://vgrofficial.in/cdn/shop/files/f18d2493-2c80-4bcc-9c03-004efaa65e01.webp?v=1764419222&width=800"], "vgr-v-055-hair-trimmer-for-men-black": ["https://vgrofficial.in/cdn/shop/files/1.1_34.jpg?v=1764417530&width=800", "https://vgrofficial.in/cdn/shop/files/Artboard_3_1_a69420a7-c61b-4bae-a49e-c816f8244054.webp?v=1764417530&width=800", "https://vgrofficial.in/cdn/shop/files/Artboard_1_2.webp?v=1764417530&width=800", "https://vgrofficial.in/cdn/shop/files/Artboard_5_1_ecfab0a5-4cc4-4466-ace6-a5f05589305f.webp?v=1764417530&width=800"], "vgr-v-071-hair-trimmer-for-men-silver": ["https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T165614.742.jpg?v=1764417571&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2025-10-08_at_12.31.00_2.webp?v=1764417571&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2025-10-08_at_12.31.00.webp?v=1764417571&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2025-10-08_at_12.31.01.webp?v=1764417571&width=800"], "vgr-v-206-professional-pet-clipper": ["https://vgrofficial.in/cdn/shop/files/51UZUY0-d5L._SX679.jpg?v=1744891654&width=800", "https://vgrofficial.in/cdn/shop/files/51X0d_49HXL._SX679.jpg?v=1744891654&width=800", "https://vgrofficial.in/cdn/shop/files/51EhgmD0GZL._SX679.jpg?v=1744891654&width=800", "https://vgrofficial.in/cdn/shop/files/512biKma-wL._SX679.jpg?v=1744891654&width=800"], "vgr-v-208-professional-pet-hair-clipper": ["https://vgrofficial.in/cdn/shop/files/1.1_10.webp?v=1741413726&width=800", "https://vgrofficial.in/cdn/shop/files/7_1.webp?v=1741413726&width=800", "https://vgrofficial.in/cdn/shop/files/5_1_5ba3179f-8c35-4d73-a429-1fe1065dc4e9.webp?v=1741413726&width=800", "https://vgrofficial.in/cdn/shop/files/1_1_577872fe-18c2-49e8-bc95-0a96a2b13a4e.webp?v=1741413726&width=800"], "vgr-v-219-professional-pet-trimmer": ["https://vgrofficial.in/cdn/shop/files/1_40e1c774-cd0c-4d0d-8a6e-899468e933a7.jpg?v=1764840142&width=800", "https://vgrofficial.in/cdn/shop/files/1_2_969b5764-4468-429b-b224-daf0af6d673a.webp?v=1761391612&width=800", "https://vgrofficial.in/cdn/shop/files/5_92812f53-0c71-4d35-aaed-e414c464a2cd.webp?v=1764840142&width=800", "https://vgrofficial.in/cdn/shop/files/2_18fc18a4-ea13-4f38-bc70-c93aeae7cf30.webp?v=1764840142&width=800"], "vgr-v-228-hair-trimmer-for-men": ["https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T172334.182.jpg?v=1764417667&width=800", "https://vgrofficial.in/cdn/shop/files/2_48fd9cae-b71f-41fe-b24b-5df10e9176d2.webp?v=1764417667&width=800", "https://vgrofficial.in/cdn/shop/files/5_6c91ed8c-dbf5-45f2-8e5e-ce44ed67b399.webp?v=1764417667&width=800", "https://vgrofficial.in/cdn/shop/files/3_3acf3d9b-07d1-4633-b8d0-3293290a759a.webp?v=1764417667&width=800"], "vgr-v-240-professional-pet-trimmer": ["https://vgrofficial.in/cdn/shop/files/1.2_e9c91266-3e76-42ce-bb2c-c1f27444c34d.webp?v=1761392824&width=800", "https://vgrofficial.in/cdn/shop/files/1.1_eb7ef5e6-b556-4189-b080-859056673e74.webp?v=1761392756&width=800", "https://vgrofficial.in/cdn/shop/files/4_147c629a-edc7-469a-a222-118ef28103e8.webp?v=1761392756&width=800", "https://vgrofficial.in/cdn/shop/files/2_4d8abae4-1754-46f7-9678-ebe1a471aa60.webp?v=1761392756&width=800"], "vgr-v-290-hair-trimmer-for-men-gold": ["https://vgrofficial.in/cdn/shop/files/13.webp?v=1760682705&width=800", "https://vgrofficial.in/cdn/shop/files/TMRG5KYRY4ZRN9JT_4.webp?v=1764845399&width=800", "https://vgrofficial.in/cdn/shop/files/TMRG5KYRY4ZRN9JT_5.webp?v=1764845399&width=800", "https://vgrofficial.in/cdn/shop/files/TMRG5KYRY4ZRN9JT_6.webp?v=1764845399&width=800"], "vgr-v-421-hair-dryer-unisex-green": ["https://vgrofficial.in/cdn/shop/files/00_5.webp?v=1740998949&width=800", "https://vgrofficial.in/cdn/shop/files/05_9_8400fcf7-0362-4799-ac77-d47b23310082.webp?v=1740998949&width=800", "https://vgrofficial.in/cdn/shop/files/03_12.webp?v=1740998949&width=800", "https://vgrofficial.in/cdn/shop/files/02_12.webp?v=1740998949&width=800"], "vgr-v-439-foldable-hair-dryer-black": ["https://vgrofficial.in/cdn/shop/files/1.1_f44fa006-2edf-4d52-951b-aae983808a85.webp?v=1750416453&width=800", "https://vgrofficial.in/cdn/shop/files/4_33d9b101-f0ce-43d0-a6cb-cc92a7faf682.webp?v=1750416400&width=800", "https://vgrofficial.in/cdn/shop/files/3_316597d9-1c0d-439a-bcb5-633c3db64466.webp?v=1750416400&width=800", "https://vgrofficial.in/cdn/shop/files/5_4c4f5785-2458-4b03-a2cd-8eed7ec5911b.webp?v=1750416400&width=800"], "vgr-v-492-hot-air-brush-black": ["https://vgrofficial.in/cdn/shop/files/VGR_V-492_Hot_Air_Brush.webp?v=1764066945&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_V-492_Hot_Air_Brush_1000W_Professional_Black.webp?v=1764066966&width=800", "https://vgrofficial.in/cdn/shop/files/V-492_Hot_Air_Brush_1000W_Professional_Black.webp?v=1764067088&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_V-492_Hot_Air_1000W_Professional_Black.webp?v=1764067119&width=800"], "vgr-v-511-hair-straightener-for-women-white": ["https://vgrofficial.in/cdn/shop/files/511.1.webp?v=1741061727&width=800", "https://vgrofficial.in/cdn/shop/files/511.2.webp?v=1741061727&width=800", "https://vgrofficial.in/cdn/shop/files/03_10_1.webp?v=1741061727&width=800", "https://vgrofficial.in/cdn/shop/files/04_6_1.webp?v=1741061727&width=800"], "vgr-v-583-automatic-hair-curler": ["https://vgrofficial.in/cdn/shop/files/Hand_Automatic_Hair_Curler.webp?v=1774473579&width=800", "https://vgrofficial.in/cdn/shop/files/Best_Automatic_Hair_Curler.webp?v=1774473579&width=800", "https://vgrofficial.in/cdn/shop/files/Automatic_Hair_Curler_for_woman.webp?v=1774473579&width=800", "https://vgrofficial.in/cdn/shop/files/freepik_change-the-face-expression-of-model_0001_4.png?v=1774473579&width=800"], "vgr-v-597-hair-curling-iron-for-women": ["https://vgrofficial.in/cdn/shop/files/AnyConv.com__0.4_1_1.webp?v=1741072099&width=800", "https://vgrofficial.in/cdn/shop/files/AnyConv.com__0.2_1_bbb2b398-63dd-494e-b084-2b0263da1814_1.webp?v=1741072099&width=800", "https://vgrofficial.in/cdn/shop/files/AnyConv.com__ADVJVH_1.webp?v=1741072099&width=800", "https://vgrofficial.in/cdn/shop/files/AnyConv.com__new1_79b4f13b-098b-4c18-a252-911621100be4_1.webp?v=1741072099&width=800"], "vgr-v-640hd-professional-hair-dryer-barber-series": ["https://vgrofficial.in/cdn/shop/files/V-640_VGR_V-640HD_Professional_Hair_Dryer_Barber_Series_1600_1900W_High-Speed_BLDC_Motor.jpg?v=1764073685&width=800", "https://vgrofficial.in/cdn/shop/files/8_dc48509b-72e4-4b24-bbf6-3a2b9d1efb74.jpg?v=1764849858&width=800", "https://vgrofficial.in/cdn/shop/files/1_974afddd-97a8-447d-83df-5d8f2e5042d4.jpg?v=1764849861&width=800", "https://vgrofficial.in/cdn/shop/files/11_e0815861-1834-4428-ae1f-6df874918878.jpg?v=1764849861&width=800"], "vgr-v-932-pocket-hair-trimmer-for-men-black": ["https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T175257.449.jpg?v=1764419027&width=800", "https://vgrofficial.in/cdn/shop/files/3_aca33eaa-35f5-44d7-82b7-af8c3c8e49c1.webp?v=1764419027&width=800", "https://vgrofficial.in/cdn/shop/files/4_679e7be1-568a-46fb-be14-ad01a8c80fc0.webp?v=1764419027&width=800", "https://vgrofficial.in/cdn/shop/files/5_bee766e4-ab6e-49f8-906c-ccca0df22902.webp?v=1764419027&width=800"], "vgr-v-937-hair-trimmer-for-men-black": ["https://vgrofficial.in/cdn/shop/files/Copy_of_01.jpg?v=1764418932&width=800", "https://vgrofficial.in/cdn/shop/files/05_63177d12-ee53-498c-9ee0-7e5d766c47ba.webp?v=1764418932&width=800", "https://vgrofficial.in/cdn/shop/files/06_73fc49bf-f0c5-457a-a267-00d29417d111.webp?v=1764418932&width=800", "https://vgrofficial.in/cdn/shop/files/10_4.jpg?v=1764418932&width=800"]};
+
+      /* Quick view: arrows on the card image to flick through that
+         product's gallery. One pass covers every rail, native and
+         injected, so behaviour is identical page-wide. Galleries are
+         sourced from vgrofficial.in and filtered to clean product shots. */
+      function initQuickView(){
+        const cards=[...document.querySelectorAll('[class*="_card_"], .vgr-swm-card')];
+        cards.forEach(card=>{
+          if(card.dataset.qv) return;
+          let href=card.getAttribute('href')||'';
+          if(!href){const a=card.querySelector('a[href*="/products/"]'); if(a) href=a.getAttribute('href')||'';}
+          const m=href.match(/\/products\/([^?#]+)/);
+          if(!m) return;
+          const imgs=GAL[m[1]];
+          if(!imgs||imgs.length<2) return;
+          const img=card.querySelector('img');
+          if(!img) return;
+          card.dataset.qv='1';
+          const visual=img.closest('[class*="_cardVisual_"]')||img.closest('.vgr-swm-visual')||img.parentElement;
+          visual.classList.add('vgr-qv');
+          let i=0;
+          img.src=imgs[0]; img.setAttribute('loading','lazy');
+          imgs.slice(1).forEach(u=>{const p=new Image(); p.src=u;});   // warm the cache
+          const mk=(dir,label,glyph)=>{
+            const b=document.createElement('span');
+            b.className='vgr-qv-btn vgr-qv-'+dir;
+            b.setAttribute('role','button');
+            b.setAttribute('tabindex','0');
+            b.setAttribute('aria-label',label);
+            b.innerHTML=glyph;
+            const go=ev=>{
+              ev.preventDefault(); ev.stopPropagation();
+              i=(i+(dir==='next'?1:imgs.length-1))%imgs.length;
+              img.style.opacity='0';
+              setTimeout(()=>{ img.src=imgs[i]; img.style.opacity='1';
+                               cnt.textContent=(i+1)+'/'+imgs.length; },110);
+            };
+            b.addEventListener('click',go);
+            b.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')go(e);});
+            return b;
+          };
+          /* the plate is itself an <a> on the native card, so cancel the
+             link in the capture phase whenever an arrow is the target */
+          visual.addEventListener('click',ev=>{
+            /* cancel the link only. Calling stopPropagation here would stop
+               the event ever reaching the arrow, so the gallery never moved. */
+            if(ev.target.closest && ev.target.closest('.vgr-qv-btn')) ev.preventDefault();
+          },true);
+          const cnt=document.createElement('span');
+          cnt.className='vgr-qv-count'; cnt.textContent='1/'+imgs.length;
+          visual.appendChild(mk('prev','Previous image','&#8249;'));
+          visual.appendChild(mk('next','Next image','&#8250;'));
+          visual.appendChild(cnt);
+        });
+        return true;
+      }
+
       function initAnim(){
         if(document.documentElement.dataset.vgrAnim) return true;
         document.documentElement.dataset.vgrAnim='1';
@@ -2543,11 +2903,13 @@ Error generating stack: `+e.message+`
       function poll(){
         const a=insertSWM(), b=initReviews(), c=insertGP(), e=buildEngineering(), f=insertAudience();
         if(a&&b&&c&&e&&f){
+          enhanceGalleries();
           initSticky();
           const gp=document.getElementById('vgr-global-presence');
           if(gp && !gp.dataset.tour){ gp.dataset.tour='1'; startGPTour(gp); }
           initType();
           initAnim();
+          initQuickView();
           return;
         }
         setTimeout(poll,120);
