@@ -1362,6 +1362,93 @@
         .vgr-scta{transition:none !important;}
       }
 
+
+      /* ================================================================
+         FIX 1 — VGR edit rail was unreachable on mobile.
+         The desktop rule set justify-content:center; once the mobile
+         override switched to grid-auto-flow:column the centring pushed
+         card 0 to -400px, outside the scrollable area entirely.
+         ================================================================ */
+      @media (max-width:900px){
+        .vgr-swm-grid{
+          justify-content:start !important;
+          justify-items:stretch !important;
+          scroll-snap-align:none;
+        }
+      }
+
+      /* ================================================================
+         FIX 2 — map tooltips escaped the top of the plate by 14-17px.
+         Dots in the upper half now open their label downwards.
+         ================================================================ */
+      .vgr-dot-hub.below .vgr-dot-tip{
+        bottom:auto !important;
+        top:calc(100% + 9px) !important;
+        transform:translateX(-50%) translateY(-4px);
+      }
+      .vgr-dot-hub.below.active .vgr-dot-tip,
+      .vgr-dot-hub.below:hover .vgr-dot-tip,
+      .vgr-dot-hub.below:focus-visible .vgr-dot-tip{
+        transform:translateX(-50%) translateY(0);
+      }
+      .vgr-dot-hub.below .vgr-dot-tip::after{
+        top:auto;bottom:100%;
+        border-top-color:transparent;border-bottom-color:#0f0f0f;
+      }
+
+      /* ================================================================
+         FIX 3 — DESKTOP: hero was 113% of viewport height at 1920.
+         Height is now capped so the banner never exceeds the fold.
+         ================================================================ */
+      @media (min-width:901px){
+        ._hero_sycmm_1{
+          aspect-ratio:auto !important;
+          height:min(55.77vw, 90vh) !important;   /* 55.77vw = natural 1700:948 */
+          max-height:none !important;
+          min-height:520px !important;
+          width:100% !important;
+        }
+        /* fill the capped box; at <=1700px nothing is trimmed at all */
+        ._slide_sycmm_1 img,._slide_sycmm_1 video,
+        ._slide_sycmm_1 img._mediaContain_sycmm_1{
+          object-fit:cover !important;
+          object-position:center 42% !important;
+        }
+      }
+
+      /* ================================================================
+         FIX 4 — DESKTOP: product card type was 8-12px. Raised to a
+         readable scale at the same 256px card width, applied to BOTH
+         card types so they stay identical.
+         ================================================================ */
+      @media (min-width:901px){
+        ._cardInfo_sycmm_1,.vgr-swm-info{padding:15px !important;}
+        ._meta_sycmm_1,.vgr-swm-meta{
+          font-size:10.5px !important;letter-spacing:.1em !important;min-height:14px !important;
+        }
+        ._cardInfo_sycmm_1 h3,.vgr-swm-name{
+          font-size:13.5px !important;line-height:1.34 !important;
+          margin:7px 0 9px !important;
+          height:calc(2 * 1.34 * 13.5px) !important;
+          min-height:calc(2 * 1.34 * 13.5px) !important;
+        }
+        ._rating_sycmm_1,.vgr-swm-rating{font-size:11.5px !important;min-height:16px !important;margin-bottom:9px !important;}
+        ._rating_sycmm_1 small,.vgr-swm-rating small{font-size:11px !important;}
+        .vgr-usp span,.vgr-swm-usp span{font-size:10px !important;padding:4px 7px !important;}
+        .vgr-usp,.vgr-swm-usp{min-height:44px !important;gap:5px !important;}
+        ._price_sycmm_1 strong,.vgr-swm-price strong{font-size:16.5px !important;}
+        ._price_sycmm_1 del,.vgr-swm-price del{font-size:11.5px !important;}
+        ._price_sycmm_1,.vgr-swm-price{min-height:22px !important;}
+        .vgr-why{padding:8px 10px !important;margin-top:10px !important;}
+        .vgr-why b{font-size:9.5px !important;letter-spacing:.12em !important;margin-bottom:3px !important;}
+        .vgr-why span{font-size:11px !important;line-height:1.4 !important;min-height:31px !important;}
+        ._add_sycmm_1,.vgr-swm-cta{
+          min-height:42px !important;font-size:10.5px !important;letter-spacing:.13em !important;
+        }
+        ._pill_sycmm_1,.vgr-swm-pill{font-size:9.5px !important;padding:6px 10px !important;}
+        ._wish_sycmm_1,.vgr-swm-wish{width:32px !important;height:32px !important;font-size:14px !important;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -1480,7 +1567,7 @@ Error generating stack: `+e.message+`
         s.className='vgr-gp'; s.id='vgr-global-presence';
 
         const hubDots=GPHUBS.map((d,i)=>
-          '<button class="vgr-dot vgr-dot-hub" type="button" data-i="'+i+'" '+
+          '<button class="vgr-dot vgr-dot-hub'+(d.y<45?' below':'')+'" type="button" data-i="'+i+'" '+
             'style="left:'+d.x+'%;top:'+d.y+'%;--delay:'+(i*0.45)+'s" '+
             'aria-label="'+d.city+', '+d.country+'">'+
             '<span class="vgr-dot-ring"></span><span class="vgr-dot-core"></span>'+
