@@ -2190,6 +2190,154 @@
         .vgr-gal{transition:none !important;}
       }
 
+
+      /* ================================================================
+         1 + 6a — real SVG header icons, slightly larger.
+         The old set was text glyphs, including U+2659 WHITE CHESS PAWN
+         standing in for an account icon, and the word "Bag" as the cart.
+         ================================================================ */
+      ._iconButton_sycmm_1.vgr-ic{
+        display:inline-grid !important;place-items:center !important;
+        width:42px !important;height:42px !important;
+        position:relative !important;color:#0f0f0f !important;
+        font-size:0 !important;line-height:0 !important;
+      }
+      .vgr-ic-g{display:block;width:23px;height:23px;color:inherit;}
+      .vgr-ic-g svg{width:100%;height:100%;display:block;}
+      ._iconButton_sycmm_1.vgr-ic:hover{color:#0a9797 !important;}
+      ._iconButton_sycmm_1.vgr-ic ._badge_sycmm_1{
+        position:absolute !important;top:1px !important;right:1px !important;left:auto !important;
+        width:15px !important;height:15px !important;font-size:9px !important;
+      }
+      @media (max-width:900px){
+        ._iconButton_sycmm_1.vgr-ic{width:44px !important;height:44px !important;}
+        .vgr-ic-g{width:24px;height:24px;}
+      }
+
+      /* ================================================================
+         6b — nav dropdown (built from the real VGR product families;
+         swap the lists once the approved design lands)
+         ================================================================ */
+      .vgr-dd-wrap{position:relative;display:inline-flex;align-items:center;height:100%;}
+      .vgr-dd{
+        position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(6px);
+        min-width:224px;z-index:60;
+        background:#fff;border:1px solid #ececec;border-radius:12px;
+        box-shadow:0 18px 44px rgba(0,0,0,.13);
+        padding:16px 18px;
+        opacity:0;visibility:hidden;pointer-events:none;
+        transition:opacity .18s ease, transform .18s ease, visibility .18s;
+      }
+      .vgr-dd-wrap:hover .vgr-dd,
+      .vgr-dd-wrap:focus-within .vgr-dd{
+        opacity:1;visibility:visible;pointer-events:auto;
+        transform:translateX(-50%) translateY(0);
+      }
+      .vgr-dd-h{
+        margin:0 0 10px !important;font-size:9.5px;font-weight:700;
+        letter-spacing:.2em;text-transform:uppercase;color:#0a9797;
+      }
+      .vgr-dd ul{list-style:none;margin:0;padding:0;}
+      .vgr-dd li{margin:0 0 2px;}
+      .vgr-dd li a{
+        display:block;padding:7px 0;font-size:13px;font-weight:500;
+        color:#2a2a2a;white-space:nowrap;transition:color .16s ease;
+      }
+      .vgr-dd li a:hover{color:#0a9797;}
+      .vgr-dd-all{
+        display:block;margin-top:10px;padding-top:10px;
+        border-top:1px solid #eee;
+        font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+        color:#0f0f0f;
+      }
+      .vgr-dd-all:hover{color:#0a9797;}
+      @media (max-width:900px){ .vgr-dd{display:none !important;} }
+
+      /* ================================================================
+         2 — "Good grooming, delivered." de-tealed
+         ================================================================ */
+      ._newsletter_sycmm_1{
+        background:#f4f1ec !important;color:#0f0f0f !important;
+      }
+      ._newsletter_sycmm_1 h2,._newsletter_sycmm_1 p,._newsletter_sycmm_1 label{color:#0f0f0f !important;}
+      ._newsletter_sycmm_1 [class*="_eyebrow_"]{color:#0a7d7d !important;}
+      ._newsletter_sycmm_1 input{
+        background:transparent !important;color:#0f0f0f !important;
+        border-bottom-color:#c9c4bb !important;
+      }
+      ._newsletter_sycmm_1 input::placeholder{color:#8a857c !important;}
+      ._newsletter_sycmm_1 input:focus{border-bottom-color:#0a9797 !important;}
+      ._newsletter_sycmm_1 button{color:#0f0f0f !important;}
+      ._newsletter_sycmm_1 button:hover{color:#0a9797 !important;}
+
+      /* ================================================================
+         3 — category rail: end arrows + wheel scrolling
+         ================================================================ */
+      .vgr-rail-host{position:relative;}
+      .vgr-rail-btn{
+        position:absolute;top:50%;transform:translateY(-50%);
+        z-index:6;width:44px;height:44px;padding:0;border:1px solid #e6e6e6;
+        border-radius:50%;background:#fff;color:#0f0f0f;cursor:pointer;
+        display:grid;place-items:center;
+        box-shadow:0 6px 20px rgba(0,0,0,.14);
+        transition:opacity .2s ease, background .2s ease, color .2s ease;
+      }
+      .vgr-rail-btn svg{width:18px;height:18px;display:block;}
+      .vgr-rail-prev{left:-14px;} .vgr-rail-next{right:-14px;}
+      .vgr-rail-btn:hover{background:#0a9797;color:#fff;border-color:#0a9797;}
+      .vgr-rail-btn.off{opacity:0;pointer-events:none;}
+      @media (max-width:900px){
+        .vgr-rail-prev{left:2px;} .vgr-rail-next{right:2px;}
+        .vgr-rail-btn{width:44px;height:44px;background:rgba(255,255,255,.92);}
+      }
+
+      /* ================================================================
+         4 — add-to-cart gets a plus affordance
+         ================================================================ */
+      ._add_sycmm_1,.vgr-swm-cta{
+        display:inline-flex !important;align-items:center !important;
+        justify-content:center !important;gap:8px !important;
+      }
+      ._add_sycmm_1::after,.vgr-swm-cta::after{
+        content:'';flex:0 0 auto;width:12px;height:12px;
+        background-repeat:no-repeat;background-position:center;background-size:12px 12px;
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round'><path d='M12 5v14M5 12h14'/></svg>");
+      }
+
+      /* ================================================================
+         7 — trust bar: even 4-up on desktop, readable 2x2 on mobile
+         ================================================================ */
+      ._trust_sycmm_1{
+        display:grid !important;
+        grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+        align-items:center !important;
+        gap:18px 24px !important;
+      }
+      ._trust_sycmm_1 > *{
+        display:flex !important;align-items:center !important;
+        gap:10px !important;min-width:0 !important;
+        font-size:12px !important;line-height:1.35 !important;
+        white-space:normal !important;text-align:left !important;
+      }
+      @media (max-width:900px){
+        ._trust_sycmm_1{
+          grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+          grid-auto-flow:row !important;
+          gap:14px 12px !important;
+          overflow:hidden !important;
+          padding:18px 20px !important;
+        }
+        ._trust_sycmm_1 > * > *{min-width:0 !important;overflow-wrap:anywhere !important;}
+        ._trust_sycmm_1 > *{
+          font-size:11.5px !important;gap:8px !important;
+          grid-auto-columns:auto !important;
+        }
+      }
+      @media (max-width:380px){
+        ._trust_sycmm_1{gap:12px 10px !important;}
+        ._trust_sycmm_1 > *{font-size:11px !important;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -2987,6 +3135,120 @@ Error generating stack: `+e.message+`
         return true;
       }
 
+
+      /* ============================================================
+         Header icons, nav dropdown, category rail arrows
+         ============================================================ */
+      const NAVMENU={
+        "Men":[["Trimmers","vgr-personal-use-trimmer"],["Clippers","professional-grooming-tools"],
+               ["Shavers","vgr-personal-use-trimmer"],["Hair Dryers","hair-dryer"]],
+        "Women":[["Straighteners","womens-grooming-tools"],["Curlers","womens-grooming-tools"],
+                 ["Hot Air Brushes","womens-grooming-tools"],["Epilators","womens-grooming-tools"],
+                 ["Hair Dryers","hair-dryer"]],
+        "Professional":[["Barber Series","professional-grooming-tools"],["Clippers","professional-grooming-tools"],
+                        ["Trimmers","professional-grooming-tools"],["Dryers","hair-dryer"]],
+        "Pet":[["Pet Clippers","pet-grooming"],["Pet Trimmers","pet-grooming"]],
+        "Lifestyle":[["Lint Removers","all"],["Callus Removers","all"]],
+        "Baby care":[["Baby Trimmers","all"]]
+      };
+      const ICONS={
+        search:"<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round'><circle cx='11' cy='11' r='6.4'/><path d='M15.8 15.8 20.5 20.5'/></svg>",
+        account:"<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8.2' r='3.7'/><path d='M4.8 20c0-3.6 3.2-5.9 7.2-5.9s7.2 2.3 7.2 5.9'/></svg>",
+        wish:"<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M12 20.2S4.4 15.6 4.4 10.5A4.5 4.5 0 0 1 12 7.4a4.5 4.5 0 0 1 7.6 3.1c0 5.1-7.6 9.7-7.6 9.7z'/></svg>",
+        cart:"<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M4 5h2.3l2.2 10.4h9.1L20 8.2H7'/><circle cx='9.6' cy='19' r='1.5'/><circle cx='17.4' cy='19' r='1.5'/></svg>"
+      };
+      function fixHeaderIcons(){
+        const hdr=document.querySelector('[class*="_header_"]');
+        if(!hdr || hdr.dataset.vgrIcons) return !!hdr;
+        hdr.dataset.vgrIcons='1';
+        /* U+2315 search, U+2659 WHITE CHESS PAWN (placeholder for account),
+           U+2661 heart, and the literal word "Bag" */
+        const MAP={"\u2315":["search","Search"],"\u2659":["account","Account"],
+                   "\u2661":["wish","Wishlist"],"Bag":["cart","Cart"]};
+        hdr.querySelectorAll('[class*="_iconButton_"]').forEach(btn=>{
+          const own=[...btn.childNodes].filter(n=>n.nodeType===3)
+                    .map(n=>n.textContent.trim()).join('');
+          const hit=MAP[own]; if(!hit) return;
+          [...btn.childNodes].forEach(n=>{ if(n.nodeType===3) n.remove(); });
+          btn.classList.add('vgr-ic');
+          btn.setAttribute('aria-label',hit[1]);
+          const g=document.createElement('span');
+          g.className='vgr-ic-g';
+          g.innerHTML=ICONS[hit[0]];
+          btn.insertBefore(g, btn.firstChild);
+        });
+        return true;
+      }
+      function buildNavDropdown(){
+        const row=document.querySelector('[class*="_navRow_"]') ||
+                  document.querySelector('[class*="_header_"] nav');
+        if(!row || row.dataset.vgrDd) return !!row;
+        const links=[...row.querySelectorAll('a')].filter(a=>NAVMENU[a.textContent.trim()]);
+        if(!links.length) return false;
+        row.dataset.vgrDd='1';
+        links.forEach(a=>{
+          const key=a.textContent.trim();
+          a.classList.add('vgr-has-dd');
+          const panel=document.createElement('div');
+          panel.className='vgr-dd';
+          panel.innerHTML=
+            '<div class="vgr-dd-in">'+
+              '<p class="vgr-dd-h">'+key+'</p>'+
+              '<ul>'+NAVMENU[key].map(([n,c])=>
+                '<li><a href="https://vgrofficial.in/collections/'+c+'">'+n+'</a></li>').join('')+
+              '</ul>'+
+              '<a class="vgr-dd-all" href="https://vgrofficial.in/collections/all">Shop all '+key+'</a>'+
+            '</div>';
+          const wrap=document.createElement('span');
+          wrap.className='vgr-dd-wrap';
+          a.parentNode.insertBefore(wrap,a);
+          wrap.appendChild(a); wrap.appendChild(panel);
+        });
+        return true;
+      }
+      function railArrows(){
+        const rail=document.querySelector('[class*="_categoryRail_"]');
+        if(!rail || rail.dataset.vgrArrows) return !!rail;
+        rail.dataset.vgrArrows='1';
+        const host=rail.parentElement;
+        host.classList.add('vgr-rail-host');
+        const mk=(dir,label,glyph)=>{
+          const b=document.createElement('button');
+          b.type='button'; b.className='vgr-rail-btn vgr-rail-'+dir;
+          b.setAttribute('aria-label',label); b.innerHTML=glyph;
+          return b;
+        };
+        const L="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'><path d='M15 5l-7 7 7 7'/></svg>";
+        const R="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'><path d='M9 5l7 7-7 7'/></svg>";
+        const prev=mk('prev','Scroll left',L), next=mk('next','Scroll right',R);
+        host.appendChild(prev); host.appendChild(next);
+        const step=()=>{
+          const c=rail.querySelector('*');
+          return c ? c.getBoundingClientRect().width+20 : rail.clientWidth*0.8;
+        };
+        prev.addEventListener('click',e=>{e.preventDefault();rail.scrollBy({left:-step(),behavior:'smooth'});});
+        next.addEventListener('click',e=>{e.preventDefault();rail.scrollBy({left:step(),behavior:'smooth'});});
+        const sync=()=>{
+          const max=rail.scrollWidth-rail.clientWidth-2;
+          prev.classList.toggle('off', rail.scrollLeft<=2);
+          next.classList.toggle('off', rail.scrollLeft>=max);
+        };
+        rail.addEventListener('scroll',sync,{passive:true});
+        window.addEventListener('resize',sync);
+        /* vertical wheel drives horizontal travel while the pointer is over it */
+        rail.addEventListener('wheel',ev=>{
+          if(Math.abs(ev.deltaY)<=Math.abs(ev.deltaX)) return;
+          const max=rail.scrollWidth-rail.clientWidth;
+          if(max<=0) return;
+          const at=rail.scrollLeft;
+          if((ev.deltaY>0 && at>=max-1)||(ev.deltaY<0 && at<=1)) return;
+          ev.preventDefault();
+          rail.scrollLeft=at+ev.deltaY;
+        },{passive:false});
+        sync();
+        return true;
+      }
+
       function poll(){
         const a=insertSWM(), b=initReviews(), c=insertGP(), e=buildEngineering(), f=insertAudience();
         if(a&&b&&c&&e&&f){
@@ -2996,6 +3258,9 @@ Error generating stack: `+e.message+`
           initSticky();
           const gp=document.getElementById('vgr-global-presence');
           if(gp && !gp.dataset.tour){ gp.dataset.tour='1'; startGPTour(gp); }
+          fixHeaderIcons();
+          buildNavDropdown();
+          railArrows();
           initType();
           initAnim();
           initQuickView();
