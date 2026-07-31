@@ -2108,6 +2108,88 @@
         .vgr-gal{transition:none !important;}
       }
 
+
+      /* ================================================================
+         PLATE -> SQUARE 1:1  (was 3:4). Card width unchanged at 256px,
+         so the plate loses height and the whole card gets shorter.
+         ================================================================ */
+      ._cardVisual_sycmm_1,.vgr-swm-visual{aspect-ratio:1 / 1 !important;}
+
+      /* ---------------- in-card image carousel ---------------- */
+      ._cardVisual_sycmm_1,.vgr-swm-visual{overflow:hidden !important;}
+      .vgr-gal{
+        position:absolute;inset:0;display:flex;
+        transition:transform .4s cubic-bezier(.22,.61,.36,1);
+        will-change:transform;
+      }
+      .vgr-gal img{
+        flex:0 0 100%;width:100%;height:100%;
+        object-fit:contain;display:block;padding:8px;box-sizing:border-box;
+      }
+      .vgr-gal-nav{
+        position:absolute;top:50%;transform:translateY(-50%);
+        z-index:4;width:30px;height:30px;padding:0;border:0;cursor:pointer;
+        border-radius:50%;background:rgba(255,255,255,.94);
+        box-shadow:0 2px 10px rgba(0,0,0,.18);
+        background-repeat:no-repeat;background-position:center;background-size:12px 12px;
+        opacity:0;transition:opacity .2s ease, background-color .2s ease;
+      }
+      .vgr-gal-prev{left:8px;
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f0f0f' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M15 5l-7 7 7 7'/></svg>");}
+      .vgr-gal-next{right:8px;
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f0f0f' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M9 5l7 7-7 7'/></svg>");}
+      [class*="_card_"]:hover .vgr-gal-nav,
+      .vgr-swm-card:hover .vgr-gal-nav,
+      .vgr-gal-nav:focus-visible{opacity:1;}
+      .vgr-gal-nav:hover{background-color:#fff;}
+      .vgr-gal-dots{
+        position:absolute;left:0;right:0;bottom:8px;z-index:4;
+        display:flex;justify-content:center;gap:5px;pointer-events:none;
+      }
+      .vgr-gal-dots i{
+        width:5px;height:5px;border-radius:50%;
+        background:rgba(15,15,15,.24);transition:background .2s ease, transform .2s ease;
+      }
+      .vgr-gal-dots i.on{background:#0a9797;transform:scale(1.35);}
+
+      /* ================================================================
+         CARD TIGHTENING (desktop) — every row trimmed, nothing removed
+         ================================================================ */
+      @media (min-width:901px){
+        ._cardInfo_sycmm_1,.vgr-swm-info{padding:12px !important;}
+        ._meta_sycmm_1,.vgr-swm-meta{font-size:10px !important;min-height:13px !important;}
+        ._cardInfo_sycmm_1 h3,.vgr-swm-name{
+          font-size:13px !important;line-height:1.3 !important;
+          margin:5px 0 7px !important;
+          height:calc(2 * 1.3 * 13px) !important;min-height:calc(2 * 1.3 * 13px) !important;
+        }
+        ._rating_sycmm_1,.vgr-swm-rating{font-size:11px !important;min-height:14px !important;margin-bottom:7px !important;}
+        ._rating_sycmm_1 small,.vgr-swm-rating small{font-size:10.5px !important;}
+        .vgr-usp,.vgr-swm-usp{min-height:36px !important;margin-bottom:7px !important;gap:4px !important;}
+        .vgr-usp span,.vgr-swm-usp span{font-size:9.5px !important;padding:3px 6px !important;}
+        ._price_sycmm_1,.vgr-swm-price{min-height:19px !important;}
+        ._price_sycmm_1 strong,.vgr-swm-price strong{font-size:15.5px !important;}
+        ._price_sycmm_1 del,.vgr-swm-price del{font-size:11px !important;}
+        .vgr-why{padding:6px 8px !important;margin-top:8px !important;}
+        .vgr-why b{font-size:9px !important;margin-bottom:2px !important;}
+        .vgr-why span{font-size:10.5px !important;line-height:1.35 !important;min-height:28px !important;}
+        ._add_sycmm_1,.vgr-swm-cta{min-height:36px !important;font-size:10px !important;}
+        ._pill_sycmm_1,.vgr-swm-pill{font-size:9px !important;padding:5px 8px !important;}
+        ._wish_sycmm_1,.vgr-swm-wish{width:28px !important;height:28px !important;background-size:15px 15px !important;}
+      }
+      /* mobile: arrows always visible and thumb-sized; floors preserved */
+      @media (max-width:900px){
+        .vgr-gal-nav{
+          opacity:1;width:44px;height:44px;background-size:15px 15px;
+          background-color:rgba(255,255,255,.86);
+        }
+        .vgr-gal-prev{left:4px;} .vgr-gal-next{right:4px;}
+        .vgr-gal-dots i{width:6px;height:6px;}
+      }
+      @media (prefers-reduced-motion:reduce){
+        .vgr-gal{transition:none !important;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -2218,6 +2300,11 @@ Error generating stack: `+e.message+`
       /* ---- in-card image carousel (quick view) -------------------- */
       function galNorm(s){ return (s||'').toLowerCase().replace(/[^a-z0-9]/g,''); }
       function enhanceGalleries(){
+        /* Legacy builder: it pointed at relative img/<file> paths that do
+           not exist in this single-file build, so it replaced working CDN
+           images with broken ones on every tab swap. Superseded by the
+           quick-view carousel, which uses absolute CDN URLs. */
+        return initQuickView();
         const vis=[...document.querySelectorAll('[class*="_cardVisual_"], .vgr-swm-visual')];
         let done=0;
         vis.forEach(v=>{
@@ -2299,7 +2386,7 @@ Error generating stack: `+e.message+`
           Array.from(tabsRow.children).forEach(b=>b.classList.toggle("active", b.dataset.tab===tab));
           Object.keys(layers).forEach(t=>layers[t].classList.toggle("on", t===tab));
           grid.innerHTML=(TABS[tab]||[]).map(cardHTML).join("");
-          try{ enhanceGalleries(); }catch(_){}   /* tab swap rebuilds cards */
+          try{ initQuickView(); }catch(_){}   /* tab swap rebuilds cards */
         }
         TAB_ORDER.forEach((t,i)=>{
           const b=document.createElement("button");
@@ -2639,7 +2726,7 @@ Error generating stack: `+e.message+`
          Typography animation controller (additive; runs after the
          injected sections exist so nothing is missed)
          ============================================================ */
-      const GAL={"rosso-professional-beard-moustache-trimmer": ["https://vgrofficial.in/cdn/shop/files/zqodvesbryao3p9ded8p.webp?v=1761639395&width=800", "https://vgrofficial.in/cdn/shop/files/Red_trimmer_with_digital_display_7000_RPM.webp?v=1764308586&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_Trimmer_400_Runtime.webp?v=1764308546&width=800", "https://vgrofficial.in/cdn/shop/files/p8ua4c8ywkihlerdrhgq.webp?v=1761639395&width=800"], "vgr-epilator-for-women": ["https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM.webp?v=1741077204&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM_3.webp?v=1741077204&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM_1.webp?v=1741077204&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM_4.webp?v=1741077204&width=800"], "vgr-v-001-professional-hair-clipper-for-men-green": ["https://vgrofficial.in/cdn/shop/files/533af7b5-a57f-4726-b636-006a90caab6c.jpg?v=1764419222&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_V-001_TRIMMER_1.webp?v=1764419222&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_V-001.webp?v=1764419222&width=800", "https://vgrofficial.in/cdn/shop/files/f18d2493-2c80-4bcc-9c03-004efaa65e01.webp?v=1764419222&width=800"], "vgr-v-055-hair-trimmer-for-men-black": ["https://vgrofficial.in/cdn/shop/files/1.1_34.jpg?v=1764417530&width=800", "https://vgrofficial.in/cdn/shop/files/Artboard_3_1_a69420a7-c61b-4bae-a49e-c816f8244054.webp?v=1764417530&width=800", "https://vgrofficial.in/cdn/shop/files/Artboard_1_2.webp?v=1764417530&width=800", "https://vgrofficial.in/cdn/shop/files/Artboard_5_1_ecfab0a5-4cc4-4466-ace6-a5f05589305f.webp?v=1764417530&width=800"], "vgr-v-071-hair-trimmer-for-men-silver": ["https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T165614.742.jpg?v=1764417571&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2025-10-08_at_12.31.00_2.webp?v=1764417571&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2025-10-08_at_12.31.00.webp?v=1764417571&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2025-10-08_at_12.31.01.webp?v=1764417571&width=800"], "vgr-v-206-professional-pet-clipper": ["https://vgrofficial.in/cdn/shop/files/51UZUY0-d5L._SX679.jpg?v=1744891654&width=800", "https://vgrofficial.in/cdn/shop/files/51X0d_49HXL._SX679.jpg?v=1744891654&width=800", "https://vgrofficial.in/cdn/shop/files/51EhgmD0GZL._SX679.jpg?v=1744891654&width=800", "https://vgrofficial.in/cdn/shop/files/512biKma-wL._SX679.jpg?v=1744891654&width=800"], "vgr-v-208-professional-pet-hair-clipper": ["https://vgrofficial.in/cdn/shop/files/1.1_10.webp?v=1741413726&width=800", "https://vgrofficial.in/cdn/shop/files/7_1.webp?v=1741413726&width=800", "https://vgrofficial.in/cdn/shop/files/5_1_5ba3179f-8c35-4d73-a429-1fe1065dc4e9.webp?v=1741413726&width=800", "https://vgrofficial.in/cdn/shop/files/1_1_577872fe-18c2-49e8-bc95-0a96a2b13a4e.webp?v=1741413726&width=800"], "vgr-v-219-professional-pet-trimmer": ["https://vgrofficial.in/cdn/shop/files/1_40e1c774-cd0c-4d0d-8a6e-899468e933a7.jpg?v=1764840142&width=800", "https://vgrofficial.in/cdn/shop/files/1_2_969b5764-4468-429b-b224-daf0af6d673a.webp?v=1761391612&width=800", "https://vgrofficial.in/cdn/shop/files/5_92812f53-0c71-4d35-aaed-e414c464a2cd.webp?v=1764840142&width=800", "https://vgrofficial.in/cdn/shop/files/2_18fc18a4-ea13-4f38-bc70-c93aeae7cf30.webp?v=1764840142&width=800"], "vgr-v-228-hair-trimmer-for-men": ["https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T172334.182.jpg?v=1764417667&width=800", "https://vgrofficial.in/cdn/shop/files/2_48fd9cae-b71f-41fe-b24b-5df10e9176d2.webp?v=1764417667&width=800", "https://vgrofficial.in/cdn/shop/files/5_6c91ed8c-dbf5-45f2-8e5e-ce44ed67b399.webp?v=1764417667&width=800", "https://vgrofficial.in/cdn/shop/files/3_3acf3d9b-07d1-4633-b8d0-3293290a759a.webp?v=1764417667&width=800"], "vgr-v-240-professional-pet-trimmer": ["https://vgrofficial.in/cdn/shop/files/1.2_e9c91266-3e76-42ce-bb2c-c1f27444c34d.webp?v=1761392824&width=800", "https://vgrofficial.in/cdn/shop/files/1.1_eb7ef5e6-b556-4189-b080-859056673e74.webp?v=1761392756&width=800", "https://vgrofficial.in/cdn/shop/files/4_147c629a-edc7-469a-a222-118ef28103e8.webp?v=1761392756&width=800", "https://vgrofficial.in/cdn/shop/files/2_4d8abae4-1754-46f7-9678-ebe1a471aa60.webp?v=1761392756&width=800"], "vgr-v-290-hair-trimmer-for-men-gold": ["https://vgrofficial.in/cdn/shop/files/13.webp?v=1760682705&width=800", "https://vgrofficial.in/cdn/shop/files/TMRG5KYRY4ZRN9JT_4.webp?v=1764845399&width=800", "https://vgrofficial.in/cdn/shop/files/TMRG5KYRY4ZRN9JT_5.webp?v=1764845399&width=800", "https://vgrofficial.in/cdn/shop/files/TMRG5KYRY4ZRN9JT_6.webp?v=1764845399&width=800"], "vgr-v-421-hair-dryer-unisex-green": ["https://vgrofficial.in/cdn/shop/files/00_5.webp?v=1740998949&width=800", "https://vgrofficial.in/cdn/shop/files/05_9_8400fcf7-0362-4799-ac77-d47b23310082.webp?v=1740998949&width=800", "https://vgrofficial.in/cdn/shop/files/03_12.webp?v=1740998949&width=800", "https://vgrofficial.in/cdn/shop/files/02_12.webp?v=1740998949&width=800"], "vgr-v-439-foldable-hair-dryer-black": ["https://vgrofficial.in/cdn/shop/files/1.1_f44fa006-2edf-4d52-951b-aae983808a85.webp?v=1750416453&width=800", "https://vgrofficial.in/cdn/shop/files/4_33d9b101-f0ce-43d0-a6cb-cc92a7faf682.webp?v=1750416400&width=800", "https://vgrofficial.in/cdn/shop/files/3_316597d9-1c0d-439a-bcb5-633c3db64466.webp?v=1750416400&width=800", "https://vgrofficial.in/cdn/shop/files/5_4c4f5785-2458-4b03-a2cd-8eed7ec5911b.webp?v=1750416400&width=800"], "vgr-v-492-hot-air-brush-black": ["https://vgrofficial.in/cdn/shop/files/VGR_V-492_Hot_Air_Brush.webp?v=1764066945&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_V-492_Hot_Air_Brush_1000W_Professional_Black.webp?v=1764066966&width=800", "https://vgrofficial.in/cdn/shop/files/V-492_Hot_Air_Brush_1000W_Professional_Black.webp?v=1764067088&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_V-492_Hot_Air_1000W_Professional_Black.webp?v=1764067119&width=800"], "vgr-v-511-hair-straightener-for-women-white": ["https://vgrofficial.in/cdn/shop/files/511.1.webp?v=1741061727&width=800", "https://vgrofficial.in/cdn/shop/files/511.2.webp?v=1741061727&width=800", "https://vgrofficial.in/cdn/shop/files/03_10_1.webp?v=1741061727&width=800", "https://vgrofficial.in/cdn/shop/files/04_6_1.webp?v=1741061727&width=800"], "vgr-v-583-automatic-hair-curler": ["https://vgrofficial.in/cdn/shop/files/Hand_Automatic_Hair_Curler.webp?v=1774473579&width=800", "https://vgrofficial.in/cdn/shop/files/Best_Automatic_Hair_Curler.webp?v=1774473579&width=800", "https://vgrofficial.in/cdn/shop/files/Automatic_Hair_Curler_for_woman.webp?v=1774473579&width=800", "https://vgrofficial.in/cdn/shop/files/freepik_change-the-face-expression-of-model_0001_4.png?v=1774473579&width=800"], "vgr-v-597-hair-curling-iron-for-women": ["https://vgrofficial.in/cdn/shop/files/AnyConv.com__0.4_1_1.webp?v=1741072099&width=800", "https://vgrofficial.in/cdn/shop/files/AnyConv.com__0.2_1_bbb2b398-63dd-494e-b084-2b0263da1814_1.webp?v=1741072099&width=800", "https://vgrofficial.in/cdn/shop/files/AnyConv.com__ADVJVH_1.webp?v=1741072099&width=800", "https://vgrofficial.in/cdn/shop/files/AnyConv.com__new1_79b4f13b-098b-4c18-a252-911621100be4_1.webp?v=1741072099&width=800"], "vgr-v-640hd-professional-hair-dryer-barber-series": ["https://vgrofficial.in/cdn/shop/files/V-640_VGR_V-640HD_Professional_Hair_Dryer_Barber_Series_1600_1900W_High-Speed_BLDC_Motor.jpg?v=1764073685&width=800", "https://vgrofficial.in/cdn/shop/files/8_dc48509b-72e4-4b24-bbf6-3a2b9d1efb74.jpg?v=1764849858&width=800", "https://vgrofficial.in/cdn/shop/files/1_974afddd-97a8-447d-83df-5d8f2e5042d4.jpg?v=1764849861&width=800", "https://vgrofficial.in/cdn/shop/files/11_e0815861-1834-4428-ae1f-6df874918878.jpg?v=1764849861&width=800"], "vgr-v-932-pocket-hair-trimmer-for-men-black": ["https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T175257.449.jpg?v=1764419027&width=800", "https://vgrofficial.in/cdn/shop/files/3_aca33eaa-35f5-44d7-82b7-af8c3c8e49c1.webp?v=1764419027&width=800", "https://vgrofficial.in/cdn/shop/files/4_679e7be1-568a-46fb-be14-ad01a8c80fc0.webp?v=1764419027&width=800", "https://vgrofficial.in/cdn/shop/files/5_bee766e4-ab6e-49f8-906c-ccca0df22902.webp?v=1764419027&width=800"], "vgr-v-937-hair-trimmer-for-men-black": ["https://vgrofficial.in/cdn/shop/files/Copy_of_01.jpg?v=1764418932&width=800", "https://vgrofficial.in/cdn/shop/files/05_63177d12-ee53-498c-9ee0-7e5d766c47ba.webp?v=1764418932&width=800", "https://vgrofficial.in/cdn/shop/files/06_73fc49bf-f0c5-457a-a267-00d29417d111.webp?v=1764418932&width=800", "https://vgrofficial.in/cdn/shop/files/10_4.jpg?v=1764418932&width=800"]};
+      const GAL = {"rosso-professional-beard-moustache-trimmer": ["https://vgrofficial.in/cdn/shop/files/zqodvesbryao3p9ded8p.webp?v=1761639395&width=800", "https://vgrofficial.in/cdn/shop/files/Red_trimmer_with_digital_display_7000_RPM.webp?v=1764308586&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_Trimmer_400_Runtime.webp?v=1764308546&width=800"], "vgr-epilator-for-women": ["https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM_3.webp?v=1741077204&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM_1.webp?v=1741077204&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2024-09-28_at_12.54.32_PM.webp?v=1741077204&width=800"], "vgr-v-001-professional-hair-clipper-for-men-green": ["https://vgrofficial.in/cdn/shop/files/VGR_V-001_TRIMMER_1.webp?v=1764419222&width=800", "https://vgrofficial.in/cdn/shop/files/533af7b5-a57f-4726-b636-006a90caab6c.jpg?v=1764419222&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_V-001.webp?v=1764419222&width=800"], "vgr-v-055-hair-trimmer-for-men-black": ["https://vgrofficial.in/cdn/shop/files/1.1_34.jpg?v=1764417530&width=800", "https://vgrofficial.in/cdn/shop/files/Artboard_5_1_ecfab0a5-4cc4-4466-ace6-a5f05589305f.webp?v=1764417530&width=800", "https://vgrofficial.in/cdn/shop/files/Artboard_3_1_a69420a7-c61b-4bae-a49e-c816f8244054.webp?v=1764417530&width=800"], "vgr-v-071-hair-trimmer-for-men-silver": ["https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T165614.742.jpg?v=1764417571&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2025-10-08_at_12.31.00_2.webp?v=1764417571&width=800", "https://vgrofficial.in/cdn/shop/files/WhatsApp_Image_2025-10-08_at_12.31.00.webp?v=1764417571&width=800"], "vgr-v-206-professional-pet-clipper": ["https://vgrofficial.in/cdn/shop/files/51UZUY0-d5L._SX679.jpg?v=1744891654&width=800", "https://vgrofficial.in/cdn/shop/files/51X0d_49HXL._SX679.jpg?v=1744891654&width=800", "https://vgrofficial.in/cdn/shop/files/51EhgmD0GZL._SX679.jpg?v=1744891654&width=800"], "vgr-v-208-professional-pet-hair-clipper": ["https://vgrofficial.in/cdn/shop/files/1.1_10.webp?v=1741413726&width=800", "https://vgrofficial.in/cdn/shop/files/5_1_5ba3179f-8c35-4d73-a429-1fe1065dc4e9.webp?v=1741413726&width=800", "https://vgrofficial.in/cdn/shop/files/1_1_577872fe-18c2-49e8-bc95-0a96a2b13a4e.webp?v=1741413726&width=800"], "vgr-v-219-professional-pet-trimmer": ["https://vgrofficial.in/cdn/shop/files/1_40e1c774-cd0c-4d0d-8a6e-899468e933a7.jpg?v=1764840142&width=800", "https://vgrofficial.in/cdn/shop/files/1_2_969b5764-4468-429b-b224-daf0af6d673a.webp?v=1761391612&width=800", "https://vgrofficial.in/cdn/shop/files/2_18fc18a4-ea13-4f38-bc70-c93aeae7cf30.webp?v=1764840142&width=800"], "vgr-v-228-hair-trimmer-for-men": ["https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T172334.182.jpg?v=1764417667&width=800", "https://vgrofficial.in/cdn/shop/files/2_48fd9cae-b71f-41fe-b24b-5df10e9176d2.webp?v=1764417667&width=800", "https://vgrofficial.in/cdn/shop/files/5_6c91ed8c-dbf5-45f2-8e5e-ce44ed67b399.webp?v=1764417667&width=800"], "vgr-v-240-professional-pet-trimmer": ["https://vgrofficial.in/cdn/shop/files/4_147c629a-edc7-469a-a222-118ef28103e8.webp?v=1761392756&width=800", "https://vgrofficial.in/cdn/shop/files/1.2_e9c91266-3e76-42ce-bb2c-c1f27444c34d.webp?v=1761392824&width=800", "https://vgrofficial.in/cdn/shop/files/1.1_eb7ef5e6-b556-4189-b080-859056673e74.webp?v=1761392756&width=800"], "vgr-v-290-hair-trimmer-for-men-gold": ["https://vgrofficial.in/cdn/shop/files/13.webp?v=1760682705&width=800", "https://vgrofficial.in/cdn/shop/files/TMRG5KYRY4ZRN9JT_5.webp?v=1764845399&width=800", "https://vgrofficial.in/cdn/shop/files/TMRG5KYRY4ZRN9JT_4.webp?v=1764845399&width=800"], "vgr-v-421-hair-dryer-unisex-green": ["https://vgrofficial.in/cdn/shop/files/00_5.webp?v=1740998949&width=800", "https://vgrofficial.in/cdn/shop/files/03_12.webp?v=1740998949&width=800", "https://vgrofficial.in/cdn/shop/files/02_12.webp?v=1740998949&width=800"], "vgr-v-439-foldable-hair-dryer-black": ["https://vgrofficial.in/cdn/shop/files/1.1_f44fa006-2edf-4d52-951b-aae983808a85.webp?v=1750416453&width=800", "https://vgrofficial.in/cdn/shop/files/4_33d9b101-f0ce-43d0-a6cb-cc92a7faf682.webp?v=1750416400&width=800", "https://vgrofficial.in/cdn/shop/files/3_316597d9-1c0d-439a-bcb5-633c3db64466.webp?v=1750416400&width=800"], "vgr-v-492-hot-air-brush-black": ["https://vgrofficial.in/cdn/shop/files/VGR_V-492_Hot_Air_Brush.webp?v=1764066945&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_V-492_Hot_Air_Brush_1000W_Professional.webp?v=1764066992&width=800", "https://vgrofficial.in/cdn/shop/files/VGR_V-492_Hot_Air_1000W_Professional_Black.webp?v=1764067119&width=800"], "vgr-v-511-hair-straightener-for-women-white": ["https://vgrofficial.in/cdn/shop/files/511.1.webp?v=1741061727&width=800", "https://vgrofficial.in/cdn/shop/files/511.2.webp?v=1741061727&width=800", "https://vgrofficial.in/cdn/shop/files/03_10_1.webp?v=1741061727&width=800"], "vgr-v-583-automatic-hair-curler": ["https://vgrofficial.in/cdn/shop/files/Hand_Automatic_Hair_Curler.webp?v=1774473579&width=800", "https://vgrofficial.in/cdn/shop/files/Best_Automatic_Hair_Curler.webp?v=1774473579&width=800", "https://vgrofficial.in/cdn/shop/files/Automatic_Hair_Curler_for_woman.webp?v=1774473579&width=800"], "vgr-v-597-hair-curling-iron-for-women": ["https://vgrofficial.in/cdn/shop/files/AnyConv.com__0.4_1_1.webp?v=1741072099&width=800", "https://vgrofficial.in/cdn/shop/files/AnyConv.com__0.2_1_bbb2b398-63dd-494e-b084-2b0263da1814_1.webp?v=1741072099&width=800", "https://vgrofficial.in/cdn/shop/files/AnyConv.com__ADVJVH_1.webp?v=1741072099&width=800"], "vgr-v-640hd-professional-hair-dryer-barber-series": ["https://vgrofficial.in/cdn/shop/files/V-640_VGR_V-640HD_Professional_Hair_Dryer_Barber_Series_1600_1900W_High-Speed_BLDC_Motor.jpg?v=1764073685&width=800", "https://vgrofficial.in/cdn/shop/files/1_974afddd-97a8-447d-83df-5d8f2e5042d4.jpg?v=1764849861&width=800", "https://vgrofficial.in/cdn/shop/files/8_dc48509b-72e4-4b24-bbf6-3a2b9d1efb74.jpg?v=1764849858&width=800"], "vgr-v-932-pocket-hair-trimmer-for-men-black": ["https://vgrofficial.in/cdn/shop/files/1_-_2025-11-29T175257.449.jpg?v=1764419027&width=800", "https://vgrofficial.in/cdn/shop/files/3_aca33eaa-35f5-44d7-82b7-af8c3c8e49c1.webp?v=1764419027&width=800", "https://vgrofficial.in/cdn/shop/files/4_679e7be1-568a-46fb-be14-ad01a8c80fc0.webp?v=1764419027&width=800"], "vgr-v-937-hair-trimmer-for-men-black": ["https://vgrofficial.in/cdn/shop/files/Copy_of_01.jpg?v=1764418932&width=800", "https://vgrofficial.in/cdn/shop/files/05_63177d12-ee53-498c-9ee0-7e5d766c47ba.webp?v=1764418932&width=800", "https://vgrofficial.in/cdn/shop/files/06_73fc49bf-f0c5-457a-a267-00d29417d111.webp?v=1764418932&width=800"]};
 
       /* Quick view: arrows on the card image to flick through that
          product's gallery. One pass covers every rail, native and
@@ -2903,7 +2990,9 @@ Error generating stack: `+e.message+`
       function poll(){
         const a=insertSWM(), b=initReviews(), c=insertGP(), e=buildEngineering(), f=insertAudience();
         if(a&&b&&c&&e&&f){
-          enhanceGalleries();
+          /* enhanceGalleries() disabled: it points at relative img/ files
+             that do not exist in this single-file build, and would have
+             replaced working CDN images with broken ones. */
           initSticky();
           const gp=document.getElementById('vgr-global-presence');
           if(gp && !gp.dataset.tour){ gp.dataset.tour='1'; startGPTour(gp); }
