@@ -2429,6 +2429,64 @@
          button reset its order to 0, pushing the why-row below it */
       .vgr-cta-row{order:9 !important;}
 
+
+      /* ================================================================
+         "Grooming, for everyone." — 3 categories per view on desktop,
+         two groups of three, auto-advancing with arrows and page dots
+         ================================================================ */
+      @media (min-width:901px){
+        ._categoryRail_sycmm_1{
+          grid-auto-columns:calc((100% - 2 * var(--vgr-rgap,24px)) / 3) !important;
+          gap:var(--vgr-rgap,24px) !important;
+          scroll-snap-type:x mandatory !important;
+          scroll-padding-left:0 !important;
+          overflow-x:auto !important;
+          scrollbar-width:none;
+        }
+        ._categoryRail_sycmm_1::-webkit-scrollbar{display:none !important;}
+        ._categoryRail_sycmm_1 > *{scroll-snap-align:start !important;}
+      }
+      /* mobile: a clear peek of the next card so more categories are obvious */
+      @media (max-width:900px){
+        ._categoryRail_sycmm_1{
+          grid-auto-columns:72vw !important;
+          gap:12px !important;
+          scroll-snap-type:x mandatory !important;
+          scrollbar-width:none;
+        }
+        ._categoryRail_sycmm_1::-webkit-scrollbar{display:none !important;}
+        ._categoryRail_sycmm_1 > *{scroll-snap-align:start !important;}
+      }
+
+      /* page dots */
+      .vgr-rail-dots{
+        display:flex;justify-content:center;align-items:center;
+        gap:8px;margin-top:18px;
+      }
+      .vgr-rail-dot{
+        width:34px;height:4px;padding:0;border:0;cursor:pointer;
+        border-radius:999px;background:#dcdcdc;
+        transition:background .25s ease,transform .25s ease;
+      }
+      .vgr-rail-dot.on{background:#0a9797;}
+      .vgr-rail-dot::after{
+        content:'';position:absolute;      /* 44px hit area without visual bulk */
+      }
+      @media (max-width:900px){
+        .vgr-rail-dots{gap:6px;margin-top:14px;}
+        .vgr-rail-dot{width:26px;height:5px;position:relative;}
+        .vgr-rail-dot::after{
+          content:'';position:absolute;left:50%;top:50%;
+          transform:translate(-50%,-50%);
+          width:44px;height:44px;
+        }
+      }
+      /* the next arrow stays visible even at the last group, since it wraps */
+      .vgr-rail-next.off{opacity:.45;pointer-events:auto;}
+      @media (prefers-reduced-motion:reduce){
+        .vgr-rail-dot{transition:none;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -3303,38 +3361,95 @@ Error generating stack: `+e.message+`
         rail.dataset.vgrArrows='1';
         const host=rail.parentElement;
         host.classList.add('vgr-rail-host');
+        const RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+        const L="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'><path d='M15 5l-7 7 7 7'/></svg>";
+        const R="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'><path d='M9 5l7 7-7 7'/></svg>";
         const mk=(dir,label,glyph)=>{
           const b=document.createElement('button');
           b.type='button'; b.className='vgr-rail-btn vgr-rail-'+dir;
           b.setAttribute('aria-label',label); b.innerHTML=glyph;
           return b;
         };
-        const L="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'><path d='M15 5l-7 7 7 7'/></svg>";
-        const R="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'><path d='M9 5l7 7-7 7'/></svg>";
-        const prev=mk('prev','Scroll left',L), next=mk('next','Scroll right',R);
+        const prev=mk('prev','Previous categories',L), next=mk('next','Next categories',R);
         host.appendChild(prev); host.appendChild(next);
-        const step=()=>{
-          const c=rail.querySelector('*');
-          return c ? c.getBoundingClientRect().width+20 : rail.clientWidth*0.8;
-        };
-        prev.addEventListener('click',e=>{e.preventDefault();rail.scrollBy({left:-step(),behavior:'smooth'});});
-        next.addEventListener('click',e=>{e.preventDefault();rail.scrollBy({left:step(),behavior:'smooth'});});
-        const sync=()=>{
+
+        /* page dots so the shopper can see more categories exist */
+        const dots=document.createElement('div');
+        dots.className='vgr-rail-dots';
+        host.appendChild(dots);
+
+        const page=()=>Math.max(1,rail.clientWidth);
+        const pages=()=>Math.max(1,Math.round(rail.scrollWidth/page()));
+        function buildDots(){
+          const n=pages();
+          if(dots.childElementCount===n) return;
+          dots.innerHTML='';
+          for(let k=0;k<n;k++){
+            const d=document.createElement('button');
+            d.type='button'; d.className='vgr-rail-dot';
+            d.setAttribute('aria-label','Category group '+(k+1));
+            d.addEventListener('click',e=>{e.preventDefault();hold();
+              rail.scrollTo({left:k*page(),behavior:'smooth'});});
+            dots.appendChild(d);
+          }
+        }
+        function sync(){
+          buildDots();
           const max=rail.scrollWidth-rail.clientWidth-2;
           prev.classList.toggle('off', rail.scrollLeft<=2);
           next.classList.toggle('off', rail.scrollLeft>=max);
-        };
+          const cur=Math.round(rail.scrollLeft/page());
+          [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===cur));
+        }
+        function step(dir){
+          const max=rail.scrollWidth-rail.clientWidth;
+          let to=rail.scrollLeft+dir*page();
+          if(to>max-2) to=dir>0?0:max;      /* wrap so it keeps cycling */
+          if(to<0) to=max;
+          rail.scrollTo({left:to,behavior:'smooth'});
+        }
+        prev.addEventListener('click',e=>{e.preventDefault();hold();step(-1);});
+        next.addEventListener('click',e=>{e.preventDefault();hold();step(1);});
+
+        /* auto advance with a dwell long enough to actually read a group */
+        const DWELL=5200;
+        let timer=null, paused=false, resume=null, onScreen=false;
+        const run=()=>{ if(timer||RM||paused||!onScreen) return;
+                        timer=setInterval(()=>{ if(!paused) step(1); },DWELL); };
+        const stop=()=>{ if(timer){clearInterval(timer);timer=null;} };
+        /* Every pause schedules its own resume. Relying on a matching
+           mouseleave/focusout meant a stray focusin or pointerdown could
+           latch the carousel paused forever. */
+        function pauseFor(ms){
+          paused=true; stop();
+          if(resume) clearTimeout(resume);
+          resume=setTimeout(()=>{ paused=false; run(); }, ms);
+        }
+        function hold(){ pauseFor(DWELL*1.6); }
+
+        ['mouseenter','focusin','touchstart','pointerdown'].forEach(ev=>
+          rail.addEventListener(ev,()=>pauseFor(DWELL*1.4),{passive:true}));
+        ['mouseleave','focusout','touchend'].forEach(ev=>
+          rail.addEventListener(ev,()=>pauseFor(1200),{passive:true}));
+
+        if('IntersectionObserver' in window){
+          new IntersectionObserver(es=>es.forEach(e=>{
+            onScreen=e.isIntersecting;
+            if(onScreen) run(); else stop();
+          }),{threshold:0.3}).observe(rail);
+        } else { onScreen=true; run(); }
+
         rail.addEventListener('scroll',sync,{passive:true});
-        window.addEventListener('resize',sync);
-        /* vertical wheel drives horizontal travel while the pointer is over it */
+        window.addEventListener('resize',()=>{stop();sync();run();});
+        /* vertical wheel drives horizontal travel */
         rail.addEventListener('wheel',ev=>{
           if(Math.abs(ev.deltaY)<=Math.abs(ev.deltaX)) return;
           const max=rail.scrollWidth-rail.clientWidth;
           if(max<=0) return;
           const at=rail.scrollLeft;
-          if((ev.deltaY>0 && at>=max-1)||(ev.deltaY<0 && at<=1)) return;
-          ev.preventDefault();
-          rail.scrollLeft=at+ev.deltaY;
+          if((ev.deltaY>0&&at>=max-1)||(ev.deltaY<0&&at<=1)) return;
+          ev.preventDefault(); hold(); rail.scrollLeft=at+ev.deltaY;
         },{passive:false});
         sync();
         return true;
