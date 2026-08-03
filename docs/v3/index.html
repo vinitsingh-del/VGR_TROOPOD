@@ -2804,6 +2804,18 @@
         .vgr-dot-ring{animation:none !important;opacity:.5;}
       }
 
+
+      /* hubs keep a full 44px touch area without growing the visible dot */
+      @media (max-width:900px){
+        .vgr-dot-hub{width:22px;height:22px;}
+        .vgr-dot-hub::after{
+          content:'';position:absolute;left:50%;top:50%;
+          transform:translate(-50%,-50%);width:44px;height:44px;
+        }
+        .vgr-dot-mkt{width:16px;height:16px;pointer-events:none;}
+        .vgr-gp-chip i{font-size:11px !important;}
+      }
+      .vgr-dot-mkt{pointer-events:none;}
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -3028,14 +3040,20 @@ Error generating stack: `+e.message+`
         const REGIONS=[...new Set(GPCO.map(d=>d.r))];
         const KLABEL={hq:'Head office',office:'Regional office',factory:'Manufacturing',mkt:'Market'};
 
-        const dots=GPCO.map((d,i)=>
-          '<button class="vgr-dot vgr-dot-'+(d.k==='mkt'?'mkt':'hub')+(d.y<52?' below':'')+'" '+
-            'type="button" data-i="'+i+'" data-r="'+d.r+'" '+
-            'style="left:'+d.x+'%;top:'+d.y+'%;--delay:'+((i%9)*0.34)+'s" '+
-            'aria-label="'+d.c+'">'+
+        /* Only the four hubs are interactive. With 30 markers on a phone,
+           44px hit areas on every one would overlap badly, and the market
+           dots are decorative - the tour names them automatically. */
+        const dots=GPCO.map((d,i)=>{
+          const hub=d.k!=='mkt';
+          const tag=hub?'button':'span';
+          return '<'+tag+' class="vgr-dot vgr-dot-'+(hub?'hub':'mkt')+(d.y<52?' below':'')+'" '+
+            (hub?'type="button" aria-label="'+d.c+'"':'aria-hidden="true"')+' '+
+            'data-i="'+i+'" data-r="'+d.r+'" '+
+            'style="left:'+d.x+'%;top:'+d.y+'%;--delay:'+((i%9)*0.34)+'s">'+
             '<span class="vgr-dot-ring"></span><span class="vgr-dot-core"></span>'+
             '<span class="vgr-dot-tip">'+d.c+'<em>'+KLABEL[d.k]+'</em></span>'+
-          '</button>').join('');
+          '</'+tag+'>';
+        }).join('');
 
         const chips=['All'].concat(REGIONS).map((r,i)=>
           '<button class="vgr-gp-chip'+(i===0?' on':'')+'" type="button" data-r="'+r+'">'+
@@ -3082,7 +3100,7 @@ Error generating stack: `+e.message+`
           });
         });
         // tapping a dot pins its label
-        all.forEach(d=>d.addEventListener('click',e=>{
+        s.querySelectorAll('button.vgr-dot').forEach(d=>d.addEventListener('click',e=>{
           e.preventDefault();
           const was=d.classList.contains('active');
           all.forEach(x=>x.classList.remove('active'));
