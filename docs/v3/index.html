@@ -2823,6 +2823,105 @@
       .vgr-gp-map > svg{
         position:absolute;inset:0;width:100%;height:100%;display:block;
       }
+
+      /* ============ 10. BLOG SECTION (above the FAQ) ============ */
+      .vgr-blog{background:#ffffff !important;}
+      .vgr-blog-rail{
+        display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:clamp(18px,2vw,28px);
+      }
+      .vgr-blog-card{
+        display:flex;flex-direction:column;
+        background:#fbfaf8;border:1px solid #eeece7;border-radius:14px;
+        overflow:hidden;transition:transform .3s cubic-bezier(.22,.61,.36,1),box-shadow .3s ease;
+      }
+      .vgr-blog-card:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(0,0,0,.10);}
+      .vgr-blog-img{display:block;aspect-ratio:16/9;overflow:hidden;background:#f1f0ec;}
+      .vgr-blog-img img{
+        width:100%;height:100%;object-fit:cover;display:block;
+        transition:transform .45s cubic-bezier(.22,.61,.36,1);
+      }
+      .vgr-blog-card:hover .vgr-blog-img img{transform:scale(1.06);}
+      .vgr-blog-meta{
+        display:flex;align-items:center;gap:10px;
+        padding:14px 16px 0;font-size:11px;
+      }
+      .vgr-blog-meta i{
+        font-style:normal;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+        color:#0a7d7d;background:#eef8f8;border-radius:999px;padding:4px 9px;
+      }
+      .vgr-blog-meta time{color:#8a8a8a;font-weight:500;}
+      .vgr-blog-t{
+        padding:9px 16px 0;font-size:15px;font-weight:700;line-height:1.3;color:#0f0f0f;
+        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+        min-height:calc(2 * 1.3 * 15px);
+      }
+      .vgr-blog-card:hover .vgr-blog-t{color:#0a9797;}
+      .vgr-blog-s{
+        padding:8px 16px 0;font-size:12.5px;line-height:1.5;color:#5a5a5a;
+        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+      }
+      .vgr-blog-go{
+        margin-top:auto;padding:14px 16px 16px;
+        font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0f0f0f;
+      }
+      .vgr-blog-card:hover .vgr-blog-go{color:#0a9797;}
+      @media (max-width:1080px){ .vgr-blog-rail{grid-template-columns:repeat(2,minmax(0,1fr));} }
+      @media (max-width:900px){
+        .vgr-blog-rail{
+          grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:76vw;
+          overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;
+          scrollbar-width:none;
+          margin-inline:-20px;padding-inline:20px;
+        }
+        .vgr-blog-rail::-webkit-scrollbar{display:none;}
+        .vgr-blog-card{scroll-snap-align:start;}
+        .vgr-blog-meta{font-size:11px;}
+        .vgr-blog-t{font-size:14.5px;min-height:calc(2 * 1.3 * 14.5px);}
+        .vgr-blog-s{font-size:12px;}
+        .vgr-blog-go{font-size:11px;}
+      }
+
+      /* ============ 8. FAQ + SIGN-UP backgrounds ============ */
+      /* FAQ: near-white with a soft teal wash, questions on white cards */
+      .vgr-faq-sec{
+        background:
+          radial-gradient(120% 90% at 12% 0%, #eef8f8 0%, rgba(238,248,248,0) 58%),
+          radial-gradient(90% 80% at 100% 100%, #f4f1ec 0%, rgba(244,241,236,0) 60%),
+          #ffffff !important;
+      }
+      [class*="_faq_"] details,[class*="_faq_"] [class*="_item_"]{
+        background:#ffffff !important;
+        border:1px solid #ececec !important;
+        border-radius:12px !important;
+        margin-bottom:10px !important;
+        padding:2px 16px !important;
+        box-shadow:0 2px 10px rgba(0,0,0,.03) !important;
+        transition:border-color .2s ease,box-shadow .2s ease;
+      }
+      [class*="_faq_"] details:hover,[class*="_faq_"] [class*="_item_"]:hover{
+        border-color:#bfe3e3 !important;box-shadow:0 6px 20px rgba(10,151,151,.10) !important;
+      }
+      [class*="_faq_"] details[open]{border-color:#0a9797 !important;}
+      [class*="_faq_"] summary{cursor:pointer;}
+
+      /* Sign-up: deep teal gradient with a fine dot texture, not a flat block */
+      ._newsletter_sycmm_1{
+        background:
+          radial-gradient(80% 120% at 8% 0%, rgba(24,196,196,.20) 0%, rgba(24,196,196,0) 55%),
+          linear-gradient(135deg, #072424 0%, #0b3535 52%, #0a2a2a 100%) !important;
+        position:relative;overflow:hidden;
+      }
+      ._newsletter_sycmm_1::before{
+        content:'';position:absolute;inset:0;pointer-events:none;
+        background-image:radial-gradient(rgba(255,255,255,.10) 1px, transparent 1px);
+        background-size:18px 18px;opacity:.55;
+      }
+      ._newsletter_sycmm_1 > *{position:relative;z-index:1;}
+      ._newsletter_sycmm_1 [class*="_eyebrow_"]{color:#8fe0e0 !important;}
+      ._newsletter_sycmm_1 input{border-bottom-color:rgba(255,255,255,.34) !important;}
+      ._newsletter_sycmm_1 input:focus{border-bottom-color:#18C4C4 !important;}
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -3852,6 +3951,38 @@ Error generating stack: `+e.message+`
         return true;
       }
 
+      const BLOG=[{"t": "VGR Independence Sale 2026 | Buy 2 & Get Flat 15% OFF", "d": "Jul 28, 2026", "tag": "Offers", "u": "https://vgrofficial.in/blogs/news/vgr-independence-trimmer-sale", "i": "https://vgrofficial.in/cdn/shop/articles/indepandace-day_4f0f35e7-56f4-4295-8315-b732845ba6b6.png?v=1785319031&width=800", "s": "Buy two and take a flat 15% off across the trimmer range."}, {"t": "VGR VL-786 Professional Hair Clipper for Barbers & Salons", "d": "Dec 30, 2025", "tag": "Professional", "u": "https://vgrofficial.in/blogs/news/vgr-vl-786-professional-hair-clipper-for-barbers-salons", "i": "https://vgrofficial.in/cdn/shop/articles/WhatsApp_Image_2025-12-30_at_1.14.34_PM_3.jpg?v=1767097637&width=800", "s": "Why the right clipper changes cutting speed, finish and control on the chair."}, {"t": "Choose your Choice", "d": "Feb 19, 2025", "tag": "Buying guide", "u": "https://vgrofficial.in/blogs/news/choose-your-choice", "i": "https://vgrofficial.in/cdn/shop/articles/VGR_Rosso_Professional_Men_s_Beard_Moustache_Trimmer_-_Red_with_LED_display_precision_blades_and_turbo_function.webp?v=1739957409&width=800", "s": "The top sellers, and what makes each one worth its place."}, {"t": "Unleashing Style and Precision: The VGR V-693 Hair Clipper", "d": "Nov 22, 2023", "tag": "Product", "u": "https://vgrofficial.in/blogs/news/unleashing-style-and-precision-the-vgr-v-693-hair-clipper-for-men", "i": "https://vgrofficial.in/cdn/shop/articles/VGR-V-693-1_75f742e4-4ce6-4869-9782-3d122c29e428.webp?v=1739957193&width=800", "s": "A closer look at the V-693 for men who want precision and efficiency."}, {"t": "Your Ultimate Guide to the Official VGR Trimmer in India", "d": "Sep 18, 2023", "tag": "Guide", "u": "https://vgrofficial.in/blogs/news/vgr-your-ultimate-guide-to-the-official-vgr-trimmer-in-india", "i": "https://vgrofficial.in/cdn/shop/articles/Untitled_design_2.png?v=1739957708&width=800", "s": "What to look for in a trimmer, and how the official range compares."}, {"t": "VGR Trimmer: Revolutionizing Online Buying for Customers", "d": "Jul 9, 2023", "tag": "Brand", "u": "https://vgrofficial.in/blogs/news/vgr-trimmer-revolutionizing-online-buying-for-customers", "i": "https://vgrofficial.in/cdn/shop/articles/000.jpg?v=1706590298&width=800", "s": "How buying grooming tools online changed, and what it means for care."}];
+      /* Blog section sourced from vgrofficial.in/blogs/news, placed above the FAQ */
+      function insertBlog(){
+        if(document.getElementById('vgr-blog')) return true;
+        const faq=[...document.querySelectorAll('section')]
+          .find(s=>/Frequently asked/i.test(s.textContent||''));
+        if(!faq || !faq.parentElement) return false;
+        /* the FAQ background lives on a shared _paper_ class, so tag the
+           section itself rather than restyling _paper_ everywhere */
+        faq.classList.add('vgr-faq-sec');
+        const s=document.createElement('section');
+        s.className=(tok('_section_')||'')+' vgr-blog';
+        s.id='vgr-blog';
+        s.innerHTML=
+          '<div class="'+(tok('_sectionHead_')||'')+'">'+
+            '<div><p class="'+(tok('_eyebrow_')||'')+'">Blog &amp; news</p>'+
+            '<h2>Grooming, explained.</h2></div>'+
+            '<a class="'+(tok('_textLink_')||'')+'" href="https://vgrofficial.in/blogs/news">All articles \u2192</a>'+
+          '</div>'+
+          '<div class="vgr-blog-rail">'+BLOG.map(b=>
+            '<a class="vgr-blog-card" href="'+b.u+'">'+
+              '<span class="vgr-blog-img"><img src="'+b.i+'" alt="" loading="lazy" decoding="async"></span>'+
+              '<span class="vgr-blog-meta"><i>'+b.tag+'</i><time>'+b.d+'</time></span>'+
+              '<b class="vgr-blog-t">'+b.t+'</b>'+
+              '<span class="vgr-blog-s">'+b.s+'</span>'+
+              '<span class="vgr-blog-go">Read article \u2192</span>'+
+            '</a>').join('')+
+          '</div>';
+        faq.parentElement.insertBefore(s,faq);
+        return true;
+      }
+
       function poll(){
         const a=insertSWM(), b=initReviews(), c=insertGP(), e=buildEngineering(), f=insertAudience();
         if(a&&b&&c&&e&&f){
@@ -3861,6 +3992,7 @@ Error generating stack: `+e.message+`
           initSticky();
           const gp=document.getElementById('vgr-global-presence');
           if(gp && !gp.dataset.tour){ gp.dataset.tour='1'; startGPTour(gp); }
+          insertBlog();
           fixHeaderIcons();
           buildNavDropdown();
           railArrows();
