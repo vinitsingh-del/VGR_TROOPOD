@@ -2922,6 +2922,60 @@
       ._newsletter_sycmm_1 input{border-bottom-color:rgba(255,255,255,.34) !important;}
       ._newsletter_sycmm_1 input:focus{border-bottom-color:#18C4C4 !important;}
 
+
+      /* ================================================================
+         ALIGNMENT PASS — one shared gutter for every section, and no
+         element allowed to overhang the viewport.
+         ================================================================ */
+      /* 1. rail arrows sat at -14px, which was the entire source of the
+            14px horizontal scroll on desktop. Bring them inside. */
+      .vgr-rail-prev{left:10px !important;}
+      .vgr-rail-next{right:10px !important;}
+
+      /* 2. custom section inners were capped at 1400px and centred, so their
+            headings started at 260px while native sections start at the
+            80px gutter. Match the native container instead. */
+      .vgr-swm-inner,.vgr-eng-wrap,.vgr-gp-in{
+        max-width:none !important;
+        margin-left:0 !important;margin-right:0 !important;
+      }
+      /* the VGR edit section used a 4vw gutter against the native 5vw clamp */
+      .vgr-swm{
+        padding-left:clamp(20px,5vw,80px) !important;
+        padding-right:clamp(20px,5vw,80px) !important;
+      }
+
+      /* 3. FAQ block was centred; align it to the gutter, keep the reading width */
+      .vgr-faq-sec [class*="_faq_"]{
+        margin-left:0 !important;margin-right:auto !important;
+        max-width:980px !important;
+      }
+
+      /* 4. Descenders were being cut by the reveal mask. Padding made it
+            worse; instead keep the hard mask only while animating and let
+            the revealed state clip with a margin so tails can paint. */
+      .vgr-split .vgr-w{
+        padding-bottom:.06em !important;
+        margin-bottom:-.06em !important;
+      }
+      .vgr-split.vgr-in .vgr-w{
+        overflow:clip !important;
+        overflow-clip-margin:.45em !important;
+      }
+
+      /* 5. belt and braces: nothing may extend the document sideways */
+      html,body{max-width:100% !important;}
+      ._shell_sycmm_1{overflow-x:clip !important;}
+
+      @media (max-width:900px){
+        .vgr-swm{
+          padding-left:20px !important;padding-right:20px !important;
+        }
+        .vgr-rail-prev{left:4px !important;}
+        .vgr-rail-next{right:4px !important;}
+        .vgr-faq-sec [class*="_faq_"]{max-width:none !important;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -3435,13 +3489,42 @@ Error generating stack: `+e.message+`
             }),{threshold:0.2, rootMargin:'0px 0px -8% 0px'})
           : null;
 
+        const armed=[];
         function arm(el,cls){
           if(!eligible(el)) return;
           el.classList.add(cls);
           if(cls==='vgr-split' && !splitWords(el)) return;
           if(reduce || !io){ el.classList.add('vgr-in'); return; }
+          armed.push(el);
           io.observe(el);
         }
+        /* An IntersectionObserver can miss elements during a fast scroll, and
+           a missed masked heading stays translated out of its clip box - i.e.
+           permanently invisible. Sweep on scroll so anything already reached
+           is revealed no matter what the observer did. */
+        function sweepType(){
+          if(!armed.length){ window.removeEventListener('scroll',sweepType); return; }
+          for(let i=armed.length-1;i>=0;i--){
+            const el=armed[i];
+            if(el.classList.contains('vgr-in')){ armed.splice(i,1); continue; }
+            const r=el.getBoundingClientRect();
+            if(r.top < window.innerHeight*0.96){
+              el.classList.add('vgr-in');
+              if(io) io.unobserve(el);
+              armed.splice(i,1);
+            }
+          }
+        }
+        window.addEventListener('scroll',sweepType,{passive:true});
+        window.addEventListener('resize',sweepType);
+        /* a scroll that ends exactly at the page bottom fires no further
+           events, so poll briefly as well until nothing is left armed */
+        let ticks=0;
+        const poller=setInterval(()=>{
+          sweepType();
+          if(!armed.length || ++ticks>40) clearInterval(poller);
+        },700);
+        setTimeout(sweepType,900);
 
         // hierarchy: hero h1 = fullest treatment, h2 = word mask, eyebrow = settle
         document.querySelectorAll('[class*="_heroCopy_"] h1').forEach(el=>arm(el,'vgr-split'));
