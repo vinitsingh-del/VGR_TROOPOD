@@ -2976,6 +2976,77 @@
         .vgr-faq-sec [class*="_faq_"]{max-width:none !important;}
       }
 
+
+      /* ============ COMPACT RATING MARQUEE (after the FAQ) ============ */
+      .vgr-testi{
+        background:#0f1413;
+        padding:26px 0 30px;
+        overflow:hidden;
+      }
+      .vgr-t-in{max-width:none;}
+      .vgr-t-k{
+        margin:0 0 16px !important;
+        text-align:center;
+        color:#8fd6d6;
+        font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+      }
+      .vgr-t-mask{
+        position:relative;overflow:hidden;
+        -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);
+                mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);
+      }
+      .vgr-t-track{
+        display:flex;align-items:stretch;gap:12px;
+        width:max-content;
+        animation:vgrTesti 64s linear infinite;
+        will-change:transform;
+      }
+      .vgr-t-mask:hover .vgr-t-track{animation-play-state:paused;}
+      @keyframes vgrTesti{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+      .vgr-t-card{
+        flex:0 0 auto;
+        display:flex;flex-direction:column;justify-content:center;gap:5px;
+        width:216px;min-height:96px;
+        padding:13px 15px;
+        background:rgba(255,255,255,.055);
+        border:1px solid rgba(255,255,255,.10);
+        border-radius:12px;
+        transition:background .22s ease,border-color .22s ease;
+      }
+      .vgr-t-card:hover{background:rgba(24,196,196,.10);border-color:rgba(24,196,196,.34);}
+      .vgr-t-stars{display:flex;gap:2px;line-height:1;}
+      .vgr-t-stars i{font-style:normal;font-size:12px;color:rgba(255,255,255,.22);}
+      .vgr-t-stars i.on{color:#f5b426;}
+      .vgr-t-stars i.half{color:#f5b426;opacity:.55;}
+      .vgr-t-rate{
+        display:flex;align-items:baseline;gap:7px;
+        color:#fff;font-size:16px;font-weight:700;line-height:1;
+      }
+      .vgr-t-rate em{
+        font-style:normal;font-weight:500;font-size:11px;
+        color:rgba(255,255,255,.60);letter-spacing:.02em;
+      }
+      .vgr-t-prod{
+        color:rgba(255,255,255,.80);
+        font-size:11.5px;font-weight:500;line-height:1.35;
+        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+        min-height:calc(2 * 1.35 * 11.5px);
+      }
+
+      @media (max-width:900px){
+        .vgr-testi{padding:22px 0 24px;}
+        .vgr-t-k{font-size:11px;margin-bottom:13px !important;}
+        .vgr-t-track{gap:10px;animation-duration:48s;}
+        .vgr-t-card{width:180px;min-height:90px;padding:11px 13px;}
+        .vgr-t-rate{font-size:15px;}
+        .vgr-t-prod{font-size:11px;min-height:calc(2 * 1.35 * 11px);}
+      }
+      @media (prefers-reduced-motion:reduce){
+        .vgr-t-track{animation:none !important;}
+        .vgr-t-mask{overflow-x:auto;-webkit-mask-image:none;mask-image:none;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -4066,6 +4137,39 @@ Error generating stack: `+e.message+`
         return true;
       }
 
+      const TESTI=[{"n": "Rosso Professional Beard & Moustache Trimmer", "r": 5.0, "c": 3}, {"n": "V-932 Pocket Hair Trimmer For Men", "r": 5.0, "c": null}, {"n": "Mr. SUPER POWER Stepless Pro 4-in-1 Barber S", "r": 4.9, "c": null}, {"n": "V-035T Professional Hair Trimmer with 9000 R", "r": 4.9, "c": null}, {"n": "V-008 Hair Trimmer For Men", "r": 4.8, "c": 38}, {"n": "V-001 Professional Hair Clipper For Men, Red", "r": 4.8, "c": null}, {"n": "V-885 S2 Rotafinity Pro 2 in 1 Barber Set", "r": 4.8, "c": null}, {"n": "V-640HD Professional Hair Dryer | Barber Ser", "r": 4.8, "c": null}, {"n": "V-421 Hair Dryer For Unisex, Green", "r": 4.8, "c": null}, {"n": "V-445 Professional BLDC Hair Dryer", "r": 4.8, "c": null}, {"n": "V-469 Professional BLDC Hair Dryer", "r": 4.8, "c": null}, {"n": "V-206 Professional Pet Clipper Heavy-Duty Gr", "r": 4.8, "c": null}, {"n": "V-228 Hair Trimmer For Men", "r": 4.7, "c": 71}, {"n": "V-055 Hair Trimmer For Men, Black", "r": 4.7, "c": 59}, {"n": "V-272 Hair Trimmer For Men", "r": 4.7, "c": 45}, {"n": "V-290 Hair Trimmer For Men", "r": 4.7, "c": 45}, {"n": "V-196 & V-996 Professional Barber Combo", "r": 4.7, "c": null}, {"n": "V-208 Professional Pet Clipper for Dogs, Cat", "r": 4.7, "c": null}, {"n": "V-722 Professional 2 in 1 Cordless Epilator ", "r": 4.6, "c": null}, {"n": "V-240 Professional Pet Trimmer", "r": 4.6, "c": null}, {"n": "V-219 Professional Pet Trimmer", "r": 4.6, "c": null}, {"n": "V-811 Professional 2-in-1 Lint Remover", "r": 4.6, "c": null}, {"n": "V-071 Hair Trimmer For Men, Silver", "r": 4.5, "c": 64}, {"n": "V-937 Hair Trimmer For Men, Black", "r": 4.5, "c": 58}, {"n": "V-007 Hair Trimmer For Men, Black", "r": 4.5, "c": 17}, {"n": "V-176 Hair Trimmer For Men, Green", "r": 4.5, "c": 15}, {"n": "V-052 Blue Beard Trimmer for Men", "r": 4.5, "c": 15}, {"n": "V-583 Automatic Hair Curler For Women", "r": 4.5, "c": null}, {"n": "V-096 Hair Trimmer For Men", "r": 4.4, "c": 16}, {"n": "V-105 Professional 5-in-1 Grooming Kit", "r": 4.4, "c": 16}, {"n": "V-255 IPX7 Waterproof Hair Trimmer", "r": 4.4, "c": 16}, {"n": "V-927 Hair Trimmer For Men", "r": 4.4, "c": 16}, {"n": "V-102 Grooming Kit For Men, Clear", "r": 4.4, "c": 15}, {"n": "V-923 Hair Trimmer For Men, Blue", "r": 4.4, "c": 10}, {"n": "V-271 Hair Trimmer For Men, Army Green", "r": 4.3, "c": 14}, {"n": "V-903 Hair Trimmer For Men, Gold", "r": 4.3, "c": 10}];
+      /* Compact rating marquee placed straight after the FAQ. Built from the
+         real per-product ratings and review counts published on
+         vgrofficial.in - no review prose is invented. */
+      function insertTesti(){
+        if(document.getElementById('vgr-testi')) return true;
+        const faq=document.querySelector('.vgr-faq-sec') ||
+          [...document.querySelectorAll('section')].find(s=>/Frequently asked/i.test(s.textContent||''));
+        if(!faq || !faq.parentElement) return false;
+        const s=document.createElement('section');
+        s.className='vgr-testi'; s.id='vgr-testi';
+        const star=(r)=>{
+          let out='';
+          for(let i=1;i<=5;i++) out+='<i class="'+(r>=i?'on':(r>=i-0.5?'half':''))+'">\u2605</i>';
+          return out;
+        };
+        const card=d=>
+          '<span class="vgr-t-card">'+
+            '<span class="vgr-t-stars" aria-hidden="true">'+star(d.r)+'</span>'+
+            '<span class="vgr-t-rate">'+d.r.toFixed(1)+
+              (d.c?'<em>'+d.c+' reviews</em>':'<em>verified</em>')+'</span>'+
+            '<span class="vgr-t-prod">'+d.n+'</span>'+
+          '</span>';
+        const run=TESTI.map(card).join('');
+        s.innerHTML=
+          '<div class="vgr-t-in">'+
+            '<p class="vgr-t-k">Customer ratings \u00b7 4.0\u2605 and above</p>'+
+            '<div class="vgr-t-mask"><div class="vgr-t-track">'+run+run+'</div></div>'+
+          '</div>';
+        faq.insertAdjacentElement('afterend', s);
+        return true;
+      }
+
       function poll(){
         const a=insertSWM(), b=initReviews(), c=insertGP(), e=buildEngineering(), f=insertAudience();
         if(a&&b&&c&&e&&f){
@@ -4076,6 +4180,7 @@ Error generating stack: `+e.message+`
           const gp=document.getElementById('vgr-global-presence');
           if(gp && !gp.dataset.tour){ gp.dataset.tour='1'; startGPTour(gp); }
           insertBlog();
+          insertTesti();
           fixHeaderIcons();
           buildNavDropdown();
           railArrows();
