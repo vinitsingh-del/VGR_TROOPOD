@@ -3217,6 +3217,99 @@
       .vgr-mega-k{font-size:9.5px !important;}
       .vgr-mega-all{font-size:9.5px !important;}
 
+
+      /* ================================================================
+         MEGA MENU — smaller, tucked under the nav item, and unclippable.
+         The panel itself is now a transparent positioner; all the visible
+         chrome moved to the inner box, so nothing can be cut off.
+         ================================================================ */
+      .vgr-mega{
+        height:auto !important;
+        max-height:none !important;
+        overflow:visible !important;
+        background:transparent !important;
+        border:0 !important;
+        box-shadow:none !important;
+        border-radius:0 !important;
+        padding:0 !important;
+        width:max-content !important;
+        max-width:min(94vw,600px) !important;
+      }
+      .vgr-mega-in{
+        background:#ffffff !important;
+        border:1px solid #ebebeb !important;
+        border-radius:14px !important;
+        box-shadow:0 14px 32px rgba(0,0,0,.13) !important;
+        padding:14px 16px 16px !important;
+        max-width:none !important;
+      }
+      .vgr-mega-head{margin-bottom:11px !important;}
+      .vgr-mega-k{font-size:9.5px !important;letter-spacing:.18em !important;}
+      .vgr-mega-all{font-size:9.5px !important;}
+      /* tighter cards */
+      .vgr-mega-grid{
+        grid-template-columns:repeat(var(--cols,3),148px) !important;
+        gap:12px !important;
+      }
+      .vgr-mega-card{width:148px !important;}
+      .vgr-mega-img{
+        width:100% !important;
+        height:104px !important;
+        margin-bottom:7px !important;
+        border-radius:9px !important;
+      }
+      .vgr-mega-img img{padding:7px !important;}
+      .vgr-mega-t b{font-size:11.5px !important;line-height:1.3 !important;}
+
+
+      /* Height was being constrained somewhere in the panel chain, clipping
+         every card label. Reset it explicitly at each level; only the image
+         plate keeps its clip (for the rounded corners). */
+      .vgr-mega,.vgr-mega-in{
+        height:auto !important;max-height:none !important;
+        overflow:visible !important;contain:none !important;
+      }
+      .vgr-mega-img{overflow:hidden !important;}
+      .vgr-mega-grid{grid-auto-rows:auto !important;align-items:start !important;}
+      .vgr-mega-t{display:flex !important;align-items:flex-start !important;}
+      .vgr-mega-t b{
+        display:block !important;
+        white-space:normal !important;
+        overflow:visible !important;
+      }
+
+      /* Every box in the card is sized explicitly. Leaving heights to `auto`
+         left the grid row unresolvable, so cards rendered 62px tall against
+         126px of content and every label was cut off. */
+      .vgr-mega-grid{
+        grid-auto-rows:152px !important;
+        align-items:stretch !important;
+      }
+      .vgr-mega-card{
+        display:flex !important;flex-direction:column !important;
+        height:152px !important;min-height:152px !important;max-height:152px !important;
+        overflow:hidden !important;
+      }
+      .vgr-mega-img{
+        flex:0 0 auto !important;
+        display:block !important;
+        width:100% !important;height:104px !important;
+        margin:0 0 8px !important;overflow:hidden !important;
+      }
+      .vgr-mega-img img{
+        width:100% !important;height:104px !important;
+        object-fit:contain !important;padding:7px !important;box-sizing:border-box !important;
+        display:block !important;
+      }
+      .vgr-mega-t{
+        flex:1 1 auto !important;display:block !important;
+        height:auto !important;overflow:hidden !important;
+      }
+      .vgr-mega-t b{
+        display:-webkit-box !important;-webkit-line-clamp:2 !important;
+        -webkit-box-orient:vertical !important;overflow:hidden !important;
+        font-size:11.5px !important;line-height:1.3 !important;
+      }
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -4140,15 +4233,23 @@ Error generating stack: `+e.message+`
              then clamp so it never runs off either edge. */
           const place=()=>{
             const r=a.getBoundingClientRect();
-            const pw=panel.offsetWidth||panel.getBoundingClientRect().width;
+            /* the panel is hidden when this first runs, so measure the inner
+               box, which always has a layout width */
+            const inner=panel.querySelector('.vgr-mega-in');
+            const pw=(inner?inner.offsetWidth:0)||panel.offsetWidth||300;
             const pad=14;
             let left=r.left+r.width/2-pw/2;
             left=Math.max(pad,Math.min(left, window.innerWidth-pw-pad));
-            panel.style.left=Math.round(left)+'px';
-            panel.style.top=Math.round(r.bottom+10)+'px';
+            /* anchor to the header's own bottom edge so it reads as attached */
+            const hdr=document.querySelector('[class*="_header_"]');
+            const base=hdr?hdr.getBoundingClientRect().bottom:r.bottom;
+            panel.style.setProperty('left',Math.round(left)+'px','important');
+            panel.style.setProperty('top',Math.round(base+6)+'px','important');
           };
-          ['mouseenter','focusin'].forEach(ev=>wrap.addEventListener(ev,place));
-          window.addEventListener('resize',()=>{ if(wrap.matches(':hover')) place(); });
+          ['mouseenter','focusin','mousemove'].forEach(ev=>
+            wrap.addEventListener(ev,place,{passive:true}));
+          window.addEventListener('resize',place);
+          window.addEventListener('scroll',()=>{ if(wrap.matches(':hover')) place(); },{passive:true});
         });
         return true;
       }
