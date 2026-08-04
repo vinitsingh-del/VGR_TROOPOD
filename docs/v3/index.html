@@ -3129,6 +3129,44 @@
         .vgr-t-prod{font-size:11.5px !important;min-height:calc(2 * 1.35 * 11.5px) !important;}
       }
 
+
+      /* ============ 1. clear gap between the why-box and the CTA ============ */
+      .vgr-why{margin-bottom:14px !important;}
+      ._add_sycmm_1,.vgr-swm-cta{margin-top:auto !important;}
+      .vgr-cta-row{margin-top:auto !important;}
+      @media (max-width:900px){ .vgr-why{margin-bottom:12px !important;} }
+
+      /* ============ 2. mega menu: no icon chips, image + label only ============ */
+      .vgr-mega-ic{display:none !important;}
+      .vgr-mega-t{gap:0 !important;}
+      .vgr-mega-t b{font-size:13px !important;letter-spacing:-.005em !important;}
+
+      /* ============ 3. mega image plate: never collapse ============ */
+      .vgr-mega-grid{
+        grid-template-columns:repeat(auto-fit,200px) !important;
+        justify-content:start !important;
+        align-items:start !important;
+      }
+      .vgr-mega-card{display:block !important;width:200px !important;}
+      .vgr-mega-img{
+        display:grid !important;
+        place-items:center !important;
+        width:100% !important;        /* 100% of the 200px card, so every
+                                         plate is identical regardless of
+                                         the image's own proportions */
+        height:150px !important;
+        aspect-ratio:auto !important;
+        border-radius:10px !important;
+        overflow:hidden !important;
+        background:#f4f4f2 !important;
+      }
+      .vgr-mega-img img{
+        width:100% !important;height:100% !important;
+        object-fit:contain !important;padding:10px !important;box-sizing:border-box !important;
+        display:block !important;
+      }
+      @media (max-width:900px){ .vgr-mega{display:none !important;} }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
