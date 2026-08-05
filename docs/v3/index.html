@@ -3326,6 +3326,55 @@
         grid-auto-flow:column !important;   /* never wrap to a second row */
         grid-auto-rows:152px !important;
       }
+
+      /* ============ MEGA MENU: full-width bar, cards from the left gutter,
+             room to grow as the range expands ============ */
+      .vgr-mega{
+        left:0 !important;right:0 !important;
+        width:auto !important;max-width:none !important;
+        top:calc(100% + 0px) !important;
+        background:#ffffff !important;
+        border:0 !important;
+        border-bottom:1px solid #ebebeb !important;
+        box-shadow:0 16px 34px rgba(0,0,0,.10) !important;
+        border-radius:0 !important;
+        overflow:visible !important;
+      }
+      .vgr-mega-in{
+        max-width:none !important;
+        margin:0 !important;
+        padding:16px 0 20px !important;   /* horizontal set from the header */
+        background:transparent !important;
+        border:0 !important;
+        border-radius:0 !important;
+        box-shadow:none !important;
+      }
+      .vgr-mega-head{margin-bottom:12px !important;}
+      /* left-aligned track that scrolls rather than wraps when more
+         categories are added later */
+      .vgr-mega-grid{
+        grid-template-columns:none !important;
+        grid-auto-flow:column !important;
+        grid-auto-columns:148px !important;
+        grid-auto-rows:152px !important;
+        justify-content:start !important;
+        gap:14px !important;
+        overflow-x:auto !important;
+        overflow-y:visible !important;
+        scrollbar-width:none;
+        padding-bottom:2px !important;
+      }
+      .vgr-mega-grid::-webkit-scrollbar{display:none !important;}
+
+      /* ============ GP CTAs: keep their label painted on hover ============ */
+      .vgr-gp-cta,.vgr-gp-cta:hover,.vgr-gp-cta:focus-visible{
+        -webkit-text-fill-color:currentColor !important;
+        background-image:none !important;
+      }
+
+      /* ============ reviews marquee: slower ============ */
+      .vgr-t-track{animation-duration:150s !important;}
+      @media (max-width:900px){ .vgr-t-track{animation-duration:110s !important;} }
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -4116,7 +4165,9 @@ Error generating stack: `+e.message+`
         /* fade + lift, not scale: a scaled chip measures 38px before it
            resolves, which would dip under the 44px touch minimum */
         arm($$('.vgr-gp-chip'),'vgr-stagUp',0.07);
-        $$('.vgr-gp-cta').forEach(a=>a.classList.add('vgr-hoverShine'));
+        /* deliberately NOT shine-wrapped: these are filled buttons whose
+           hover uses a `background` shorthand, which wipes background-image
+           while text-fill stays transparent - i.e. invisible label text */
 
         /* ---------- 8/9. story + stats ---------- */
         $$('[class*="_stats_"] strong').forEach(el=>{ prep(el); watch(el); });
@@ -4259,8 +4310,18 @@ Error generating stack: `+e.message+`
             /* only the horizontal is script-driven; the vertical comes from
                --vgr-navtop, which is already synced to the header's bottom.
                Measuring the header here produced a stale 34px gap. */
-            panel.style.setProperty('left',Math.round(left)+'px','important');
+            /* full-width bar: no horizontal positioning needed, but the
+               content must start on the header's own gutter so the cards
+               line up with the logo rather than a centred container */
+            panel.style.removeProperty('left');
             panel.style.removeProperty('top');
+            const hdrEl=document.querySelector('[class*="_header_"]');
+            const box=panel.querySelector('.vgr-mega-in');
+            if(hdrEl && box){
+              const hs=getComputedStyle(hdrEl);
+              box.style.setProperty('padding-left',hs.paddingLeft,'important');
+              box.style.setProperty('padding-right',hs.paddingRight,'important');
+            }
           };
           ['mouseenter','focusin','mousemove'].forEach(ev=>
             wrap.addEventListener(ev,place,{passive:true}));
