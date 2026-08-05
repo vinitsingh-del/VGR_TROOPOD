@@ -450,6 +450,71 @@ body.lock{overflow:hidden}
 @media (prefers-reduced-motion:reduce){
  .drw,.ovl,.aud img{transition:none !important}
 }
+
+/* ================= MOBILE OPTIMISATION PASS ================= */
+/* sticky filter bar must sit on the real header height, not a guess */
+.fbar{top:var(--hdrh,65px);overflow-x:clip}
+.fbar-in{max-width:100%}
+.sortw{min-width:0}
+@media (max-width:900px){
+ /* compact the sticky chrome: was 120px of filter bar on top of a 65px header */
+ .fbar-in{padding:8px var(--gut);gap:8px}
+ .sortw label{display:none}
+ .sortw select{min-height:44px;padding:8px 30px 8px 10px;font-size:12px;max-width:150px}
+ .count{font-size:11px}
+ .chips{gap:6px}
+ .chip{min-height:44px;padding:0 12px;font-size:11px;gap:5px}
+ /* gallery arrows sat 1-6px from the wishlist button; drop them clear of it */
+ .nav-b{top:auto;bottom:34px;transform:none}
+ /* breadcrumb links were touching */
+ .crumb{gap:0 2px}
+ .crumb a{margin-inline:2px}
+ .crumb i{padding:0 3px}
+ /* banner: was up to 87% of the viewport, and 119% in landscape */
+ .bnr img{height:170px;bottom:auto;object-position:center 22%}
+ .bnr::after{background:linear-gradient(180deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,.55) 46%,#fff 74%)}
+ .bnr-in{padding-top:150px;padding-bottom:26px}
+ .bnr h1{font-size:clamp(24px,7vw,32px)}
+ .bnr .sub{font-size:13px;margin-top:10px}
+ .bnr-cta{margin-top:16px;gap:8px}
+ .bnr-cta .btn{min-height:46px;font-size:10.5px;letter-spacing:.1em}
+}
+@media (max-width:900px) and (orientation:landscape){
+ .bnr img{height:120px}
+ .bnr-in{padding-top:104px;padding-bottom:18px}
+ .bnr h1{font-size:clamp(22px,3.4vw,28px)}
+ .bnr .sub{font-size:12.5px}
+}
+@media (max-width:380px){
+ .fbar-in{gap:6px}
+ .chip{padding:0 10px}
+ .bnr-cta{flex-direction:column}
+ .bnr-cta .btn{width:100%}
+}
+
+/* ================= FINAL MOBILE PASS ================= */
+/* the last 18px at 320 was escaping above <body>; clip at the root too */
+html{overflow-x:clip}
+@media (max-width:900px){
+ /* banner CTAs were 10.5px, under the 11px floor */
+ .bnr-cta .btn{font-size:11px;letter-spacing:.09em;padding:0 14px}
+ .btn{font-size:11px}
+ /* breadcrumb links were 1px apart */
+ .crumb{gap:0 6px}
+ .crumb a{margin-inline:0}
+ .crumb i{padding:0 2px}
+ /* leave room so cards never sit against the fixed CTA bar */
+ body{padding-bottom:94px}
+}
+@media (max-width:900px) and (orientation:landscape){
+ body{padding-bottom:88px}
+}
+
+@media (max-width:900px){
+ /* stacked footer links were touching (1px apart) */
+ .fcol a{margin-bottom:6px}
+ .fcol a:last-child{margin-bottom:0}
+}
 </style>
 </head><body>
 <div class="offer"><span class="offer-t"><span>Free shipping above &#8377;499 &#183; 2-year warranty &#183; Extra 10% off on prepaid orders</span><span>Free shipping above &#8377;499 &#183; 2-year warranty &#183; Extra 10% off on prepaid orders</span></span></div>
@@ -954,6 +1019,12 @@ body.lock{overflow:hidden}
 <script>
 (function(){
  var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ // keep the sticky filter bar pinned to the header's real height
+ var hdrEl=document.querySelector('.hdr');
+ function syncH(){ if(hdrEl) document.documentElement.style.setProperty('--hdrh',
+   Math.round(hdrEl.getBoundingClientRect().height)+'px'); }
+ syncH(); addEventListener('resize',syncH); addEventListener('load',syncH);
+ setTimeout(syncH,400); setTimeout(syncH,1200);
  // reveal
  var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){
    es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
