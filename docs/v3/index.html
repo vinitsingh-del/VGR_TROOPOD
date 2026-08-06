@@ -3375,6 +3375,131 @@
       /* ============ reviews marquee: slower ============ */
       .vgr-t-track{animation-duration:150s !important;}
       @media (max-width:900px){ .vgr-t-track{animation-duration:110s !important;} }
+
+      /* ============ 1.1 trust badges: one continuous marquee on mobile,
+             so nothing truncates and more badges can be added later ============ */
+      @media (max-width:900px){
+        ._trust_sycmm_1{
+          display:block !important;
+          grid-template-columns:none !important;
+          overflow:hidden !important;
+          padding:14px 0 !important;
+          white-space:nowrap !important;
+        }
+        ._trust_sycmm_1 .vgr-tmq{
+          display:flex !important;
+          width:max-content !important;
+          align-items:center !important;
+          gap:0 !important;
+          animation:vgrTrustMq 34s linear infinite;
+          will-change:transform;
+        }
+        ._trust_sycmm_1 .vgr-tmq > *{
+          flex:0 0 auto !important;
+          padding:0 18px !important;
+          white-space:nowrap !important;
+          font-size:11.5px !important;
+          display:flex !important;align-items:center !important;gap:9px !important;
+        }
+        @keyframes vgrTrustMq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+        ._trust_sycmm_1:active .vgr-tmq{animation-play-state:paused}
+      }
+
+      /* ============ 1.2 mobile 2-column product grid (Amazon/Flipkart feed)
+             replaces the single-row horizontal scroll ============ */
+      @media (max-width:900px){
+        ._productRail_sycmm_1{
+          display:grid !important;
+          grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+          grid-auto-flow:row !important;
+          grid-auto-columns:auto !important;
+          gap:12px !important;
+          overflow-x:visible !important;
+          overflow-y:visible !important;
+          margin-inline:0 !important;
+          padding-inline:0 !important;
+          padding-bottom:0 !important;
+          scroll-snap-type:none !important;
+        }
+        ._productRail_sycmm_1 > *{
+          width:auto !important;
+          scroll-snap-align:none !important;
+        }
+      }
+
+      /* ============ 1.3 footer accordions, collapsed by default ============ */
+      @media (max-width:900px){
+        [class*="_footerGrid_"]{gap:0 !important;}
+        .vgr-facc{border-top:1px solid rgba(255,255,255,.12);}
+        .vgr-facc:last-of-type{border-bottom:1px solid rgba(255,255,255,.12);}
+        .vgr-facc-b{
+          width:100%;min-height:52px;
+          display:flex;align-items:center;justify-content:space-between;gap:12px;
+          background:none;border:0;padding:0;cursor:pointer;
+          font-family:inherit;color:#fff;text-align:left;
+        }
+        .vgr-facc-b span{
+          font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+          color:#8fd6d6;
+        }
+        .vgr-facc-b i{
+          flex:0 0 auto;width:26px;height:26px;border-radius:50%;
+          border:1px solid rgba(255,255,255,.22);
+          position:relative;transition:transform .26s var(--vgr-ease,ease),border-color .2s ease;
+        }
+        .vgr-facc-b i::before,.vgr-facc-b i::after{
+          content:'';position:absolute;left:50%;top:50%;background:#fff;
+          transform:translate(-50%,-50%);
+        }
+        .vgr-facc-b i::before{width:11px;height:1.5px;}
+        .vgr-facc-b i::after{width:1.5px;height:11px;transition:opacity .22s ease;}
+        .vgr-facc.on .vgr-facc-b i{transform:rotate(180deg);border-color:#18C4C4;}
+        .vgr-facc.on .vgr-facc-b i::after{opacity:0;}
+        .vgr-facc-p{
+          overflow:hidden;max-height:0;
+          transition:max-height .32s var(--vgr-ease,ease);
+        }
+        .vgr-facc.on .vgr-facc-p{max-height:420px;}
+        .vgr-facc-p a{
+          display:flex !important;align-items:center;min-height:44px;
+          font-size:13px !important;
+        }
+        .vgr-facc-p > *:last-child{margin-bottom:10px;}
+      }
+      @media (prefers-reduced-motion:reduce){
+        ._trust_sycmm_1 .vgr-tmq{animation:none !important;}
+        .vgr-facc-p{transition:none !important;}
+      }
+
+
+      /* ---- trust strip: compact single marquee row (was 117px tall) ---- */
+      @media (max-width:900px){
+        ._trust_sycmm_1{padding:10px 0 !important;}
+        ._trust_sycmm_1 .vgr-tmq > *{
+          height:44px !important;min-height:44px !important;
+          padding:0 16px !important;line-height:1.25 !important;
+        }
+        ._trust_sycmm_1 .vgr-tmq > *::before{
+          flex:0 0 auto !important;
+          width:28px !important;height:28px !important;
+          background-size:14px 14px !important;
+          margin:0 !important;
+        }
+        /* ---- trim the footer further toward the ~70% target ---- */
+        [class*="_footer_"]{padding-top:34px !important;padding-bottom:24px !important;}
+        [class*="_footerGrid_"] > *:first-child p{margin-top:10px !important;font-size:12.5px !important;}
+        [class*="_footerGrid_"] > *:first-child img{height:30px !important;}
+        [class*="_footerBottom_"]{margin-top:16px !important;padding-top:14px !important;}
+      }
+
+
+      /* header cart/wishlist badge was 9px on mobile */
+      @media (max-width:900px){
+        ._iconButton_sycmm_1.vgr-ic ._badge_sycmm_1{
+          font-size:11px !important;min-width:18px !important;height:18px !important;
+        }
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -4540,6 +4665,50 @@ Error generating stack: `+e.message+`
         return true;
       }
 
+
+      /* ============================================================
+         Mobile: trust marquee + collapsible footer columns
+         ============================================================ */
+      function trustMarquee(){
+        const t=document.querySelector('[class*="_trust_"]');
+        if(!t) return false;
+        if(t.dataset.vgrMq) return true;
+        t.dataset.vgrMq='1';
+        const track=document.createElement('div');
+        track.className='vgr-tmq';
+        while(t.firstChild) track.appendChild(t.firstChild);
+        /* duplicate the set so the loop has no visible seam */
+        [...track.children].forEach(c=>track.appendChild(c.cloneNode(true)));
+        t.appendChild(track);
+        return true;
+      }
+      function footerAccordion(){
+        const g=document.querySelector('[class*="_footerGrid_"]');
+        if(!g) return false;
+        if(g.dataset.vgrAcc) return true;
+        g.dataset.vgrAcc='1';
+        [...g.children].forEach(col=>{
+          const head=col.querySelector('h3');
+          if(!head) return;                       /* skip the brand block */
+          col.classList.add('vgr-facc');
+          const panel=document.createElement('div');
+          panel.className='vgr-facc-p';
+          let n=head.nextSibling;
+          while(n){ const next=n.nextSibling; panel.appendChild(n); n=next; }
+          col.appendChild(panel);
+          const btn=document.createElement('button');
+          btn.type='button'; btn.className='vgr-facc-b';
+          btn.setAttribute('aria-expanded','false');
+          btn.innerHTML='<span>'+head.textContent.trim()+'</span><i aria-hidden="true"></i>';
+          head.replaceWith(btn);
+          btn.addEventListener('click',function(){
+            const open=col.classList.toggle('on');
+            btn.setAttribute('aria-expanded',open?'true':'false');
+          });
+        });
+        return true;
+      }
+
       function poll(){
         const a=insertSWM(), b=initReviews(), c=insertGP(), e=buildEngineering(), f=insertAudience();
         if(a&&b&&c&&e&&f){
@@ -4550,6 +4719,8 @@ Error generating stack: `+e.message+`
           const gp=document.getElementById('vgr-global-presence');
           if(gp && !gp.dataset.tour){ gp.dataset.tour='1'; startGPTour(gp); }
           insertBlog();
+          trustMarquee();
+          footerAccordion();
           insertTesti();   /* after insertBlog: anchors to it */
           fixHeaderIcons();
           buildNavDropdown();
