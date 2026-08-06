@@ -3500,6 +3500,44 @@
         }
       }
 
+
+      /* ================================================================
+         DESKTOP CORRECTIONS
+         The marquee wrapper and the accordion buttons are injected for all
+         widths, so desktop needs them neutralised rather than left half-
+         applied (which made the trust bar look incomplete and the footer
+         headings look like dead buttons).
+         ================================================================ */
+      @media (min-width:901px){
+        /* let the original 4 badges flow back into the trust grid */
+        ._trust_sycmm_1 .vgr-tmq{
+          display:contents !important;
+          animation:none !important;
+          width:auto !important;
+        }
+        /* the duplicated set is only needed for the mobile loop */
+        ._trust_sycmm_1 .vgr-tmq > *:nth-child(n+5){display:none !important;}
+
+        /* footer headings: look and behave like headings again */
+        .vgr-facc-b{
+          width:auto !important;min-height:0 !important;
+          display:block !important;cursor:default !important;
+          pointer-events:none !important;
+          margin:0 0 14px !important;padding:0 !important;
+        }
+        .vgr-facc-b i{display:none !important;}
+        .vgr-facc-b span{
+          font-size:11px;font-weight:700;letter-spacing:.18em;
+          text-transform:uppercase;color:#8fd6d6;
+        }
+        .vgr-facc{border:0 !important;}
+        .vgr-facc-p{max-height:none !important;overflow:visible !important;}
+      }
+      /* mobile marquee must never be left paused after a resize */
+      @media (max-width:900px){
+        ._trust_sycmm_1 .vgr-tmq{animation-play-state:running !important;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -4702,8 +4740,16 @@ Error generating stack: `+e.message+`
           btn.innerHTML='<span>'+head.textContent.trim()+'</span><i aria-hidden="true"></i>';
           head.replaceWith(btn);
           btn.addEventListener('click',function(){
-            const open=col.classList.toggle('on');
-            btn.setAttribute('aria-expanded',open?'true':'false');
+            const willOpen=!col.classList.contains('on');
+            /* single-open: close every other column first */
+            [...g.children].forEach(c=>{
+              if(c===col) return;
+              c.classList.remove('on');
+              const b=c.querySelector('.vgr-facc-b');
+              if(b) b.setAttribute('aria-expanded','false');
+            });
+            col.classList.toggle('on',willOpen);
+            btn.setAttribute('aria-expanded',willOpen?'true':'false');
           });
         });
         return true;
