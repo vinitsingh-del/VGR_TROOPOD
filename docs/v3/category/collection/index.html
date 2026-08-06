@@ -515,6 +515,36 @@ html{overflow-x:clip}
  .fcol a{margin-bottom:6px}
  .fcol a:last-child{margin-bottom:0}
 }
+
+/* ================= value strip: neutral, not the warm/pink paper ================= */
+.vstrip{background:#ffffff}
+/* ================= trust bar: match the homepage marquee on mobile ================= */
+@media (max-width:900px){
+ .trust{
+  display:block !important;grid-template-columns:none !important;
+  overflow:hidden !important;white-space:nowrap !important;
+  padding:10px 0 !important;
+ }
+ .trust .tmq{
+  display:flex !important;width:max-content !important;align-items:center !important;
+  gap:0 !important;animation:vgrTrustMq 34s linear infinite;
+  animation-play-state:running !important;will-change:transform;
+ }
+ .trust .tmq > div{
+  flex:0 0 auto !important;height:44px !important;
+  padding:0 16px !important;white-space:nowrap !important;
+  font-size:11.5px !important;gap:9px !important;
+ }
+ .trust .tmq > div i{width:28px !important;height:28px !important;background-size:14px 14px !important}
+ @keyframes vgrTrustMq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+}
+@media (min-width:901px){
+ .trust .tmq{display:contents}
+ .trust .tmq > div:nth-child(n+5){display:none}
+}
+@media (prefers-reduced-motion:reduce){
+ .trust .tmq{animation:none !important}
+}
 </style>
 </head><body>
 <div class="offer"><span class="offer-t"><span>Free shipping above &#8377;499 &#183; 2-year warranty &#183; Extra 10% off on prepaid orders</span><span>Free shipping above &#8377;499 &#183; 2-year warranty &#183; Extra 10% off on prepaid orders</span></span></div>
@@ -1060,6 +1090,16 @@ html{overflow-x:clip}
    var w=ev.target.closest('.wish'); if(!w) return; ev.preventDefault(); ev.stopPropagation();
    w.dataset.on=w.dataset.on?'':'1';
  });
+
+ // ---- trust bar marquee (mirrors the homepage) ----
+ var tb=document.querySelector('.trust');
+ if(tb && !tb.dataset.mq){
+   tb.dataset.mq='1';
+   var trk=document.createElement('div'); trk.className='tmq';
+   while(tb.firstChild) trk.appendChild(tb.firstChild);
+   [].slice.call(trk.children).forEach(function(c){ trk.appendChild(c.cloneNode(true)); });
+   tb.appendChild(trk);
+ }
 
  // ---- mobile drawer ----
  var bg=document.querySelector('.burger'), drw=document.getElementById('drw'),
