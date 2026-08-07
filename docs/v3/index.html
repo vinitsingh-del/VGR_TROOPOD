@@ -3580,6 +3580,46 @@
         .vgr-usp span,.vgr-swm-usp span{white-space:normal !important;}
       }
 
+
+      /* ================================================================
+         VGR ENGINEERING tiles on mobile
+         The number, icon and label shared one row, leaving the label 47px
+         against a 60px longest word - and overflow-wrap:anywhere then split
+         words mid-character ("PRECI/SION/BLAD/ES"). Number + icon now share
+         a line and the label gets the full tile width underneath.
+         ================================================================ */
+      @media (max-width:900px){
+        .vgr-eng-copy [class*="_engineeringGrid_"] > div{
+          display:flex !important;
+          flex-wrap:wrap !important;
+          align-items:center !important;
+          align-content:flex-start !important;
+          gap:8px !important;
+          padding:13px 12px 15px !important;
+          min-height:0 !important;
+        }
+        .vgr-eng-copy [class*="_engineeringGrid_"] > div > b{
+          font-size:19px !important;line-height:1 !important;margin:0 !important;
+        }
+        .vgr-eng-copy [class*="_engineeringGrid_"] > div > svg{
+          width:19px !important;height:19px !important;flex:0 0 auto !important;
+        }
+        .vgr-eng-copy [class*="_engineeringGrid_"] > div > span{
+          flex:1 0 100% !important;      /* own line, full tile width */
+          width:100% !important;
+          margin:0 !important;
+          font-size:11px !important;
+          letter-spacing:.04em !important;
+          line-height:1.36 !important;
+          text-transform:uppercase !important;
+          /* keep words intact */
+          word-break:normal !important;
+          overflow-wrap:break-word !important;
+          -webkit-hyphens:none !important;hyphens:none !important;
+          white-space:normal !important;
+        }
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
