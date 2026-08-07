@@ -3538,6 +3538,48 @@
         ._trust_sycmm_1 .vgr-tmq{animation-play-state:running !important;}
       }
 
+
+      /* ============ 3. footer headings: white, bold, no button chrome ============ */
+      .vgr-facc-b{background:transparent !important;border:0 !important;box-shadow:none !important;}
+      .vgr-facc-b span{color:#ffffff !important;font-weight:800 !important;}
+      @media (min-width:901px){
+        .vgr-facc-b{background:none !important;-webkit-appearance:none;appearance:none;}
+        .vgr-facc-b span{font-size:11.5px !important;letter-spacing:.16em !important;}
+      }
+
+      /* ============ MOBILE 1. engineering pointers as a 2x2 grid ============ */
+      @media (max-width:900px){
+        .vgr-eng-copy ._engineeringGrid_sycmm_1{
+          display:grid !important;
+          grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+          grid-auto-flow:row !important;
+          grid-auto-columns:auto !important;
+          overflow-x:visible !important;
+          margin-inline:0 !important;
+          border:1px solid #4f6767 !important;
+        }
+        .vgr-eng-copy ._engineeringGrid_sycmm_1 > div{
+          border-right:1px solid #4f6767 !important;
+          border-bottom:1px solid #4f6767 !important;
+          padding:18px 14px !important;
+        }
+        .vgr-eng-copy ._engineeringGrid_sycmm_1 > div:nth-child(2n){border-right:0 !important;}
+        .vgr-eng-copy ._engineeringGrid_sycmm_1 > div:nth-last-child(-n+2){border-bottom:0 !important;}
+      }
+
+      /* ============ MOBILE 2. feature tags must never be clipped ============ */
+      @media (max-width:900px){
+        .vgr-usp,.vgr-swm-usp{
+          height:auto !important;
+          min-height:0 !important;
+          max-height:none !important;
+          overflow:visible !important;
+          margin-bottom:9px !important;
+          align-content:flex-start !important;
+        }
+        .vgr-usp span,.vgr-swm-usp span{white-space:normal !important;}
+      }
+
     </style>
 
     <script type="module" data-src="index-sd19kb2V.js">
@@ -4588,7 +4630,10 @@ Error generating stack: `+e.message+`
           if(max<=0) return;
           const at=rail.scrollLeft;
           if((ev.deltaY>0&&at>=max-1)||(ev.deltaY<0&&at<=1)) return;
-          ev.preventDefault(); hold(); rail.scrollLeft=at+ev.deltaY;
+          /* Vertical wheel must keep scrolling the PAGE. Hijacking it here
+             made the section feel stuck on the way down. Horizontal intent
+             (trackpad swipe) is handled natively by overflow-x. */
+          return;
         },{passive:false});
         sync();
         return true;
@@ -4755,6 +4800,31 @@ Error generating stack: `+e.message+`
         return true;
       }
 
+
+      /* Hovering a product card advances its gallery on its own */
+      function hoverCycle(){
+        if(document.documentElement.dataset.vgrHc) return true;
+        document.documentElement.dataset.vgrHc='1';
+        if(window.matchMedia && window.matchMedia('(hover:none)').matches) return true;
+        document.addEventListener('mouseover',function(ev){
+          const card=ev.target.closest('[class*="_card_"], .vgr-swm-card');
+          if(!card || card.dataset.hc) return;
+          const next=card.querySelector('.vgr-qv-next');
+          if(!next) return;
+          card.dataset.hc='1';
+          card._hc=setInterval(function(){ next.click(); },1100);
+        },true);
+        document.addEventListener('mouseout',function(ev){
+          const card=ev.target.closest('[class*="_card_"], .vgr-swm-card');
+          if(!card || !card.dataset.hc) return;
+          if(card.contains(ev.relatedTarget)) return;   /* still inside */
+          clearInterval(card._hc); delete card.dataset.hc;
+          const first=card.querySelector('.vgr-qv-first');
+          if(first) first.click();
+        },true);
+        return true;
+      }
+
       function poll(){
         const a=insertSWM(), b=initReviews(), c=insertGP(), e=buildEngineering(), f=insertAudience();
         if(a&&b&&c&&e&&f){
@@ -4765,6 +4835,7 @@ Error generating stack: `+e.message+`
           const gp=document.getElementById('vgr-global-presence');
           if(gp && !gp.dataset.tour){ gp.dataset.tour='1'; startGPTour(gp); }
           insertBlog();
+          hoverCycle();
           trustMarquee();
           footerAccordion();
           insertTesti();   /* after insertBlog: anchors to it */
